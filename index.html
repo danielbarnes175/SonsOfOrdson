@@ -100,7 +100,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="1" creator="Tweego" creator-version="2.1.1" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/*! <<numberpool>> macro set for SugarCube v2 */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="5" creator="Tweego" creator-version="2.1.1" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/*! <<numberpool>> macro set for SugarCube v2 */
 div[id|="numberinput-body"] {
 	display: inline-block;
 }
@@ -211,18 +211,83 @@ div[id|="numberslider-body"] input::-ms-thumb {
 	height: 16px;
 	width: 33px;
 }
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">/*! <<numberpool>> macro set for SugarCube v2 */
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "player.js" */
+var playerInterface = {
+    
+}
+/* twine-user-script #2: "stats.js" */
+/* twine-user-script #3: "meter-macro.js" */
+// meters.min.js, for SugarCube 2, by Chapel
+// v1.0.1, 2021-04-20, 53d1a20e9321b3782a303cf7dbe00f5c51e947db
+;!function(){"use strict";var t=!0,e=!1,s=!1,i={full:"#2ECC40",empty:"#FF4136",back:"#DDDDDD",height:"12px",width:"180px",animate:400,easing:"swing",text:"#111111",label:"",align:"center"},n=["center","left","right"],r=["swing","linear"];function a(t,e){return t&&"string"==typeof t&&(t=t.toLowerCase().trim())?t:e||""}function o(t){return t<.5?2*t*t:(4-2*t)*t-1}function l(t,e){if(!(this instanceof l))return new l(t,e);var s=clone(i);this.settings=Object.assign(s,t),this.settings.align=a(this.settings.align),this.settings.easing=a(this.settings.easing),n.includes(this.settings.align)||(this.settings.align="center"),r.includes(this.settings.easing)||(this.settings.easing="swing"),e=Number(e),Number.isNaN(e)&&(e=1),e=Math.clamp(e,0,1),this.value=e;var h=$(document.createElement("div")).addClass("chapel-meter").attr({"data-val":e,"data-label":this.settings.label}).css({position:"relative","background-color":this.settings.back,height:this.settings.height,width:this.settings.width,overflow:"hidden"}),g=$(document.createElement("div")).addClass("meter-label").css({top:0,right:0,"font-size":this.settings.height,"font-weight":"bold","line-height":"100%",width:"100%",height:"100%","vertical-align":"middle","text-align":this.settings.align,color:this.settings.text,"z-index":1,position:"relative",bottom:"100%"}).wiki(this.settings.label).appendTo(h),u=$(document.createElement("div")).addClass("meter-top").css({"background-color":this.settings.full,opacity:o(this.value),width:"100%",height:"100%","z-index":0}),c=$(document.createElement("div")).addClass("meter-bottom").css({position:"absolute",top:0,left:0,"background-color":this.settings.empty,opacity:1,width:100*this.value+"%",height:"100%","z-index":0}).append(u).appendTo(h);this.$element=h,this.$bars={top:u,bottom:c},this.$label=g,g.css("font-size",parseInt(h.css("height"),10)<parseInt($(".passage").css("font-size"),10)?h.css("height"):$(".passage").css("font-size")),g.css("line-height",h.css("height"))}Object.assign(l,{_list:new Map,is:function(t){return t instanceof l},has:function(t){return l._list.has(t)&&l.is(l._list.get(t))},get:function(t){return l.has(t)?l._list.get(t):null},del:function(t){l.has(t)&&l._list.delete(t)},add:function(t,s,i){if(!l.has(t)||e){Object.assign(s,{id:t});var n=new l(s,i);return l._list.set(t,n),n}console.error('Meter "'+t+'" already exists.')},_emit:function(t,e){l.is(t)&&t.$element.trigger({type:":"+e,meter:t})}}),Object.assign(l.prototype,{constructor:l,_label:function(t){var e=this;function s(){e.$label.empty().wiki(e.settings.label),e.$label.css("font-size",parseInt(e.$element.css("height"),10)<parseInt(e.$element.parent().css("font-size"),10)?e.$element.css("height"):e.$element.parent().css("font-size")),e.$label.css("line-height",e.$element.css("height"))}return t?setTimeout(s,Engine.minDomActionDelay):s(),this},_width:function(){var t=this;return this.$bars.bottom.animate({width:100*this.value+"%"},this.settings.animate,this.settings.easing,(function(){l._emit(t,"meter-animation-complete")})),this},_color:function(){return this.$bars.top.animate({opacity:o(this.value)},this.settings.animate,this.settings.easing),this},animate:function(){return l._emit(this,"meter-animation-start"),this._color()._width()._label()},val:function(t){return void 0!==t&&(t=Number(t),Number.isNaN(t)&&(t=1),t=Math.clamp(t,0,1),this.value=t,this.animate()),this.value},options:function(t){return t&&"object"==typeof t&&Object.assign(this.settings,t),this.settings},unwrap:function(){return this.$element[0]},place:function(t,e){var s=$(document.createElement("span"));return t instanceof jQuery||(t=$(t)),t[0]||console.warn("meter#place() -> no valid target"),e&&"object"==typeof e&&(e.classes&&(Array.isArray(e.classes)||"string"==typeof e.classes)&&s.addClass(e.classes),e.attr&&"object"==typeof e.attr&&s.attr(e.attr)),t.append(s.append(this.$element)),this._label(!0),this},on:function(t,e){return"function"!=typeof e?this:t&&"string"==typeof t&&t.trim()?(t=t.split(" ").map((function(t){return(t=t.split(".")[0])+".userland"})).join(" "),this.$element.on(t,e),this):this},one:function(t,e){return"function"!=typeof e?this:t&&"string"==typeof t&&t.trim()?(t=t.split(" ").map((function(t){return(t=t.split(".")[0])+".userland"})).join(" "),this.$element.one(t,e),this):this},off:function(t){return t=t&&"string"==typeof t&&t.trim()?t.split(" ").map((function(t){return(t=t.split(".")[0])+".userland"})).join(" "):".userland",this.$element.off(t),this},click:function(t,e){return this.$element.ariaClick(t,e),this},clone:function(){return new l(this.settings,this.value)},toJSON:function(){return JSON.reviveWrapper("new setup.Meter("+JSON.stringify(this.settings)+", "+this.value+")")}}),setup.Meter=l,t&&(window.Meter=window.Meter||l),Macro.add("newmeter",{tags:["colors","sizing","animation","label"],handler:function(){if(State.length>0&&!s)return this.error("The `<<newmeter>>` macro must be called in your `StoryInit` special passage. Seriously. No excuses. --Love, Chapel");if(this.args.length<1)return this.error("The `<<newmeter>>` macro requires at least one argument: a meter name.");var t=this.args[0],i=null,n=null,r=null,a=null;if("string"!=typeof t)return this.error("Invalid meter name.");if(t=t.trim(),l.has(t)&&!e)return this.error('Cannot clobber the existing meter "'+t+'".');this.payload.length&&(i=this.payload.find((function(t){return"colors"===t.name})),n=this.payload.find((function(t){return"sizing"===t.name})),r=this.payload.find((function(t){return"animation"===t.name})),a=this.payload.find((function(t){return"label"===t.name})));var o={};if(i){if(!i.args.length)return this.error("No arguments passed to the `<<colors>>` tag.");switch(i.args.length){case 1:o.empty=i.args[0],o.full="transparent";break;case 2:o.full=i.args[0],o.empty=i.args[1];break;default:o.full=i.args[0],o.empty=i.args[1],o.back=i.args[2]}}if(n){if(!n.args.length)return this.error("No arguments passed to the `<<sizing>>` tag.");o.width=n.args[0],n.args[1]&&(o.height=n.args[1])}if(r){if(!r.args.length)return this.error("No arguments passed to the `<<animation>>` tag.");if("boolean"!=typeof r.args[0]||r.args[0]){if("string"!=typeof r.args[0])return this.error("The argument to the `<<animation>>` tag should be `true`, `false`, or a valid CSS time value.");o.animate=Util.fromCssTime(r.args[0])}else o.animate=0;r.args[1]&&["swing","linear"].includes(r.args[1])&&(o.easing=r.args[1])}if(a){var h=a.args[0];if(!h||"string"!=typeof h)return this.error("The labelText argument for the `<<label>>` tag is required.");o.label=h.trim(),a.args[1]&&"string"==typeof a.args[1]&&(o.text=a.args[1]),a.args[2]&&"string"==typeof a.args[2]&&(o.align=a.args[2])}l.add(t,o,this.args[1])}}),Macro.add("showmeter",{handler:function(){if(this.args.length<1)return this.error("This macro requires at least one argument: the meter's name.");var t=this.args[0];if("string"!=typeof t)return this.error("Invalid meter name.");t=t.trim();var e=l.get(t);if(!e||!l.is(e))return this.error('The meter "'+t+'" does not exist.');"number"==typeof this.args[1]&&e.val(this.args[1]),e.place(this.output,{classes:"macro-"+this.name,attr:{id:"meter-"+Util.slugify(t)}})}}),Macro.add("updatemeter",{handler:function(){if(this.args.length<2)return this.error("This macro requires two arguments: the meter's name and a value.");var t=this.args[0];if("string"!=typeof t)return this.error("Invalid meter name.");t=t.trim();var e=l.get(t);if(!e||!l.is(e))return this.error('The meter "'+t+'" does not exist.');e.val(this.args[1])}})}();
+// end meters.min.js
+/* twine-user-script #4: "numberpool-macro-set.min.js" */
+/*! <<numberpool>> macro set for SugarCube v2 */
 !function(){"use strict";if("undefined"==typeof version||void 0===version.title||"SugarCube"!==version.title||void 0===version.major||version.major<2||void 0===version.minor||version.minor<22)throw new Error("<<numberpool>> macro set requires SugarCube 2.22.0 or greater, aborting load");Macro.add("numberinput",{handler:function(){function validateAndApply(el,addend){var curValue=Math.trunc(State.getVar(varName)),newValue=Math.trunc(el.value),newPoolValue=null;if(Number.isNaN(newValue)||!Number.isFinite(newValue))return el.value=curValue,!1;if(null!=addend&&(newValue+=addend),newValue<minValue?newValue=minValue:newValue>maxValue&&(newValue=maxValue),null!==pool){var poolValue=pool.get(),delta=(newValue-curValue)*poolCost;delta<0?newPoolValue=poolValue-delta:delta>0&&poolValue>=poolCost?(poolValue<delta&&(newValue=curValue+Math.trunc(poolValue/poolCost),delta=poolValue-poolValue%poolCost),newPoolValue=poolValue-delta):newValue=curValue}return State.setVar(varName,newValue),el.value=newValue,null!==newPoolValue&&pool.set(newPoolValue),!0}var _this=this;if(this.args.length<4){var errors=[];return this.args.length<1&&errors.push("variable name"),this.args.length<2&&errors.push("default value"),this.args.length<3&&errors.push("min value"),this.args.length<4&&errors.push("max value"),this.error("no "+errors.join(" or ")+" specified")}if("string"!=typeof this.args[0])return this.error("variable name argument is not a string");var varName=this.args[0].trim();if("$"!==varName[0]&&"_"!==varName[0])return this.error('variable name "'+this.args[0]+'" is missing its sigil ($ or _)');var varId=Util.slugify(varName),defValue=Number(this.args[1]),minValue=Number(this.args[2]),maxValue=Number(this.args[3]),poolCost=1,autofocus=!1;if(this.args.length>5?(poolCost=Number(this.args[4]),autofocus="autofocus"===this.args[5]):this.args.length>4&&("autofocus"===this.args[4]?autofocus=!0:poolCost=Number(this.args[4])),Number.isNaN(defValue)||!Number.isFinite(defValue)||Math.trunc(defValue)!==defValue)return this.error("default value ("+this.args[1]+") is not a whole number");if(Number.isNaN(minValue)||!Number.isFinite(minValue)||Math.trunc(minValue)!==minValue)return this.error("min value ("+this.args[2]+") is not a whole number");if(Number.isNaN(maxValue)||!Number.isFinite(maxValue)||Math.trunc(maxValue)!==maxValue)return this.error("max value ("+this.args[3]+") is not a whole number");if(Number.isNaN(poolCost)||!Number.isFinite(poolCost)||Math.trunc(poolCost)!==poolCost||poolCost<=0)return this.error("pool cost ("+this.args[4]+") is not a whole number greater than zero");if(defValue<minValue)return this.error("default value ("+this.args[1]+") is less than min value ("+this.args[2]+")");if(defValue>maxValue)return this.error("default value ("+this.args[1]+") is greater than max value ("+this.args[3]+")");var pool=function(){var parent=_this.contextSelect(function(ctx){return"numberpool"===ctx.name});return null!==parent&&parent.hasOwnProperty("pool")?parent.pool:null}();Config.debug&&this.debugView.modes({block:!0});var $elControl=jQuery(document.createElement("div")),$elInput=jQuery(document.createElement("input"));$elControl.attr("id",this.name+"-body-"+varId).addClass("macro-"+this.name).appendTo(this.output),jQuery(document.createElement("button")).attr({id:this.name+"-minus-"+varId}).text("").ariaClick(this.createShadowWrapper(function(){return validateAndApply($elInput.get(0),-1)})).appendTo($elControl),$elInput.attr({id:this.name+"-input-"+varId,name:this.name+"-input-"+varId,type:"text",pattern:"\\d+",tabindex:0}).on("change",this.createShadowWrapper(function(){validateAndApply(this)})).on("keypress",function(ev){13===ev.which&&(ev.preventDefault(),$elInput.trigger("change"))}).appendTo($elControl),jQuery(document.createElement("button")).attr({id:this.name+"-plus-"+varId}).text("").ariaClick(this.createShadowWrapper(function(){return validateAndApply($elInput.get(0),1)})).appendTo($elControl),$elInput.val(defValue),validateAndApply($elInput.get(0)),autofocus&&($elInput.attr("autofocus","autofocus"),jQuery(document).one(":passagedisplay",function(){return setTimeout(function(){return $elInput.focus()},Engine.minDomActionDelay)}))}}),Macro.add("numberpool",{tags:["onchange"],handler:function(){if(0===this.args.length)return this.error("no variable name specified");if(this.payload.length>2)return this.error("multiple <<onchange>> sections specified");if("string"!=typeof this.args[0])return this.error("variable name argument is not a string");var varName=this.args[0].trim();if("$"!==varName[0]&&"_"!==varName[0])return this.error('variable name "'+this.args[0]+'" is missing its sigil ($ or _)');var curValue=State.getVar(varName);if("number"!=typeof curValue||Number.isNaN(curValue)||!Number.isFinite(curValue))return this.error("pool value is not a number");var varId=Util.slugify(varName);TempState.hasOwnProperty(this.name)||(TempState[this.name]={}),TempState[this.name].hasOwnProperty(varId)||(TempState[this.name][varId]=0),Object.defineProperty(this,"pool",{value:Object.defineProperties({},{get:{value:function(){return State.getVar(varName)}},set:{value:function(content){return function(value){value!==State.getVar(varName)&&(State.setVar(varName,value),content&&new Wikifier(null,content))}}(this.payload.length>1?this.payload[1].contents.trim():"")}})}),jQuery(document.createElement("div")).attr("id",this.name+"-"+varId+"-"+TempState[this.name][varId]++).addClass("macro-"+this.name).wiki(this.payload[0].contents.replace(/^\n/,"")).appendTo(this.output)}}),Macro.add("numberslider",{handler:function(){function stepValidate(value){if(fracDigits>0){var ma=Number(minValue+"e"+fracDigits),sa=Number(stepValue+"e"+fracDigits),_va=Number(value+"e"+fracDigits)-ma;return Number(_va-_va%sa+ma+"e-"+fracDigits)}var va=value-minValue;return va-va%stepValue+minValue}function validateAndApply(el){var curValue=State.getVar(varName),newValue=Number(el.value),newPoolValue=null;if(Number.isNaN(newValue)||!Number.isFinite(newValue))return el.value=curValue,!1;if(newValue=stepValidate(newValue),newValue<minValue?newValue=minValue:newValue>maxValue&&(newValue=maxValue),null!==pool)if(fracDigits>0){var pa=Number(pool.get()+"e"+fracDigits),ca=Number(curValue+"e"+fracDigits),na=Number(newValue+"e"+fracDigits),delta=na-ca;pa<delta&&(na-=delta-pa,delta=na-ca,newValue=Number(na+"e-"+fracDigits)),newPoolValue=Number(pa-delta+"e-"+fracDigits)}else{var poolValue=pool.get(),_delta=newValue-curValue;poolValue<_delta&&(newValue-=_delta-poolValue,_delta=newValue-curValue),newPoolValue=poolValue-_delta}return State.setVar(varName,newValue),el.value=newValue,null!==newPoolValue&&pool.set(newPoolValue),!0}var _this2=this;if(this.args.length<5){var errors=[];return this.args.length<1&&errors.push("variable name"),this.args.length<2&&errors.push("default value"),this.args.length<3&&errors.push("min value"),this.args.length<4&&errors.push("max value"),this.args.length<5&&errors.push("step value"),this.error("no "+errors.join(" or ")+" specified")}if("string"!=typeof this.args[0])return this.error("variable name argument is not a string");var varName=this.args[0].trim();if("$"!==varName[0]&&"_"!==varName[0])return this.error('variable name "'+this.args[0]+'" is missing its sigil ($ or _)');var varId=Util.slugify(varName),defValue=Number(this.args[1]),minValue=Number(this.args[2]),maxValue=Number(this.args[3]),stepValue=Number(this.args[4]),autofocus=this.args.length>5&&"autofocus"===this.args[5];if(Number.isNaN(defValue)||!Number.isFinite(defValue))return this.error("default value ("+this.args[1]+") is not a number");if(Number.isNaN(minValue)||!Number.isFinite(minValue))return this.error("min value ("+this.args[2]+") is not a number");if(Number.isNaN(maxValue)||!Number.isFinite(maxValue))return this.error("max value ("+this.args[3]+") is not a number");if(Number.isNaN(stepValue)||!Number.isFinite(stepValue)||stepValue<=0)return this.error("step value ("+this.args[4]+") is not a number greater than zero");if(defValue<minValue)return this.error("default value ("+this.args[1]+") is less than min value ("+this.args[2]+")");if(defValue>maxValue)return this.error("default value ("+this.args[1]+") is greater than max value ("+this.args[3]+")");var fracDigits=function(){var str=String(stepValue),pos=str.lastIndexOf(".");return-1===pos?0:str.length-pos-1}();if(stepValidate(maxValue)!==maxValue)return this.error("max value ("+this.args[3]+") is not a multiple of the step value ("+this.args[4]+") plus the min value ("+this.args[2]+")");var pool=function(){var parent=_this2.contextSelect(function(ctx){return"numberpool"===ctx.name});return null!==parent&&parent.hasOwnProperty("pool")?parent.pool:null}();Config.debug&&this.debugView.modes({block:!0});var $elControl=jQuery(document.createElement("div")),$elInput=jQuery(document.createElement("input")),$elValue=void 0,showValue=void 0;$elControl.attr("id",this.name+"-body-"+varId).addClass("macro-"+this.name).appendTo(this.output),$elInput.attr({id:this.name+"-input-"+varId,name:this.name+"-input-"+varId,type:"range",min:minValue,max:maxValue,step:stepValue,tabindex:0}).on("change input."+Util.slugify(this.name),this.createShadowWrapper(function(){validateAndApply(this),"function"==typeof showValue&&showValue()})).on("keypress",function(ev){13===ev.which&&(ev.preventDefault(),$elInput.trigger("change"))}).appendTo($elControl),!Browser.isIE||Browser.ieVersion>9?($elValue=jQuery(document.createElement("span")).attr("id",this.name+"-value-"+varId).appendTo($elControl),showValue=function(){$elValue.text(Number($elInput.val()).toFixed(fracDigits))}):$elInput.off("input."+Util.slugify(this.name)),$elInput.val(defValue),validateAndApply($elInput.get(0)),"function"==typeof showValue&&showValue(),autofocus&&($elInput.attr("autofocus","autofocus"),jQuery(document).one(":passagedisplay",function(){return setTimeout(function(){return $elInput.focus()},Engine.minDomActionDelay)}))}})}();
-</script><tw-passagedata pid="1" name="Start" tags="" position="100,100" size="100,100">Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
+</script><tw-passagedata pid="1" name="StoryBanner" tags="" position="100,100" size="100,100">&lt;img src=&quot;https://twinery.org/homepage/img/logo.svg&quot; width=&quot;64&quot; height=&quot;64&quot;&gt;</tw-passagedata><tw-passagedata pid="2" name="StorySubtitle" tags="" position="225,100" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="3" name="StoryCaption" tags="" position="350,100" size="100,100">&lt;&lt;if $gameStarted === true&gt;&gt;
+Name: $player.name
+Level: $player.level
+Location: $player.location
+
+&lt;hr&gt;
+&lt;center&gt;&lt;table style=&quot;width:100%&quot;&gt;
+    &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;STR:&lt;/strong&gt; $player.stats.str&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;CON:&lt;/strong&gt; $player.stats.con&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;WIS:&lt;/strong&gt; $player.stats.wis&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+    &lt;td&gt;&lt;strong&gt;DEX:&lt;/strong&gt; $player.stats.dex&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;INT:&lt;/strong&gt; $player.stats.int&lt;/td&gt;
+    &lt;td&gt;&lt;strong&gt;CHA:&lt;/strong&gt; $player.stats.cha&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;&lt;/center&gt;\
+&lt;hr&gt;
+Health
+&lt;center&gt;&lt;&lt;showmeter &quot;healthMeter&quot; `$player.health / $player.maxHealth`&gt;&gt;&lt;/center&gt;
+Mana
+&lt;center&gt;&lt;&lt;showmeter &quot;manaMeter&quot; `$player.mana / $player.maxMana`&gt;&gt;&lt;/center&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="StoryInit" tags="" position="475,100" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+    &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
+    &lt;&lt;label &#39;$player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
+    &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;
+&lt;&lt;newmeter &quot;manaMeter&quot;&gt;&gt;
+    &lt;&lt;colors &#39;blue&#39; &#39;white&#39;&gt;&gt;
+    &lt;&lt;label &#39;$player.mana / $player.maxMana&#39; &#39;black&#39; center&gt;&gt;
+    &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Start" tags="" position="600,100" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
+Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
-[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="2" name="Character Creation" tags="" position="225,100" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
+[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="6" name="Character Creation" tags="" position="725,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $player = {
+    name: &quot;Unknown&quot;,
+    age: &quot;20&quot;,
+    level: 1,
+    health: 30,
+    maxHealth: 30,
+    mana: 30,
+    maxMana: 30,
+    stats: {
+        str: 8,
+        dex: 8,
+        con: 8,
+        int: 8,
+        wis: 8,
+        cha: 8
+    },
+    location: &quot;Unknown&quot;
+}&gt;&gt;
+
+&lt;&lt;/nobr&gt;&gt;
+You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 
 &lt;&lt;set $age = 20&gt;&gt;\
-You see a &lt;&lt;numberinput &quot;$age&quot; $age 13 65&gt;&gt; year old male looking back.
+You see a &lt;&lt;numberinput &quot;$player.age&quot; $player.age 13 65&gt;&gt; year old male looking back. You see someone worthy of having the name &lt;&lt;textbox &quot;$player.name&quot; $player.name&gt;&gt;
 
 &lt;hr&gt;
 You think back to your life and the strengths and weaknesses it has given you.
@@ -237,21 +302,24 @@ You think back to your life and the strengths and weaknesses it has given you.
 &lt;&lt;/nobr&gt;&gt;
 You have &lt;span id=&quot;stat-pool&quot;&gt;$statPool&lt;/span&gt; points remaining to allocate.
 &lt;&lt;numberpool &quot;$statPool&quot;&gt;&gt;
-|&#39;&#39;Strength:&#39;&#39;|&lt;&lt;numberinput &quot;$STR&quot; $STR 8 20&gt;&gt;|
-|&#39;&#39;Dexterity:&#39;&#39;|&lt;&lt;numberinput &quot;$DEX&quot; $DEX 8 20&gt;&gt;|
-|&#39;&#39;Constitution:&#39;&#39;|&lt;&lt;numberinput &quot;$CON&quot; $CON 8 20&gt;&gt;|
-|&#39;&#39;Intelligience:&#39;&#39;|&lt;&lt;numberinput &quot;$INT&quot; $INT 8 20&gt;&gt;|
-|&#39;&#39;Wisdom:&#39;&#39;|&lt;&lt;numberinput &quot;$WIS&quot; $WIS 8 20&gt;&gt;|
-|&#39;&#39;Charisma:&#39;&#39;|&lt;&lt;numberinput &quot;$CHA&quot; $CHA 8 20&gt;&gt;|
+|&#39;&#39;Strength:&#39;&#39;|&lt;&lt;numberinput &quot;$player.stats.str&quot; $player.stats.str 8 20&gt;&gt;|
+|&#39;&#39;Dexterity:&#39;&#39;|&lt;&lt;numberinput &quot;$player.stats.dex&quot; $player.stats.dex 8 20&gt;&gt;|
+|&#39;&#39;Constitution:&#39;&#39;|&lt;&lt;numberinput &quot;$player.stats.con&quot; $player.stats.con 8 20&gt;&gt;|
+|&#39;&#39;Intelligience:&#39;&#39;|&lt;&lt;numberinput &quot;$player.stats.int&quot; $player.stats.int 8 20&gt;&gt;|
+|&#39;&#39;Wisdom:&#39;&#39;|&lt;&lt;numberinput &quot;$player.stats.wis&quot; $player.stats.wis 8 20&gt;&gt;|
+|&#39;&#39;Charisma:&#39;&#39;|&lt;&lt;numberinput &quot;$player.stats.cha&quot; $player.stats.cha 8 20&gt;&gt;|
 &lt;&lt;onchange&gt;&gt;
     &lt;&lt;replace &quot;#stat-pool&quot;&gt;&gt;$statPool&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/numberpool&gt;&gt;
 
-[[Confirm|In Your Room]]</tw-passagedata><tw-passagedata pid="3" name="In Your Room" tags="" position="350,100" size="100,100">You stand alone in your room. It&#39;s just the way you left it.
+[[Confirm|In Your Room]]</tw-passagedata><tw-passagedata pid="7" name="In Your Room" tags="" position="850,100" size="100,100">&lt;&lt;if $gameStarted === false&gt;&gt;\
+&lt;&lt;set $gameStarted = true&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\
+You stand alone in your room. It&#39;s just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
 [[Sleep]]
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="4" name="Change Equipment" tags="" position="475,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="5" name="Sleep" tags="" position="600,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="6" name="Town Center" tags="" position="725,100" size="100,100">You are in the town center.
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="8" name="Change Equipment" tags="" position="975,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="9" name="Sleep" tags="" position="1100,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="10" name="Town Center" tags="" position="1225,100" size="100,100">You are in the town center.
 
 Places of Interest
 [[Go Home|In Your Room]]
@@ -263,35 +331,35 @@ Travel
 [[Port|Port]]
 [[Loiter for an hour]]
 
-[[Leave Town|Entrance to Town]]</tw-passagedata><tw-passagedata pid="7" name="Port" tags="" position="850,100" size="100,100">You make your way to the Port. There&#39;s boats all around. And water. Definitely a port.
+[[Leave Town|Entrance to Town]]</tw-passagedata><tw-passagedata pid="11" name="Port" tags="" position="100,225" size="100,100">You make your way to the Port. There&#39;s boats all around. And water. Definitely a port.
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="8" name="Shady District" tags="" position="975,100" size="100,100">You make your way to the Shady District. It&#39;s more of just the residential district for the poor, who you sympathize with, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="12" name="Shady District" tags="" position="225,225" size="100,100">You make your way to the Shady District. It&#39;s more of just the residential district for the poor, who you sympathize with, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="9" name="Industrial District" tags="" position="1100,100" size="100,100">You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="13" name="Industrial District" tags="" position="350,225" size="100,100">You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="10" name="Upper District" tags="" position="1225,100" size="100,100">You make your way to the Upper District.
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="14" name="Upper District" tags="" position="475,225" size="100,100">You make your way to the Upper District.
 
 Places of Interest
 [[Go to the Salt Fort|Salt Fort Entrance]]
 
 Travel
 [[Commercial District|Commercial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="11" name="Commercial District" tags="" position="100,225" size="100,100">You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="15" name="Commercial District" tags="" position="600,225" size="100,100">You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
 Places of Interest
 [[Enter the Silver Patchwork (Clothing)|Silver Patchwork]]
 
 Travel
-[[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="12" name="Silver Patchwork" tags="" position="225,225" size="100,100">You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There&#39;s such a variety, that you&#39;re not even sure where to start!
+[[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="16" name="Silver Patchwork" tags="" position="725,225" size="100,100">You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There&#39;s such a variety, that you&#39;re not even sure where to start!
 
-[[Get overwhelmed and leave.|Commercial District]]</tw-passagedata><tw-passagedata pid="13" name="Salt Fort Entrance" tags="" position="350,225" size="100,100">You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
+[[Get overwhelmed and leave.|Commercial District]]</tw-passagedata><tw-passagedata pid="17" name="Salt Fort Entrance" tags="" position="850,225" size="100,100">You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="14" name="Salt Fort Entranceway" tags="" position="475,225" size="100,100">The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="18" name="Salt Fort Entranceway" tags="" position="975,225" size="100,100">The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
 [[Leave, all sad|Salt Fort Entrance]]</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
