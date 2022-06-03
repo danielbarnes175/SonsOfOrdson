@@ -1,0 +1,11 @@
+{
+    "sugarcube-2": {
+        "macros": {
+            "numberinput": {},
+            "numberpool": {
+                "container": true
+            },
+            "onchange": {}
+        }
+    }
+}

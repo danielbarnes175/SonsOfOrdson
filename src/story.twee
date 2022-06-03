@@ -1,0 +1,54 @@
+::StoryData
+{
+    "ifid": "C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8",
+    "format": "SugarCube",
+    "format-version": "2.3.0",
+    "start": "Start"
+}
+
+:: StoryTitle
+Sons of Ordson
+
+:: Start
+Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don't expect much of a working game.
+
+For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
+
+[[Start Your Adventure|Character Creation]]
+
+
+:: Character Creation
+You are a son of Ordson. You've lived here your whole life, and it's been a city you've both loved at times, and hated. With all your experiences here, it's no doubt that you can call Ordson your home.
+
+Before you set out for the day, you take a look in the mirror.
+
+<<set $age = 20>>\
+You see a <<numberinput "$age" $age 13 65>> year old male looking back.
+
+<hr>
+You think back to your life and the strengths and weaknesses it has given you.
+<<nobr>>
+<<set $statPool = 27>>
+<<set $STR = 8>>
+<<set $DEX = 8>>
+<<set $CON = 8>>
+<<set $INT = 8>>
+<<set $WIS = 8>>
+<<set $CHA = 8>>
+<</nobr>>
+You have <span id="stat-pool">$statPool</span> points remaining to allocate.
+<<numberpool "$statPool">>
+|''Strength:''|<<numberinput "$STR" $STR 8 20>>|
+|''Dexterity:''|<<numberinput "$DEX" $DEX 8 20>>|
+|''Constitution:''|<<numberinput "$CON" $CON 8 20>>|
+|''Intelligience:''|<<numberinput "$INT" $INT 8 20>>|
+|''Wisdom:''|<<numberinput "$WIS" $WIS 8 20>>|
+|''Charisma:''|<<numberinput "$CHA" $CHA 8 20>>|
+<<onchange>>
+    <<replace "#stat-pool">>$statPool<</replace>>
+<</numberpool>>
+
+[[Confirm|In Your Room]]
+
+:: In Your Room
+You stand alone in your room. You should go get some bitches or something (to be added later)
