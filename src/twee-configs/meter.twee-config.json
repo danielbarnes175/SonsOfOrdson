@@ -1,0 +1,14 @@
+{
+    "sugarcube-2": {
+        "macros": {
+            "showmeter": {},
+            "newmeter": {
+                "container": true
+            },
+            "updatemeter": {},
+            "colors": {},
+            "sizing": {},
+            "label": {}
+        }
+    }
+}

@@ -9,21 +9,87 @@
 :: StoryTitle
 Sons of Ordson
 
+:: StoryBanner
+<img src="https://twinery.org/homepage/img/logo.svg" width="64" height="64">
+
+:: StorySubtitle
+Version: 0.0.1
+
+:: StoryCaption
+<<if $gameStarted === true>>
+Name: $player.name
+Level: $player.level
+Location: $player.location
+
+<hr>
+<center><table style="width:100%">
+    <tr>
+    <td><strong>STR:</strong> $player.stats.str</td>
+    <td><strong>CON:</strong> $player.stats.con</td>
+    <td><strong>WIS:</strong> $player.stats.wis</td>
+    </tr>
+    <tr>
+    <td><strong>DEX:</strong> $player.stats.dex</td>
+    <td><strong>INT:</strong> $player.stats.int</td>
+    <td><strong>CHA:</strong> $player.stats.cha</td>
+    </tr>
+</table></center>\
+<hr>
+Health
+<center><<showmeter "healthMeter" `$player.health / $player.maxHealth`>></center>
+Mana
+<center><<showmeter "manaMeter" `$player.mana / $player.maxMana`>></center>
+<</if>>
+
+:: StoryInit
+
+<<newmeter "healthMeter" center>>
+    <<colors 'yellow' 'red' 'white'>>
+    <<label '$player.health / $player.maxHealth' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+<<newmeter "manaMeter">>
+    <<colors 'blue' 'white'>>
+    <<label '$player.mana / $player.maxMana' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+
 :: Start
+<<set $gameStarted = false>>
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don't expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
 [[Start Your Adventure|Character Creation]]
 
-
 :: Character Creation
+<<nobr>>
+<<set $player = {
+    name: "Unknown",
+    age: "20",
+    level: 1,
+    health: 30,
+    maxHealth: 30,
+    mana: 30,
+    maxMana: 30,
+    stats: {
+        str: 8,
+        dex: 8,
+        con: 8,
+        int: 8,
+        wis: 8,
+        cha: 8
+    },
+    location: "Unknown"
+}>>
+
+<</nobr>>
 You are a son of Ordson. You've lived here your whole life, and it's been a city you've both loved at times, and hated. With all your experiences here, it's no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 
 <<set $age = 20>>\
-You see a <<numberinput "$age" $age 13 65>> year old male looking back.
+You see a <<numberinput "$player.age" $player.age 13 65>> year old male looking back. You see someone worthy of having the name <<textbox "$player.name" $player.name>>
 
 <hr>
 You think back to your life and the strengths and weaknesses it has given you.
@@ -38,12 +104,12 @@ You think back to your life and the strengths and weaknesses it has given you.
 <</nobr>>
 You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 <<numberpool "$statPool">>
-|''Strength:''|<<numberinput "$STR" $STR 8 20>>|
-|''Dexterity:''|<<numberinput "$DEX" $DEX 8 20>>|
-|''Constitution:''|<<numberinput "$CON" $CON 8 20>>|
-|''Intelligience:''|<<numberinput "$INT" $INT 8 20>>|
-|''Wisdom:''|<<numberinput "$WIS" $WIS 8 20>>|
-|''Charisma:''|<<numberinput "$CHA" $CHA 8 20>>|
+|''Strength:''|<<numberinput "$player.stats.str" $player.stats.str 8 20>>|
+|''Dexterity:''|<<numberinput "$player.stats.dex" $player.stats.dex 8 20>>|
+|''Constitution:''|<<numberinput "$player.stats.con" $player.stats.con 8 20>>|
+|''Intelligience:''|<<numberinput "$player.stats.int" $player.stats.int 8 20>>|
+|''Wisdom:''|<<numberinput "$player.stats.wis" $player.stats.wis 8 20>>|
+|''Charisma:''|<<numberinput "$player.stats.cha" $player.stats.cha 8 20>>|
 <<onchange>>
     <<replace "#stat-pool">>$statPool<</replace>>
 <</numberpool>>
@@ -51,6 +117,9 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 [[Confirm|In Your Room]]
 
 :: In Your Room
+<<if $gameStarted === false>>\
+<<set $gameStarted = true>>\
+<</if>>\
 You stand alone in your room. It's just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
