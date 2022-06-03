@@ -65,7 +65,7 @@ For suggestions or concerns, feel free to open an Issue on Github: https://githu
 :: Character Creation
 <<nobr>>
 <<set $player = {
-    name: "Unknown",
+    name: "Bob",
     age: "20",
     level: 1,
     health: 30,
@@ -120,6 +120,7 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 <<if $gameStarted === false>>\
 <<set $gameStarted = true>>\
 <</if>>\
+<<set $player.location="Your Room">>\
 You stand alone in your room. It's just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
@@ -133,6 +134,7 @@ You stand alone in your room. It's just the way you left it.
 (Todo)
 
 :: Town Center
+<<set $player.location="Town Center">>\
 You are in the town center.
 
 Places of Interest
@@ -148,24 +150,28 @@ Travel
 [[Leave Town|Entrance to Town]]
 
 :: Port
+<<set $player.location="The Port">>\
 You make your way to the Port. There's boats all around. And water. Definitely a port.
 
 Travel
 [[Town Center|Town Center]]
 
 :: Shady District
+<<set $player.location="The Shady District">>\
 You make your way to the Shady District. It's more of just the residential district for the poor, who you sympathize with, but it doesn't help your feeling that you're about to be stabbed.
 
 Travel
 [[Town Center|Town Center]]
 
 :: Industrial District
+<<set $player.location="The Industrial District">>\
 You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
 Travel
 [[Town Center|Town Center]]
 
 :: Upper District
+<<set $player.location="The Upper District">>\
 You make your way to the Upper District.
 
 Places of Interest
@@ -176,6 +182,7 @@ Travel
 [[Town Center|Town Center]]
 
 :: Commercial District
+<<set $player.location="The Commercial District">>\
 You make your way to the Commercial District. Suddenly you're enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
 Places of Interest
@@ -185,11 +192,13 @@ Travel
 [[Upper District|Upper District]]
 
 :: Silver Patchwork
+<<set $player.location="Silver Patchwork">>\
 You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There's such a variety, that you're not even sure where to start!
 
 [[Get overwhelmed and leave.|Commercial District]]
 
 :: Salt Fort Entrance
+<<set $player.location="Salt Fort Entrance">>\
 You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
@@ -197,6 +206,7 @@ You make your way to the giant looming castle. For a place that is said to be th
 [[Leave|Upper District]]
 
 :: Salt Fort Entranceway
+<<set $player.location="Salt Fort Entranceway">>\
 The guards let you pass without any hassle. You step into the castle. There's nothing here!
 
 [[Leave, all sad|Salt Fort Entrance]]

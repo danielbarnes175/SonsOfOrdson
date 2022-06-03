@@ -263,7 +263,7 @@ For suggestions or concerns, feel free to open an Issue on Github: https://githu
 
 [[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="6" name="Character Creation" tags="" position="725,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $player = {
-    name: &quot;Unknown&quot;,
+    name: &quot;Bob&quot;,
     age: &quot;20&quot;,
     level: 1,
     health: 30,
@@ -315,11 +315,13 @@ You have &lt;span id=&quot;stat-pool&quot;&gt;$statPool&lt;/span&gt; points rema
 [[Confirm|In Your Room]]</tw-passagedata><tw-passagedata pid="7" name="In Your Room" tags="" position="850,100" size="100,100">&lt;&lt;if $gameStarted === false&gt;&gt;\
 &lt;&lt;set $gameStarted = true&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
+&lt;&lt;set $player.location=&quot;Your Room&quot;&gt;&gt;\
 You stand alone in your room. It&#39;s just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
 [[Sleep]]
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="8" name="Change Equipment" tags="" position="975,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="9" name="Sleep" tags="" position="1100,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="10" name="Town Center" tags="" position="1225,100" size="100,100">You are in the town center.
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="8" name="Change Equipment" tags="" position="975,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="9" name="Sleep" tags="" position="1100,100" size="100,100">(Todo)</tw-passagedata><tw-passagedata pid="10" name="Town Center" tags="" position="1225,100" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
+You are in the town center.
 
 Places of Interest
 [[Go Home|In Your Room]]
@@ -331,35 +333,43 @@ Travel
 [[Port|Port]]
 [[Loiter for an hour]]
 
-[[Leave Town|Entrance to Town]]</tw-passagedata><tw-passagedata pid="11" name="Port" tags="" position="100,225" size="100,100">You make your way to the Port. There&#39;s boats all around. And water. Definitely a port.
+[[Leave Town|Entrance to Town]]</tw-passagedata><tw-passagedata pid="11" name="Port" tags="" position="100,225" size="100,100">&lt;&lt;set $player.location=&quot;The Port&quot;&gt;&gt;\
+You make your way to the Port. There&#39;s boats all around. And water. Definitely a port.
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="12" name="Shady District" tags="" position="225,225" size="100,100">You make your way to the Shady District. It&#39;s more of just the residential district for the poor, who you sympathize with, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="12" name="Shady District" tags="" position="225,225" size="100,100">&lt;&lt;set $player.location=&quot;The Shady District&quot;&gt;&gt;\
+You make your way to the Shady District. It&#39;s more of just the residential district for the poor, who you sympathize with, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="13" name="Industrial District" tags="" position="350,225" size="100,100">You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="13" name="Industrial District" tags="" position="350,225" size="100,100">&lt;&lt;set $player.location=&quot;The Industrial District&quot;&gt;&gt;\
+You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="14" name="Upper District" tags="" position="475,225" size="100,100">You make your way to the Upper District.
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="14" name="Upper District" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
+You make your way to the Upper District.
 
 Places of Interest
 [[Go to the Salt Fort|Salt Fort Entrance]]
 
 Travel
 [[Commercial District|Commercial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="15" name="Commercial District" tags="" position="600,225" size="100,100">You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="15" name="Commercial District" tags="" position="600,225" size="100,100">&lt;&lt;set $player.location=&quot;The Commercial District&quot;&gt;&gt;\
+You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
 Places of Interest
 [[Enter the Silver Patchwork (Clothing)|Silver Patchwork]]
 
 Travel
-[[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="16" name="Silver Patchwork" tags="" position="725,225" size="100,100">You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There&#39;s such a variety, that you&#39;re not even sure where to start!
+[[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="16" name="Silver Patchwork" tags="" position="725,225" size="100,100">&lt;&lt;set $player.location=&quot;Silver Patchwork&quot;&gt;&gt;\
+You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There&#39;s such a variety, that you&#39;re not even sure where to start!
 
-[[Get overwhelmed and leave.|Commercial District]]</tw-passagedata><tw-passagedata pid="17" name="Salt Fort Entrance" tags="" position="850,225" size="100,100">You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
+[[Get overwhelmed and leave.|Commercial District]]</tw-passagedata><tw-passagedata pid="17" name="Salt Fort Entrance" tags="" position="850,225" size="100,100">&lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
+You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="18" name="Salt Fort Entranceway" tags="" position="975,225" size="100,100">The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="18" name="Salt Fort Entranceway" tags="" position="975,225" size="100,100">&lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
+The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
 [[Leave, all sad|Salt Fort Entrance]]</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
