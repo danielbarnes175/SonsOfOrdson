@@ -51,4 +51,83 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 [[Confirm|In Your Room]]
 
 :: In Your Room
-You stand alone in your room. You should go get some bitches or something (to be added later)
+You stand alone in your room. It's just the way you left it.
+
+[[Change Your Equipment|Change Equipment]]
+[[Sleep]]
+[[Leave|Town Center]]
+
+:: Change Equipment
+(Todo)
+
+:: Sleep
+(Todo)
+
+:: Town Center
+You are in the town center.
+
+Places of Interest
+[[Go Home|In Your Room]]
+
+Travel
+[[Upper District|Upper District]]
+[[Industrial District|Industrial District]]
+[[Shady District|Shady District]]
+[[Port|Port]]
+[[Loiter for an hour]]
+
+[[Leave Town|Entrance to Town]]
+
+:: Port
+You make your way to the Port. There's boats all around. And water. Definitely a port.
+
+Travel
+[[Town Center|Town Center]]
+
+:: Shady District
+You make your way to the Shady District. It's more of just the residential district for the poor, who you sympathize with, but it doesn't help your feeling that you're about to be stabbed.
+
+Travel
+[[Town Center|Town Center]]
+
+:: Industrial District
+You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+
+Travel
+[[Town Center|Town Center]]
+
+:: Upper District
+You make your way to the Upper District.
+
+Places of Interest
+[[Go to the Salt Fort|Salt Fort Entrance]]
+
+Travel
+[[Commercial District|Commercial District]]
+[[Town Center|Town Center]]
+
+:: Commercial District
+You make your way to the Commercial District. Suddenly you're enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
+
+Places of Interest
+[[Enter the Silver Patchwork (Clothing)|Silver Patchwork]]
+
+Travel
+[[Upper District|Upper District]]
+
+:: Silver Patchwork
+You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There's such a variety, that you're not even sure where to start!
+
+[[Get overwhelmed and leave.|Commercial District]]
+
+:: Salt Fort Entrance
+You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
+
+[[Enter the Fort|Salt Fort Entranceway]]
+
+[[Leave|Upper District]]
+
+:: Salt Fort Entranceway
+The guards let you pass without any hassle. You step into the castle. There's nothing here!
+
+[[Leave, all sad|Salt Fort Entrance]]
