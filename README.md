@@ -17,6 +17,7 @@ Long Term Goals:
 * Time based events
 * Achievements
 * Jobs
+* Magic
 
 ## Contributing
 
