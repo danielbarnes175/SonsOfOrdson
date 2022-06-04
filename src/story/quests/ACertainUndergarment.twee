@@ -25,6 +25,7 @@ The barkeep takes a quite look around, and then leans in close. "Y'know, there a
 
         <<set $quests.questLog['A certain undergarment'].currentStep = 3>>\
         <<receiveQuestReward "A certain undergarment">>\
+        <<notify>>Quest Complete - A certain undergarment!<</notify>>\
 
         [[Leave|Chemical Imbalance]]
     <</if>>\
