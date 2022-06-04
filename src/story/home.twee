@@ -1,0 +1,31 @@
+:: In Your Room
+<<if !$gameStarted>>\
+<<set $gameStarted = true>>\
+<</if>>\
+<<set $player.location="Your Room">>\
+You stand alone in your room. It's just the way you left it.
+
+[[Change Your Equipment|Change Equipment]]
+[[Sleep]]
+[[Leave|Town Center]]
+
+:: Change Equipment
+(Todo)
+
+<<return>>
+
+:: Sleep
+Sleep for how long?
+
+<<link "Sleep for 1 hour" "Sleep">><<incrementTime 1 0>><</link>>
+<<link "Sleep for 2 hour" "Sleep">><<incrementTime 2 0>><</link>>
+<<link "Sleep for 3 hour" "Sleep">><<incrementTime 3 0>><</link>>
+<<link "Sleep for 4 hour" "Sleep">><<incrementTime 4 0>><</link>>
+<<link "Sleep for 5 hour" "Sleep">><<incrementTime 5 0>><</link>>
+<<link "Sleep for 6 hour" "Sleep">><<incrementTime 6 0>><</link>>
+<<link "Sleep for 7 hour" "Sleep">><<incrementTime 7 0>><</link>>
+<<link "Sleep for 8 hour" "Sleep">><<incrementTime 8 0>><</link>>
+<<link "Sleep for 9 hour" "Sleep">><<incrementTime 9 0>><</link>>
+<<link "Sleep for 10 hour" "Sleep">><<incrementTime 10 0>><</link>>
+
+[[Get out of Bed|In Your Room]]

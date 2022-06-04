@@ -1,0 +1,27 @@
+:: Upper District
+<<incrementTime 0 2>>\
+<<set $player.location="The Upper District">>\
+You make your way to the Upper District.
+
+Places of Interest
+[[Go to the Salt Fort|Salt Fort Entrance]]
+
+Travel
+[[Commercial District|Commercial District]]
+[[Town Center|Town Center]]
+
+:: Salt Fort Entrance
+<<incrementTime 0 2>>\
+<<set $player.location="Salt Fort Entrance">>\
+You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
+
+[[Enter the Fort|Salt Fort Entranceway]]
+
+[[Leave|Upper District]]
+
+:: Salt Fort Entranceway
+<<incrementTime 0 1>>\
+<<set $player.location="Salt Fort Entranceway">>\
+The guards let you pass without any hassle. You step into the castle. There's nothing here!
+
+[[Leave, all sad|Salt Fort Entrance]]

@@ -1,0 +1,7 @@
+:: Port
+<<incrementTime 0 2>>\
+<<set $player.location="The Port">>\
+You make your way to the Port. There's boats all around. And water. Definitely a port.
+
+Travel
+[[Town Center|Town Center]]

@@ -1,0 +1,7 @@
+:: Industrial District
+<<incrementTime 0 2>>\
+<<set $player.location="The Industrial District">>\
+You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+
+Travel
+[[Town Center|Town Center]]
