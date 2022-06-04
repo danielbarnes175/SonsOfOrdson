@@ -5,6 +5,7 @@ You are in the town center.
 
 Places of Interest
 [[Go Home|In Your Room]]
+[[Chemical Imbalance (Bar)|Chemical Imbalance]]
 
 Travel
 [[Upper District|Upper District]]
@@ -14,3 +15,14 @@ Travel
 <<link "Loiter (1:00)" "Town Center">><<incrementTime 1 0>><</link>>
 
 [[Leave Town|Entrance to Town]]
+
+:: Chemical Imbalance
+You walk into the bar. The barkeep looks at you before saying, "Welcome to Chemical Imbalance. Can I start you with anything?"
+
+<<if !$quests.questLog["A certain undergarment"].knownQuest>>\
+<<link '"Is there anything I can help you with?"' "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
+<<elseif $quests.questLog["A certain undergarment"].currentStep != 3>>\
+<<link "Ask about 'A certain undergarment'" "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
+<</if>>\
+
+[[Leave|Town Center]]

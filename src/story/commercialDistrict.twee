@@ -14,4 +14,11 @@ Travel
 <<set $player.location="Silver Patchwork">>\
 You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There's such a variety, that you're not even sure where to start!
 
-[[Get overwhelmed and leave.|Commercial District]]
+<<if $quests.questLog['A certain undergarment'].knownQuest>>\
+    <<if $quests.questLog['A certain undergarment'].currentStep == 1>>\
+    [['"Hey, the barkeep over at Chemical Imbalance asked me to pick up a package for him."'|Silver Patchwork - Owner - A certain undergarment 1]]
+    <<elseif $quests.questLog['A certain undergarment'].currentStep == 2>>\
+    [[Ask about 'A certain undergarment'|Silver Patchwork - Owner - A certain undergarment 1]]
+    <</if>>\
+<</if>>\
+[[Leave|Commercial District]]

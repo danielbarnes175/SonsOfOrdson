@@ -1,0 +1,70 @@
+:: Chemical Imbalance - Barkeep - A certain undergarment 1
+<<if !$quests.questLog['A certain undergarment'].knownQuest>>\
+<<set $quests.questLog['A certain undergarment'].knownQuest = true>>\
+The barkeep takes a quite look around, and then leans in close. "Y'know, there actually is something that I could use your help for."
+
+"You see," the barkeep continues, "my wife and I have been having a bit of trouble late at night. So, of course, I ordered the special piece of clothing that I thought would be useful to help spice things up, you know?"
+
+[['"What do you mean, \'a special piece of clothing\'?"'|Chemical Imbalance - Barkeep - A certain undergarment 2]]
+<<else>>\
+    <<if $quests.questLog['A certain undergarment'].currentStep == 0>>\
+        The barkeep still looks a little bit sad.
+
+        [[Leave|Chemical Imbalance]]
+        [['"Hey, I decided that I'll help you out."'|Chemical Imbalance - Barkeep - A certain undergarment 3]]
+    <</if>>\
+    <<if $quests.questLog['A certain undergarment'].currentStep == 1>>\
+        You ask the barkeep what he needed again. He looks confused, "I just needed you to go to the tailor and pick up my order. I didn't think it was that complicated of a task."
+
+        [[Leave|Chemical Imbalance]]
+    <</if>>\
+    <<if $quests.questLog['A certain undergarment'].currentStep == 2>>\
+        You place the bag on the bar. The barkeep quickly realizes what it is and moves it behind the bar.
+
+        "Thank you so much!" The barkeep says, "This will make my wife so happy! Here take this."
+
+        <<set $quests.questLog['A certain undergarment'].currentStep = 3>>\
+        <<receiveQuestReward "A certain undergarment">>\
+
+        [[Leave|Chemical Imbalance]]
+    <</if>>\
+<</if>>\
+
+:: Chemical Imbalance - Barkeep - A certain undergarment 2
+"Woah, woah! Not so loud! I'm trying to be a little discreet here." The bartender takes another look around before leaning back to you and saying, "It's not important what the clothing is. I just need you to go get it for me. I can't go grab it since I have to man the bar. Can you help me?"
+
+[['"Sure, I'll help you."'|Chemical Imbalance - Barkeep - A certain undergarment 3]]
+[['"You know what, I'm actually busy that day, so I can't. Sorry!"'|Chemical Imbalance - Barkeep - A certain undergarment 4]]
+
+:: Chemical Imbalance - Barkeep - A certain undergarment 3
+A smile breaks out on the barkeeps face. "Really?!" he says, "That's great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it's for me, and the owner will know what to grab."
+
+<<set $quests.questLog['A certain undergarment'].currentStep = 1>>\
+[['"Sounds good!"'|Chemical Imbalance]]
+
+:: Chemical Imbalance - Barkeep - A certain undergarment 4
+The barkeep looks a little sad. "Alright, well let me know if you change your mind. I'll be working here, like always..."
+
+[[Leave|Town Center]]
+
+:: Silver Patchwork - Owner - A certain undergarment 1
+<<if $quests.questLog['A certain undergarment'].currentStep == 1>>\
+  The owner doesn't seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn't even look at you as he looks over his list of orders.
+
+  Welp, guess all you can do is return the package to the barkeep.
+
+  <<set $quests.questLog['A certain undergarment'].currentStep = 2>>\
+  [[Leave|Commercial District]]
+<<else>>
+<<if $quests.questLog['A certain undergarment'].currentStep == 2>>\
+  You already have the package, so all you need to do it bring it to the barkeep, but there has been one thing on your mind.
+
+  "Hey," You ask, "What's in this package anyway?"
+
+  The owner actually stops working for a second to laugh. "Son, it's better if you don't know." Before you can say anything, the owner walks away to the back.
+
+  [[Leave|Commercial District]]
+<</if>>\
+<</if>>\
+
+
