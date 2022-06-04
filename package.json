@@ -1,0 +1,28 @@
+{
+  "name": "sonsofordson",
+  "version": "0.0.1",
+  "description": "",
+  "main": "story.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./tweego.exe src -o story.html",
+    "lint": "eslint src/**/*.js",
+    "lintfix": "eslint src/**/*.js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielbarnes175/SonsOfOrdson.git"
+  },
+  "author": "Daniel Barnes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielbarnes175/SonsOfOrdson/issues"
+  },
+  "homepage": "https://github.com/danielbarnes175/SonsOfOrdson#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2"
+  }
+}
