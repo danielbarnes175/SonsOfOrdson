@@ -20,7 +20,7 @@ Version: 0.0.1
 Name: $player.name
 Level: $player.level
 Location: $player.location
-
+<<getTimeString>>
 <hr>
 <center><table style="width:100%">
     <tr>
@@ -35,9 +35,7 @@ Location: $player.location
     </tr>
 </table></center>\
 <hr>
-Health
 <center><<showmeter "healthMeter" `$player.health / $player.maxHealth`>></center>
-Mana
 <center><<showmeter "manaMeter" `$player.mana / $player.maxMana`>></center>
 <</if>>
 
@@ -45,12 +43,12 @@ Mana
 
 <<newmeter "healthMeter" center>>
     <<colors 'yellow' 'red' 'white'>>
-    <<label '$player.health / $player.maxHealth' 'black' center>>
+    <<label 'Health $player.health / $player.maxHealth' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 <<newmeter "manaMeter">>
     <<colors 'blue' 'white'>>
-    <<label '$player.mana / $player.maxMana' 'black' center>>
+    <<label 'Mana $player.mana / $player.maxMana' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 
@@ -121,6 +119,7 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 <<set $gameStarted = true>>\
 <</if>>\
 <<set $player.location="Your Room">>\
+<<incrementTime 3 15>>\
 You stand alone in your room. It's just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
@@ -131,10 +130,24 @@ You stand alone in your room. It's just the way you left it.
 (Todo)
 
 :: Sleep
-(Todo)
+Sleep for how long?
+
+<<link "Sleep for 1 hour" "Sleep">><<incrementTime 1 0>><</link>>
+<<link "Sleep for 2 hour" "Sleep">><<incrementTime 2 0>><</link>>
+<<link "Sleep for 3 hour" "Sleep">><<incrementTime 3 0>><</link>>
+<<link "Sleep for 4 hour" "Sleep">><<incrementTime 4 0>><</link>>
+<<link "Sleep for 5 hour" "Sleep">><<incrementTime 5 0>><</link>>
+<<link "Sleep for 6 hour" "Sleep">><<incrementTime 6 0>><</link>>
+<<link "Sleep for 7 hour" "Sleep">><<incrementTime 7 0>><</link>>
+<<link "Sleep for 8 hour" "Sleep">><<incrementTime 8 0>><</link>>
+<<link "Sleep for 9 hour" "Sleep">><<incrementTime 9 0>><</link>>
+<<link "Sleep for 10 hour" "Sleep">><<incrementTime 10 0>><</link>>
+
+[[Get out of Bed|In Your Room]]
 
 :: Town Center
 <<set $player.location="Town Center">>\
+<<incrementTime 0 2>>\
 You are in the town center.
 
 Places of Interest
@@ -145,11 +158,12 @@ Travel
 [[Industrial District|Industrial District]]
 [[Shady District|Shady District]]
 [[Port|Port]]
-[[Loiter for an hour]]
+<<link "Loiter (1:00)" "Town Center">><<incrementTime 1 0>><</link>>
 
 [[Leave Town|Entrance to Town]]
 
 :: Port
+<<incrementTime 0 2>>\
 <<set $player.location="The Port">>\
 You make your way to the Port. There's boats all around. And water. Definitely a port.
 
@@ -164,6 +178,7 @@ Travel
 [[Town Center|Town Center]]
 
 :: Industrial District
+<<incrementTime 0 2>>\
 <<set $player.location="The Industrial District">>\
 You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
@@ -171,6 +186,7 @@ Travel
 [[Town Center|Town Center]]
 
 :: Upper District
+<<incrementTime 0 2>>\
 <<set $player.location="The Upper District">>\
 You make your way to the Upper District.
 
@@ -182,6 +198,7 @@ Travel
 [[Town Center|Town Center]]
 
 :: Commercial District
+<<incrementTime 0 2>>\
 <<set $player.location="The Commercial District">>\
 You make your way to the Commercial District. Suddenly you're enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
@@ -192,12 +209,14 @@ Travel
 [[Upper District|Upper District]]
 
 :: Silver Patchwork
+<<incrementTime 0 1>>\
 <<set $player.location="Silver Patchwork">>\
 You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There's such a variety, that you're not even sure where to start!
 
 [[Get overwhelmed and leave.|Commercial District]]
 
 :: Salt Fort Entrance
+<<incrementTime 0 2>>\
 <<set $player.location="Salt Fort Entrance">>\
 You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
@@ -206,6 +225,7 @@ You make your way to the giant looming castle. For a place that is said to be th
 [[Leave|Upper District]]
 
 :: Salt Fort Entranceway
+<<incrementTime 0 1>>\
 <<set $player.location="Salt Fort Entranceway">>\
 The guards let you pass without any hassle. You step into the castle. There's nothing here!
 

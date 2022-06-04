@@ -1,0 +1,8 @@
+{
+    "sugarcube-2": {
+        "macros": {
+            "getTimeString": {},
+            "incrementTime": {}
+        }
+    }
+}
