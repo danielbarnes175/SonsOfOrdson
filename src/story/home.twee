@@ -3,6 +3,8 @@
 <<set $gameStarted = true>>\
 <</if>>\
 <<set $player.location="Your Room">>\
+<img src="src/images/home.png">
+
 You stand alone in your room. It's just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
