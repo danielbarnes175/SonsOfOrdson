@@ -4,20 +4,7 @@ Sons of Ordson is a text based sandbox/adventure game created with Twine and Sug
 
 ## Current Roadmap
 
-This roadmap is subject to change, but right now these are the goals for the project:
-
-Short Term Goals:    
-* Combat / Random Encounters
-* Inventory
-* City Map
-* Location Artwork (banners)
-
-Long Term Goals:  
-* Travel outside the city
-* Time based events
-* Achievements
-* Jobs
-* Magic
+If you're interested in seeing what features are planned, please see the [roadmap](https://github.com/danielbarnes175/SonsOfOrdson/issues/2).
 
 ## Contributing
 
