@@ -16,7 +16,7 @@ Sons of Ordson
 Version: 0.0.1
 
 :: StoryCaption
-<<if $gameStarted === true>>
+<<if $gameStarted>>
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -117,7 +117,7 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 [[Confirm|In Your Room]]
 
 :: In Your Room
-<<if $gameStarted === false>>\
+<<if !$gameStarted>>\
 <<set $gameStarted = true>>\
 <</if>>\
 <<set $player.location="Your Room">>\
