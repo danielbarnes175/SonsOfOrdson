@@ -1,8 +1,9 @@
 {
     "sugarcube-2": {
         "macros": {
-            "encounter": {},
-            "": {}
+            "setupEncounter": {},
+            "progressEncounter": {},
+            "endEncounter": {},
         }
     }
 }

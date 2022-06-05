@@ -1,2 +1,41 @@
 :: Encounter
-<<encounter $player $enemies.goblin>>
+<<for _i to 0; _i lt $currentEncounter.enemyActions.length; _i++>>\
+    $currentEncounter.enemyActions[_i]
+<</for>>\
+
+$currentEncounter.playerAction
+
+<hr>
+<<if !$currentEncounter.encounterEnded>>
+<<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
+    The $currentEncounter.enemies[_i].name has $currentEncounter.enemies[_i].health health remaining.
+<</for>>\
+
+<hr>
+Who would you like to target?
+<<if !$currentEncounter.targetIndex>>\
+  <<set $currentEncounter.targetIndex = 0>>\
+<</if>>\
+<<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
+    <<set $_this = $currentEncounter.enemies[_i]>>\
+    <<radiobutton "$currentEncounter.targetIndex" _i `_i === $currentEncounter.targetIndex ? 'checked' : ''`>> $currentEncounter.enemies[_i].name
+<</for>>\
+
+What would you like to do?
+<<if !$currentEncounter.action>>\
+  <<set $currentEncounter.action = $currentEncounter.playerActions[0]>>\
+<</if>>\
+<<for _i to 0; _i lt $currentEncounter.playerActions.length; _i++>>\
+    <<set $_this = $currentEncounter.playerActions[_i]>>\
+    <<radiobutton "$currentEncounter.action" $_this `$_this.attackDescription === $currentEncounter.action.attackDescription ? 'checked' : ''`>> $currentEncounter.playerActions[_i].attackDescription
+<</for>>\
+
+
+<<link "Confirm" "Encounter">><<progressEncounter $currentEncounter.action $currentEncounter.targetIndex>><</link>>
+<<else>>
+  Encounter Complete!
+
+  You have received a sense of pride and accomplishment.
+
+  <<link "Exit" "Town Center">><<endEncounter>><<incrementTime 0 3>><</link>>
+<</if>>

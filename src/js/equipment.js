@@ -20,5 +20,29 @@ State.variables.weapons = {
             ],
         },
         description: 'A small dagger. You could stab someone with this.',
+        attackDescription: 'Attack with your dagger',
+    },
+    'Fist': {
+        name: 'Fist',
+        type: 'melee',
+        damage: '1d2',
+        throwable: false,
+        requiresTwoHands: false,
+        flavor: {
+            criticalSuccess: 'You punch the enemy square in the face.',
+            criticalFailure: 'You swing and manage to hit yourself with a punch. Wow.',
+            success: [
+                'You manage to hit the enemy.',
+                'You hit the enemy.',
+                'You hit the enemy with your fist.',
+            ],
+            failure: [
+                'You miss the enemy.',
+                'You miss the enemy with your fist.',
+                'Swing and a miss.',
+            ],
+        },
+        description: 'Your fist. Good for punching.',
+        attackDescription: 'Punch with your fist',
     },
 }
