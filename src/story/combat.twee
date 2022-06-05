@@ -4,9 +4,8 @@
 <</for>>\
 
 $currentEncounter.playerAction
-
-<hr>
-<<if !$currentEncounter.encounterEnded>>
+<hr>\
+<<if !$currentEncounter.encounterEnded>>\
 <<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
     The $currentEncounter.enemies[_i].name has $currentEncounter.enemies[_i].health health remaining.
 <</for>>\

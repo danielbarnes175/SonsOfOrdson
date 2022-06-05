@@ -574,9 +574,8 @@ macros.incrementTime = {
 &lt;&lt;/for&gt;&gt;\
 
 $currentEncounter.playerAction
-
-&lt;hr&gt;
-&lt;&lt;if !$currentEncounter.encounterEnded&gt;&gt;
+&lt;hr&gt;\
+&lt;&lt;if !$currentEncounter.encounterEnded&gt;&gt;\
 &lt;&lt;for _i to 0; _i lt $currentEncounter.enemies.length; _i++&gt;&gt;\
     The $currentEncounter.enemies[_i].name has $currentEncounter.enemies[_i].health health remaining.
 &lt;&lt;/for&gt;&gt;\
