@@ -1,0 +1,2 @@
+:: Encounter
+<<encounter $player $enemies.goblin>>

@@ -16,8 +16,10 @@ Travel
 
 [[Leave Town|Entrance to Town]]
 
+<<link "Trigger Encounter" "Encounter">><</link>>
+
 :: Chemical Imbalance
-You walk into the bar. The barkeep looks at you before saying, "Welcome to Chemical Imbalance. Can I start you with anything?"
+As you enter the tavern, the warm glow covers you as you're greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
 
 <<if !$quests.questLog["A certain undergarment"].knownQuest>>\
 <<link '"Is there anything I can help you with?"' "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
