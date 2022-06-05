@@ -3,18 +3,18 @@ State.variables.currentEncounter = {
 };
 
 setup.getRandomEnemies = (maxEnemyCount) => {
-   let enemies = [];
+  const enemies = [];
 
-   let numberOfEnemies = Math.floor(Math.random() * maxEnemyCount) + 1;
-   for (let i = 0; i < numberOfEnemies; i++) {
-     let enemyType = Math.floor(Math.random() * Object.keys(State.variables.enemies).length);
-     let enemyKey = Object.keys(State.variables.enemies)[enemyType];
-     let randomEnemy = State.variables.enemies[enemyKey];
-     enemies.push(randomEnemy);
-    }
+  const numberOfEnemies = Math.floor(Math.random() * maxEnemyCount) + 1;
+  for (let i = 0; i < numberOfEnemies; i++) {
+    const enemyType = Math.floor(Math.random() * Object.keys(State.variables.enemies).length);
+    const enemyKey = Object.keys(State.variables.enemies)[enemyType];
+    const randomEnemy = State.variables.enemies[enemyKey];
+    enemies.push(randomEnemy);
+  }
 
-   return enemies;
-}
+  return enemies;
+};
 
 macros.setupEncounter = {
   /* eslint-disable-next-line */
@@ -77,9 +77,9 @@ let isEncounterOver = () => {
   }
 
   // Check if any enemies are alive
-  let aliveEnemies = [];
+  const aliveEnemies = [];
   for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-    let currentEnemy = State.variables.currentEncounter.enemies[i];
+    const currentEnemy = State.variables.currentEncounter.enemies[i];
     if (currentEnemy.health > 0) {
       aliveEnemies.push(currentEnemy);
     }
