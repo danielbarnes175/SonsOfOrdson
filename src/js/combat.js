@@ -2,16 +2,31 @@ State.variables.currentEncounter = {
   turn: -1, // No encounter
 };
 
+setup.getRandomEnemies = (maxEnemyCount) => {
+   let enemies = [];
+
+   let numberOfEnemies = Math.floor(Math.random() * maxEnemyCount) + 1;
+   for (let i = 0; i < numberOfEnemies; i++) {
+     let enemyType = Math.floor(Math.random() * Object.keys(State.variables.enemies).length);
+     let enemyKey = Object.keys(State.variables.enemies)[enemyType];
+     let randomEnemy = State.variables.enemies[enemyKey];
+     enemies.push(randomEnemy);
+    }
+
+   return enemies;
+}
+
 macros.setupEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     const enemies = [];
     const enemyActions = [];
-    for (let i = 1; i < params.length; i++) {
-      const enemy = params[i];
+    State.variables.player.locationBeforeEncounter = State.variables.player.location;
+    for (let i = 0; i < params[1].length; i++) {
+      const enemy = params[1][i];
       enemy.id = i;
       enemies.push(enemy);
-      enemyActions.push(`A ${params[i].name} appears before you.\n`);
+      enemyActions.push(`A ${params[1][i].name} appears before you.\n`);
     }
 
     State.variables.currentEncounter = {
@@ -62,10 +77,17 @@ let isEncounterOver = () => {
   }
 
   // Check if any enemies are alive
+  let aliveEnemies = [];
   for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-    if (State.variables.currentEncounter.enemies[i].health > 0) {
-      return false;
+    let currentEnemy = State.variables.currentEncounter.enemies[i];
+    if (currentEnemy.health > 0) {
+      aliveEnemies.push(currentEnemy);
     }
+  }
+
+  if (aliveEnemies.length > 0) {
+    State.variables.currentEncounter.enemies = aliveEnemies;
+    return false;
   }
 
   State.variables.currentEncounter.playerWonEncounter = true;
@@ -116,10 +138,10 @@ let processEnemyActions = () => {
     const damage = dice('1d3');
 
     if (success) {
-      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} You take ${damage} damage.`);
+      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} You take ${damage} damage.\n`);
       State.variables.player.health -= damage;
     } else {
-      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} It's a miss!`);
+      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} It's a miss!\n`);
     }
   }
 };

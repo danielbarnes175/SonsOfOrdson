@@ -36,5 +36,5 @@ What would you like to do?
 
   You have received a sense of pride and accomplishment.
 
-  <<link "Exit" "Town Center">><<endEncounter>><<incrementTime 0 3>><</link>>
+  <<link "Exit" $player.locationBeforeEncounter>><<endEncounter>><<incrementTime 0 3>><</link>>
 <</if>>

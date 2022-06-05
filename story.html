@@ -100,7 +100,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="27" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="31" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
 .journal button {
     width: 100%;
 }
@@ -225,16 +225,32 @@ State.variables.currentEncounter = {
   turn: -1, // No encounter
 };
 
+setup.getRandomEnemies = (maxEnemyCount) => {
+   let enemies = [];
+
+   let numberOfEnemies = Math.floor(Math.random() * maxEnemyCount) + 1;
+   for (let i = 0; i < numberOfEnemies; i++) {
+     let enemyType = Math.floor(Math.random() * Object.keys(State.variables.enemies).length);
+     let enemyKey = Object.keys(State.variables.enemies)[enemyType];
+     let randomEnemy = State.variables.enemies[enemyKey];
+     enemies.push(randomEnemy);
+    }
+   console.log(JSON.stringify(enemies));
+
+   return enemies;
+}
+
 macros.setupEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     const enemies = [];
     const enemyActions = [];
-    for (let i = 1; i < params.length; i++) {
-      const enemy = params[i];
+    State.variables.player.locationBeforeEncounter = State.variables.player.location;
+    for (let i = 0; i < params[1].length; i++) {
+      const enemy = params[1][i];
       enemy.id = i;
       enemies.push(enemy);
-      enemyActions.push(`A ${params[i].name} appears before you.\n`);
+      enemyActions.push(`A ${params[1][i].name} appears before you.\n`);
     }
 
     State.variables.currentEncounter = {
@@ -285,10 +301,17 @@ let isEncounterOver = () => {
   }
 
   // Check if any enemies are alive
+  let aliveEnemies = [];
   for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-    if (State.variables.currentEncounter.enemies[i].health > 0) {
-      return false;
+    let currentEnemy = State.variables.currentEncounter.enemies[i];
+    if (currentEnemy.health > 0) {
+      aliveEnemies.push(currentEnemy);
     }
+  }
+
+  if (aliveEnemies.length > 0) {
+    State.variables.currentEncounter.enemies = aliveEnemies;
+    return false;
   }
 
   State.variables.currentEncounter.playerWonEncounter = true;
@@ -339,10 +362,10 @@ let processEnemyActions = () => {
     const damage = dice('1d3');
 
     if (success) {
-      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} You take ${damage} damage.`);
+      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} You take ${damage} damage.\n`);
       State.variables.player.health -= damage;
     } else {
-      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} It's a miss!`);
+      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} It's a miss!\n`);
     }
   }
 };
@@ -606,7 +629,7 @@ What would you like to do?
 
   You have received a sense of pride and accomplishment.
 
-  &lt;&lt;link &quot;Exit&quot; &quot;Town Center&quot;&gt;&gt;&lt;&lt;endEncounter&gt;&gt;&lt;&lt;incrementTime 0 3&gt;&gt;&lt;&lt;/link&gt;&gt;
+  &lt;&lt;link &quot;Exit&quot; $player.locationBeforeEncounter&gt;&gt;&lt;&lt;endEncounter&gt;&gt;&lt;&lt;incrementTime 0 3&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Commercial District" tags="" position="475,100" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Commercial District&quot;&gt;&gt;\
 You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
@@ -656,12 +679,39 @@ You stand alone in your room. It&#39;s just the way you left it.
 You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="10" name="Journal" tags="" position="1225,100" size="100,100">&lt;&lt;getQuestListInJournal&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Port" tags="" position="100,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="10" name="Journal" tags="" position="1225,100" size="100,100">&lt;&lt;getQuestListInJournal&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Crossroads" tags="" position="100,225" size="100,100">&lt;&lt;set $player.location=&quot;Crossroads&quot;&gt;&gt;\
+
+You make your way to the crossroads outside town. One of the paths leads to the forest, and the other leads to the mountains.
+
+Travel
+[[Forest]]
+[[Mountains|Mountain Base]]
+[[Town Center]]</tw-passagedata><tw-passagedata pid="12" name="Forest" tags="" position="225,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
+
+You follow the path to the entrance of the forest.
+
+Travel
+[[Go Deeper into the Forest|Forest 2]]
+[[Exit the Forest|Crossroads]]</tw-passagedata><tw-passagedata pid="13" name="Forest 2" tags="" position="350,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest 2&quot;&gt;&gt;\
+You make your way deeper into the forest.
+
+&lt;&lt;link &quot;Search for trouble&quot; &quot;Encounter&quot;&gt;&gt;
+&lt;&lt;set _encounterEnemies = setup.getRandomEnemies(3)&gt;&gt;
+&lt;&lt;setupEncounter $player _encounterEnemies&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+
+Travel
+[[Make your way towards the forest entrance|Forest]]</tw-passagedata><tw-passagedata pid="14" name="Mountain Base" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;Mountain Base&quot;&gt;&gt;\
+
+You make your way to the base of the mountain. The huge mountain looms over you. The path up the mountain looks daunting. So daunting, in fact, that you decide to turn around.
+
+Travel
+[[Leave the Mountain|Crossroads]]</tw-passagedata><tw-passagedata pid="15" name="Port" tags="" position="600,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Port&quot;&gt;&gt;\
 You make your way to the Port. There&#39;s boats all around. And water. Definitely a port.
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="12" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="225,225" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="16" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="725,225" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].knownQuest = true&gt;&gt;\
 The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know, there actually is something that I could use your help for.&quot;
 
@@ -691,15 +741,15 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
         [[Leave|Chemical Imbalance]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="13" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="350,225" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="17" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="850,225" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
 
 [[&#39;&quot;Sure, I&#39;ll help you.&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 3]]
-[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="14" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="475,225" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
+[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="18" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="975,225" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
 
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].currentStep = 1&gt;&gt;\
-[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="15" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="600,225" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
+[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="19" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="1100,225" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="16" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="725,225" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="20" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="1225,225" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
   The owner doesn&#39;t seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn&#39;t even look at you as he looks over his list of orders.
 
   Welp, guess all you can do is return the package to the barkeep.
@@ -716,12 +766,12 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
   [[Leave|Commercial District]]
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="17" name="Shady District" tags="" position="850,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="21" name="Shady District" tags="" position="100,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Shady District&quot;&gt;&gt;\
 You make your way to the Shady District. It&#39;s more of just the residential district for the poor, who you sympathize with, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="18" name="Town Center" tags="" position="975,225" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="22" name="Town Center" tags="" position="225,350" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
 &lt;&lt;incrementTime 0 2&gt;&gt;\
 You are in the town center.
 
@@ -736,9 +786,9 @@ Travel
 [[Port|Port]]
 &lt;&lt;link &quot;Loiter (1:00)&quot; &quot;Town Center&quot;&gt;&gt;&lt;&lt;incrementTime 1 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 
-[[Leave Town|Entrance to Town]]
+[[Leave Town|Crossroads]]
 
-&lt;&lt;link &quot;Trigger Encounter&quot; &quot;Encounter&quot;&gt;&gt;&lt;&lt;setupEncounter $player $enemies.goblin&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="Chemical Imbalance" tags="" position="1100,225" size="100,100">As you enter the tavern, the warm glow covers you as you&#39;re greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
+&lt;&lt;link &quot;Trigger Encounter&quot; &quot;Encounter&quot;&gt;&gt;&lt;&lt;setupEncounter $player $enemies.goblin&gt;&gt;&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="Chemical Imbalance" tags="" position="350,350" size="100,100">As you enter the tavern, the warm glow covers you as you&#39;re greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
 
 &lt;&lt;if !$quests.questLog[&quot;A certain undergarment&quot;].knownQuest&gt;&gt;\
 &lt;&lt;link &#39;Ask the bartender &quot;Is there anything I can help you with?&quot;&#39; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
@@ -746,7 +796,7 @@ Travel
 &lt;&lt;link &quot;Ask about &#39;A certain undergarment&#39;&quot; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;\
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="20" name="Upper District" tags="" position="1225,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="24" name="Upper District" tags="" position="475,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
 You make your way to the Upper District.
 
@@ -755,17 +805,17 @@ Places of Interest
 
 Travel
 [[Commercial District|Commercial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="21" name="Salt Fort Entrance" tags="" position="100,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="25" name="Salt Fort Entrance" tags="" position="600,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
 You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="22" name="Salt Fort Entranceway" tags="" position="225,350" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="26" name="Salt Fort Entranceway" tags="" position="725,350" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
 The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
-[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="23" name="StoryBanner" tags="" position="350,350" size="100,100">&lt;img src=&quot;https://cdn.discordapp.com/attachments/496083920329113620/982178244570783774/Untitled_Artwork.png&quot; width=&quot;64&quot; height=&quot;64&quot;&gt;</tw-passagedata><tw-passagedata pid="24" name="StorySubtitle" tags="" position="475,350" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="25" name="StoryInit" tags="" position="600,350" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="27" name="StoryBanner" tags="" position="850,350" size="100,100">&lt;img src=&quot;https://cdn.discordapp.com/attachments/496083920329113620/982178244570783774/Untitled_Artwork.png&quot; width=&quot;64&quot; height=&quot;64&quot;&gt;</tw-passagedata><tw-passagedata pid="28" name="StorySubtitle" tags="" position="975,350" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="29" name="StoryInit" tags="" position="1100,350" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
     &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Health $player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
@@ -774,7 +824,7 @@ The guards let you pass without any hassle. You step into the castle. There&#39;
     &lt;&lt;colors &#39;blue&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Mana $player.mana / $player.maxMana&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
-&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="StoryCaption" tags="" position="725,350" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="StoryCaption" tags="" position="1225,350" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -798,12 +848,12 @@ Location: $player.location
 
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Journal&quot;&gt;&gt;&lt;&lt;journal&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Start" tags="" position="850,350" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Start" tags="" position="100,475" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
-[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="28" name="Character Creation" tags="" position="975,350" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
+[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="32" name="Character Creation" tags="" position="225,475" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 

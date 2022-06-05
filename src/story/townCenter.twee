@@ -14,9 +14,7 @@ Travel
 [[Port|Port]]
 <<link "Loiter (1:00)" "Town Center">><<incrementTime 1 0>><</link>>
 
-[[Leave Town|Entrance to Town]]
-
-<<link "Trigger Encounter" "Encounter">><<setupEncounter $player $enemies.goblin>><</link>>
+[[Leave Town|Crossroads]]
 
 :: Chemical Imbalance
 As you enter the tavern, the warm glow covers you as you're greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.

@@ -1,0 +1,38 @@
+:: Crossroads
+<<set $player.location="Crossroads">>\
+
+You make your way to the crossroads outside town. One of the paths leads to the forest, and the other leads to the mountains.
+
+Travel
+[[Forest]]
+[[Mountains|Mountain Base]]
+[[Town Center]]
+
+:: Forest
+<<set $player.location="Forest">>\
+
+You follow the path to the entrance of the forest.
+
+Travel
+[[Go Deeper into the Forest|Forest 2]]
+[[Exit the Forest|Crossroads]]
+
+:: Forest 2
+<<set $player.location="Forest 2">>\
+You make your way deeper into the forest.
+
+<<link "Search for trouble" "Encounter">>
+<<set _encounterEnemies = setup.getRandomEnemies(3)>>
+<<setupEncounter $player _encounterEnemies>>
+<</link>>
+
+Travel
+[[Make your way towards the forest entrance|Forest]]
+
+:: Mountain Base
+<<set $player.location="Mountain Base">>\
+
+You make your way to the base of the mountain. The huge mountain looms over you. The path up the mountain looks daunting. So daunting, in fact, that you decide to turn around.
+
+Travel
+[[Leave the Mountain|Crossroads]]
