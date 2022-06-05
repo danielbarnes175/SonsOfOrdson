@@ -222,51 +222,47 @@ div[id|="numberslider-body"] input::-ms-thumb {
 }
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "combat.js" */
 State.variables.currentEncounter = {
-    turn: -1, // No encounter
-}
+  turn: -1, // No encounter
+};
 
 macros.setupEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    let enemies = [];
-    let enemyActions = [];
-    let player = params[0];
-    for (let i = 0; i < params.length; i++) {
-          if (i == 0) continue;
-
-          params[i].id = i;
-          enemies.push(params[i]);
-          enemyActions.push(`A ${params[i].name} appears before you.\n`);
-        }
+    const enemies = [];
+    const enemyActions = [];
+    for (let i = 1; i < params.length; i++) {
+      const enemy = params[i];
+      enemy.id = i;
+      enemies.push(enemy);
+      enemyActions.push(`A ${params[i].name} appears before you.\n`);
+    }
 
     State.variables.currentEncounter = {
-        enemies,
-        enemyActions,
-        turn: 0,
-        playerActions: getPlayerActions(player),
-        playerAction: 'You wait with anticipation.',
-        encounterEnded: false,
-    }
-    console.log(JSON.stringify(State.variables.currentEncounter));
+      enemies,
+      enemyActions,
+      turn: 0,
+      playerActions: getPlayerActions(),
+      playerAction: 'You wait with anticipation.',
+      encounterEnded: false,
+    };
   },
   init() { },
-}
+};
 
 macros.progressEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     processPlayerAction(params[0], params[1]);
     processEnemyActions();
-    
+
     if (isEncounterOver()) {
-        console.log('Encounter over');
-        processEncounterOver();
+      processEncounterOver();
     }
 
     State.variables.currentEncounter.turn += 1;
   },
   init() { },
-}
+};
 
 macros.endEncounter = {
   /* eslint-disable-next-line */
@@ -274,152 +270,148 @@ macros.endEncounter = {
     State.variables.currentEncounter = {};
   },
   init() { },
-}
+};
 
-let getPlayerActions = (player) => {
-    return [
-        State.variables.weapons['Dagger'],
-        State.variables.weapons['Fist'],
-    ];
-}
+let getPlayerActions = () => [
+  State.variables.weapons.Dagger,
+  State.variables.weapons.Fist,
+];
 
 let isEncounterOver = () => {
-    if (State.variables.player.health <= 0) {
-        State.variables.currentEncounter.playerWonEncounter = false;
-        return true;
-    }
-
-    // Check if any enemies are alive
-    for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-        console.log(State.variables.currentEncounter.enemies[i].health);
-        if (State.variables.currentEncounter.enemies[i].health > 0) {
-            console.log('Enemy is alive');
-            return false;
-        }
-    }
-    console.log('Enemies are dead');
-
-    State.variables.currentEncounter.playerWonEncounter = true;
+  // Check if player has died
+  if (State.variables.player.health <= 0) {
+    State.variables.currentEncounter.playerWonEncounter = false;
     return true;
+  }
+
+  // Check if any enemies are alive
+  for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
+    if (State.variables.currentEncounter.enemies[i].health > 0) {
+      return false;
+    }
+  }
+
+  State.variables.currentEncounter.playerWonEncounter = true;
+  return true;
 };
 
 let processEncounterOver = () => {
-    State.variables.currentEncounter.encounterEnded = true;
+  State.variables.currentEncounter.encounterEnded = true;
 };
 
 let processPlayerAction = (playerAction, playerTargetIndex) => {
-    let diceRoll = dice('1d20');
-    let success = diceRoll >= 6 ? true : false;
-    let damage = dice(playerAction.damage);
-    if (success) {
-        State.variables.currentEncounter.playerAction = playerAction.flavor.success[Math.floor(Math.random() * playerAction.flavor.success.length)] + ` ${damage} damage.`;
-        State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage;
-    } else {
-        State.variables.currentEncounter.playerAction = playerAction.flavor.failure[Math.floor(Math.random() * playerAction.flavor.failure.length)];
-    }
+  const diceRoll = dice('1d20');
+  const success = diceRoll >= 6;
+  const damage = dice(playerAction.damage);
+  if (success) {
+    const playerSuccessFlavor = playerAction.flavor.success;
+    const index = Math.floor(Math.random() * playerSuccessFlavor.length);
 
-    if (diceRoll == 1) {
-        State.variables.currentEncounter.playerAction = playerAction.flavor.criticalFailure;
-        State.variables.player.health -= Math.floor(damage / 2);
-    } else if (diceRoll == 20) {
-        State.variables.currentEncounter.playerAction = playerAction.flavor.criticalSuccess + ` ${damage * 2} damage.`;
-        State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage * 2;
-    }
-}
+    State.variables.currentEncounter.playerAction = `${playerSuccessFlavor[index]} ${damage} damage.`;
+    State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage;
+  } else {
+    const playerFailureFlavor = playerAction.flavor.failure;
+    const index = Math.floor(Math.random() * playerFailureFlavor.length);
+
+    State.variables.currentEncounter.playerAction = playerFailureFlavor[index];
+  }
+
+  if (diceRoll === 1) {
+    State.variables.currentEncounter.playerAction = playerAction.flavor.criticalFailure;
+    State.variables.player.health -= Math.floor(damage / 2);
+  } else if (diceRoll === 20) {
+    State.variables.currentEncounter.playerAction = `${playerAction.flavor.criticalSuccess} ${damage * 2} damage.`;
+    State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage * 2;
+  }
+};
 
 let processEnemyActions = () => {
-    let actions = [
-        `The enemy attacks you!`,
-        `The enemy attacks you with a dagger!`,
-        `The enemy attacks you with a fist!`,
+  State.variables.currentEncounter.enemyActions = [];
+  for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
+    const actions = [
+      `The ${State.variables.currentEncounter.enemies[i].name} attacks you!`,
+      `The ${State.variables.currentEncounter.enemies[i].name} attacks you with a dagger!`,
+      `The ${State.variables.currentEncounter.enemies[i].name} attacks you with a fist!`,
     ];
+    const diceRoll = dice('1d20');
+    const success = diceRoll >= 14;
+    const randomAction = Math.floor(Math.random() * actions.length);
+    const damage = dice('1d3');
 
-    State.variables.currentEncounter.enemyActions = [];
-    for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-        let actions = [
-            `The ${State.variables.currentEncounter.enemies[i].name} attacks you!`,
-            `The ${State.variables.currentEncounter.enemies[i].name} attacks you with a dagger!`,
-            `The ${State.variables.currentEncounter.enemies[i].name} attacks you with a fist!`,
-        ];
-        let diceRoll = dice('1d20');
-        let success = diceRoll >= 14 ? true : false;
-        let randomAction = Math.floor(Math.random() * actions.length);
-        let damage = dice('1d3');
-
-        if (success) {
-            State.variables.currentEncounter.enemyActions.push(actions[randomAction] + ` You take ${damage} damage.`);
-            State.variables.player.health -= damage;
-        } else {
-            State.variables.currentEncounter.enemyActions.push(actions[randomAction] + " It's a miss!");
-        }
-  }  
-}
+    if (success) {
+      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} You take ${damage} damage.`);
+      State.variables.player.health -= damage;
+    } else {
+      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} It's a miss!`);
+    }
+  }
+};
 /* twine-user-script #2: "enemies.js" */
 State.variables.enemies = {
-    'goblin': {
-        'name': 'Goblin',
-        'health': 10,
-        'maxHealth': 10,
-        'stats': {
-            'str': 8,
-            'dex': 8,
-            'con': 8,
-            'int': 8,
-            'wis': 8,
-            'cha': 8,
-        },
-        'damage': '1d3+1',
-    }
-}
+  goblin: {
+    name: 'Goblin',
+    health: 10,
+    maxHealth: 10,
+    stats: {
+      str: 8,
+      dex: 8,
+      con: 8,
+      int: 8,
+      wis: 8,
+      cha: 8,
+    },
+    damage: '1d3+1',
+  },
+};
 /* twine-user-script #3: "equipment.js" */
 State.variables.weapons = {
-    'Dagger': {
-        name: 'Dagger',
-        type: 'melee',
-        damage: '1d4+2',
-        throwable: true,
-        requiresTwoHands: false,
-        flavor: {
-            criticalSuccess: 'You manage to catch the enemy off balance, and get an especially good hit.',
-            criticalFailure: 'You swing your dagger and accidentally hit yourself!',
-            success: [
-                'You manage to hit the enemy.',
-                'You hit the enemy.',
-                'You hit the enemy with your dagger.',
-            ],
-            failure: [
-                'You miss the enemy.',
-                'You miss the enemy with your dagger.',
-                'Swing and a miss.',
-            ],
-        },
-        description: 'A small dagger. You could stab someone with this.',
-        attackDescription: 'Attack with your dagger',
+  Dagger: {
+    name: 'Dagger',
+    type: 'melee',
+    damage: '1d4+2',
+    throwable: true,
+    requiresTwoHands: false,
+    flavor: {
+      criticalSuccess: 'You manage to catch the enemy off balance, and get an especially good hit.',
+      criticalFailure: 'You swing your dagger and accidentally hit yourself!',
+      success: [
+        'You manage to hit the enemy.',
+        'You hit the enemy.',
+        'You hit the enemy with your dagger.',
+      ],
+      failure: [
+        'You miss the enemy.',
+        'You miss the enemy with your dagger.',
+        'Swing and a miss.',
+      ],
     },
-    'Fist': {
-        name: 'Fist',
-        type: 'melee',
-        damage: '1d2',
-        throwable: false,
-        requiresTwoHands: false,
-        flavor: {
-            criticalSuccess: 'You punch the enemy square in the face.',
-            criticalFailure: 'You swing and manage to hit yourself with a punch. Wow.',
-            success: [
-                'You manage to hit the enemy.',
-                'You hit the enemy.',
-                'You hit the enemy with your fist.',
-            ],
-            failure: [
-                'You miss the enemy.',
-                'You miss the enemy with your fist.',
-                'Swing and a miss.',
-            ],
-        },
-        description: 'Your fist. Good for punching.',
-        attackDescription: 'Punch with your fist',
+    description: 'A small dagger. You could stab someone with this.',
+    attackDescription: 'Attack with your dagger',
+  },
+  Fist: {
+    name: 'Fist',
+    type: 'melee',
+    damage: '1d2',
+    throwable: false,
+    requiresTwoHands: false,
+    flavor: {
+      criticalSuccess: 'You punch the enemy square in the face.',
+      criticalFailure: 'You swing and manage to hit yourself with a punch. Wow.',
+      success: [
+        'You manage to hit the enemy.',
+        'You hit the enemy.',
+        'You hit the enemy with your fist.',
+      ],
+      failure: [
+        'You miss the enemy.',
+        'You miss the enemy with your fist.',
+        'Swing and a miss.',
+      ],
     },
-}
+    description: 'Your fist. Good for punching.',
+    attackDescription: 'Punch with your fist',
+  },
+};
 /* twine-user-script #4: "player.js" */
 State.variables.player = {
   name: 'Bob',
