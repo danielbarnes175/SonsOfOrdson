@@ -534,6 +534,19 @@ macros.getBannerForLocation = {
     },
     init() { },
   };
+
+macros.getImage = {
+    /* eslint-disable-next-line */
+    handler(place, macroName, params, parser) {
+        const imageKey = params[0];
+        const directory = (ENV === 'production') ? 'src/images/' : '../src/images/';
+        const width = params[1];
+        const height = params[2];
+
+        new Wikifier(place, `<img src="${directory}${imageKey}" width='${width}' height='${height}'>`);
+      },
+      init() { },
+}
 /* twine-user-script #8: "journal.js" */
 macros.journal = {
   /* eslint-disable-next-line */
@@ -853,7 +866,7 @@ You make your way to the giant looming castle. For a place that is said to be th
 &lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
 The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
-[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="28" name="StoryBanner" tags="" position="975,350" size="100,100">&lt;img src=&quot;src/images/sonsOfOrdsonLogo.png&quot; width=&quot;128&quot; height=&quot;128&quot;&gt;</tw-passagedata><tw-passagedata pid="29" name="StorySubtitle" tags="" position="1100,350" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="30" name="StoryInit" tags="" position="1225,350" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="28" name="StoryBanner" tags="" position="975,350" size="100,100">&lt;&lt;getImage &quot;sonsOfOrdsonLogo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="StorySubtitle" tags="" position="1100,350" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="30" name="StoryInit" tags="" position="1225,350" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
     &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Health $player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
