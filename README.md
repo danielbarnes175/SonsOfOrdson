@@ -38,7 +38,7 @@ Copy the tweego.exe (or other binary depending on OS) into the root directory of
 
 #### ***Build***
 
-`npm run build` will create the `story.html` file, which you can open to test your game. I recommend using the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) plugin for vscode.
+`npm run build` will create the `dist/index.html` file, which you can open to test the game. I recommend using the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) plugin for vscode.
 
 - Note: After each change, you must rebuild the game.
 
