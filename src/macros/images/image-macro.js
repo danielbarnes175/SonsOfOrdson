@@ -25,3 +25,16 @@ macros.getBannerForLocation = {
     },
     init() { },
   };
+
+macros.getImage = {
+    /* eslint-disable-next-line */
+    handler(place, macroName, params, parser) {
+        const imageKey = params[0];
+        const directory = (ENV === 'production') ? 'src/images/' : '../src/images/';
+        const width = params[1];
+        const height = params[2];
+
+        new Wikifier(place, `<img src="${directory}${imageKey}" width='${width}' height='${height}'>`);
+      },
+      init() { },
+}
