@@ -10,7 +10,7 @@
 Sons of Ordson
 
 :: StoryBanner
-<<getImage "sonsOfOrdsonLogo.png" 128 128>>
+<<getImage "sons-of-ordson-logo.png" 128 128>>
 
 :: StorySubtitle
 Version: 0.0.1
