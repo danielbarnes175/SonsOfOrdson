@@ -73,6 +73,7 @@ let isEncounterOver = () => {
   // Check if player has died
   if (State.variables.player.health <= 0) {
     State.variables.currentEncounter.playerWonEncounter = false;
+    State.variables.player.health = 0;
     return true;
   }
 

@@ -296,6 +296,7 @@ let isEncounterOver = () => {
   // Check if player has died
   if (State.variables.player.health <= 0) {
     State.variables.currentEncounter.playerWonEncounter = false;
+    State.variables.player.health = 0;
     return true;
   }
 
@@ -624,11 +625,17 @@ What would you like to do?
 
 &lt;&lt;link &quot;Confirm&quot; &quot;Encounter&quot;&gt;&gt;&lt;&lt;progressEncounter $currentEncounter.action $currentEncounter.targetIndex&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;else&gt;&gt;
+  &lt;&lt;if $currentEncounter.playerWonEncounter&gt;&gt;
   Encounter Complete!
 
   You have received a sense of pride and accomplishment.
 
   &lt;&lt;link &quot;Exit&quot; $player.locationBeforeEncounter&gt;&gt;&lt;&lt;endEncounter&gt;&gt;&lt;&lt;incrementTime 0 3&gt;&gt;&lt;&lt;/link&gt;&gt;
+  &lt;&lt;else&gt;&gt;
+  You pass out from the pain of the battle. Time passes by until you awaken.
+
+  &lt;&lt;link &quot;Continue&quot; $player.locationBeforeEncounter&gt;&gt;&lt;&lt;endEncounter&gt;&gt;&lt;&lt;incrementTime 3 17&gt;&gt;&lt;&lt;/link&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Commercial District" tags="" position="475,100" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Commercial District&quot;&gt;&gt;\
 You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.

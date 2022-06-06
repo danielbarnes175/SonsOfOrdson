@@ -32,9 +32,15 @@ What would you like to do?
 
 <<link "Confirm" "Encounter">><<progressEncounter $currentEncounter.action $currentEncounter.targetIndex>><</link>>
 <<else>>
+  <<if $currentEncounter.playerWonEncounter>>
   Encounter Complete!
 
   You have received a sense of pride and accomplishment.
 
   <<link "Exit" $player.locationBeforeEncounter>><<endEncounter>><<incrementTime 0 3>><</link>>
+  <<else>>
+  You pass out from the pain of the battle. Time passes by until you awaken.
+
+  <<link "Continue" $player.locationBeforeEncounter>><<endEncounter>><<incrementTime 3 17>><</link>>
+  <</if>>
 <</if>>
