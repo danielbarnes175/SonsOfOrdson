@@ -20,7 +20,7 @@ jobs:
         run: |
           go get github.com/tmedwards/tweego
           export PATH=$PATH:$(go env GOPATH)/bin
-          tweego src -o dist/index.html
+          tweego src -o dist/index.html --module=env-prod.js
 
       - name: Deploy to Pages
         uses: peaceiris/actions-gh-pages@v3
