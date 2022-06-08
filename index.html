@@ -101,7 +101,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="32" creator="Tweego" creator-version="2.1.1" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="38" creator="Tweego" creator-version="2.1.1" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
 .journal button {
     width: 100%;
 }
@@ -675,15 +675,25 @@ What would you like to do?
 
   &lt;&lt;link &quot;Continue&quot; $player.locationBeforeEncounter&gt;&gt;&lt;&lt;endEncounter&gt;&gt;&lt;&lt;incrementTime 3 17&gt;&gt;&lt;&lt;/link&gt;&gt;
   &lt;&lt;/if&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Commercial District" tags="" position="475,100" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Journal" tags="" position="475,100" size="100,100">&lt;&lt;getQuestListInJournal&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Fourth Bank of Ordson" tags="" position="600,100" size="100,100">&lt;&lt;set $player.location=&quot;Fourth Bank of Ordson&quot;&gt;&gt;\
+
+You reluctantly walk into the Fourth Bank of Ordson. For a city like Ordson, you would think that a single bank would suffice. Unfortunately, the first three banks of Ordson befell horrific tragedies, and they had to make a new bank each time.
+
+You&#39;re not sure if it&#39;s poor management, ghosts, or something else entirely, but you, and many other citizens of the town know that it&#39;s not a good idea to store your money here.
+
+As you stand at the entrance, you notice one of the bank workers starting to walk up to you. Every time they want to give you their pitch about how your money is in perfectly good hands. Best to leave before they actually get to you.
+
+[[Leave|Financial District]]</tw-passagedata><tw-passagedata pid="6" name="Financial District" tags="" position="725,100" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Commercial District&quot;&gt;&gt;\
-You make your way to the Commercial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
+You make your way to the Financial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
 Places of Interest
-[[Enter the Silver Patchwork (Clothing)|Silver Patchwork]]
+[[Silver Patchwork (Clothing)|Silver Patchwork]]
+[[Fourth Bank of Ordson|Fourth Bank of Ordson]]
+[[Market|Market]]
 
 Travel
-[[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="5" name="Silver Patchwork" tags="" position="600,100" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
+[[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="7" name="Silver Patchwork" tags="" position="850,100" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Silver Patchwork&quot;&gt;&gt;\
 You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There&#39;s such a variety, that you&#39;re not even sure where to start!
 
@@ -694,7 +704,98 @@ You walk into the giant clothing store. As you as you get inside, you see countl
     [[Ask about &#39;A certain undergarment&#39;|Silver Patchwork - Owner - A certain undergarment 1]]
     &lt;&lt;/if&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
-[[Leave|Commercial District]]</tw-passagedata><tw-passagedata pid="6" name="In Your Room" tags="" position="725,100" size="100,100">&lt;&lt;if !$gameStarted&gt;&gt;\
+[[Leave|Financial District]]</tw-passagedata><tw-passagedata pid="8" name="Gray District" tags="" position="975,100" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;set $player.location=&quot;The Gray District&quot;&gt;&gt;\
+You make your way to the Gray District. It&#39;s not even officially a district, but rather more of just the residential district for the poor. Everyone calls it the Gray District because of that. You sympathize with the poorer residents in town, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
+
+Travel
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="9" name="Bubble and Broil" tags="" position="1100,100" size="100,100">&lt;&lt;set $player.location=&quot;Bubble and Broil&quot;&gt;&gt;\
+You open the door to the Bubble and Broil Distillery. The aroma of various scents and ingredients overwhelm your nose. It&#39;s nice to have a place in the city that is essentially an alchemist&#39;s lab. You&#39;ve always been able to get health and other various potions for cheaper than they would sell in other parts of the realm.
+
+[[Shop]]
+
+[[Leave| Industrial District]]</tw-passagedata><tw-passagedata pid="10" name="Chronicler&#39;s Temple" tags="" position="1225,100" size="100,100">&lt;&lt;set $player.location=&quot;Chronicler&#39;s Temple&quot;&gt;&gt;\
+
+You open the wooden door and step foot into the temple. It&#39;s no surprise that such an important building to Ordson would be in the heart of the industrial district. Ordson has always valued science, and progress, and knowledge is an integral part of its mission.
+
+Some could say that the Chronicler Aeyenlo was one of the most important Gods in making Ordson what it is today. The statue of the Scholar-God towers over you, reminding you that you&#39;re really just a small piece in the course of all history.
+
+[[Pray|Chronicler&#39;s Temple - Pray]]
+
+[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="11" name="General Metalworks" tags="" position="100,225" size="100,100">&lt;&lt;set $player.location=&quot;General Metalworks&quot;&gt;&gt;\
+You push open the heavy metal door and step into the shop. The walls are lined with various weapons, and armors that would be useful for adventurers.
+
+Deeper back, you&#39;re able to see part of the forge, but you know that it opens up into a much larger area that you cannot see. You&#39;re not shocked that it&#39;s a bit warmer in here than most other buildings in Ordson.
+
+[[Shop]]
+[[Walk to the back|General Metalworks - Forge]]
+
+[[Leave| Industrial District]]</tw-passagedata><tw-passagedata pid="12" name="Industrial District" tags="" position="225,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;set $player.location=&quot;The Industrial District&quot;&gt;&gt;\
+You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+
+Places of Interest
+[[Bubble and Broil (distillery)|Bubble and Broil]]
+[[General Metalworks (blacksmith)|General Metalworks]]
+[[Chronicler&#39;s Temple|Chronicler&#39;s Temple]]
+
+Travel
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="13" name="Crossroads" tags="" position="350,225" size="100,100">&lt;&lt;set $player.location=&quot;Crossroads&quot;&gt;&gt;\
+
+You make your way to the crossroads outside town. One of the paths leads to the forest, and the other leads to the mountains.
+
+Travel
+[[Forest]]
+[[Mountains|Mountain Base]]
+[[Town Center]]</tw-passagedata><tw-passagedata pid="14" name="Forest" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
+
+You follow the path to the entrance of the forest.
+
+Travel
+[[Go Deeper into the Forest|Forest 2]]
+[[Exit the Forest|Crossroads]]</tw-passagedata><tw-passagedata pid="15" name="Forest 2" tags="" position="600,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest 2&quot;&gt;&gt;\
+You make your way deeper into the forest.
+
+&lt;&lt;link &quot;Search for trouble&quot; &quot;Encounter&quot;&gt;&gt;
+&lt;&lt;set _encounterEnemies = setup.getRandomEnemies(3)&gt;&gt;
+&lt;&lt;setupEncounter $player _encounterEnemies&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+
+Travel
+[[Make your way towards the forest entrance|Forest]]</tw-passagedata><tw-passagedata pid="16" name="Mountain Base" tags="" position="725,225" size="100,100">&lt;&lt;set $player.location=&quot;Mountain Base&quot;&gt;&gt;\
+
+You make your way to the base of the mountain. The huge mountain looms over you. The path up the mountain looks daunting. So daunting, in fact, that you decide to turn around.
+
+Travel
+[[Leave the Mountain|Crossroads]]</tw-passagedata><tw-passagedata pid="17" name="Green Raven" tags="" position="850,225" size="100,100">&lt;&lt;set $player.location=&quot;Green Raven&quot;&gt;&gt;\
+
+As soon as you step into the Green Raven, you&#39;re greeted by Trina Ventiro, owner of Green Raven, the sleeziest bar in town, and also the village drunk.
+
+&quot;Welcome to the Green Raven, hun&quot; she says, slurring her speech. &quot;If you need anything, just sit at one of the tables, and I&#39;ll be right uh-with you.&quot;
+
+[[Sit at a table|Shop]]
+
+[[Leave|Port]]</tw-passagedata><tw-passagedata pid="18" name="Port" tags="" position="975,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;set $player.location=&quot;The Port&quot;&gt;&gt;\
+You make your way to the Port. There&#39;s boats all around. And water. And even a lighthouse in the distance! It&#39;s definitely a port.
+
+Places of Interest
+[[Boat Charters|Boat Charters]]
+[[Green Raven (tavern)|Green Raven]]
+
+Travel
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="19" name="Boat Charters" tags="" position="1100,225" size="100,100">You walk over to the booth to charter a boat. Unfortunately, when you get there, you see a sign that says &quot;Out Fishing&quot;. Maybe someone knows where the owner is at the tavern?
+
+[[Leave|Port]]</tw-passagedata><tw-passagedata pid="20" name="Chemical Imbalance" tags="" position="1225,225" size="100,100">&lt;&lt;set $player.location=&quot;Chemical Imbalance&quot;&gt;&gt;\
+As you enter the tavern, the warm glow covers you as you&#39;re greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
+
+&lt;&lt;if !$quests.questLog[&quot;A certain undergarment&quot;].knownQuest&gt;&gt;\
+&lt;&lt;link &#39;Ask the bartender &quot;Is there anything I can help you with?&quot;&#39; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;elseif $quests.questLog[&quot;A certain undergarment&quot;].currentStep != 3&gt;&gt;\
+&lt;&lt;link &quot;Ask about &#39;A certain undergarment&#39;&quot; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;/if&gt;&gt;\
+
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="21" name="In Your Room" tags="" position="100,350" size="100,100">&lt;&lt;if !$gameStarted&gt;&gt;\
 &lt;&lt;set $gameStarted = true&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Your Room&quot;&gt;&gt;\
@@ -704,9 +805,9 @@ You stand alone in your room. It&#39;s just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
 [[Sleep]]
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="7" name="Change Equipment" tags="" position="850,100" size="100,100">(Todo)
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="22" name="Change Equipment" tags="" position="225,350" size="100,100">(Todo)
 
-&lt;&lt;return&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Sleep" tags="" position="975,100" size="100,100">Sleep for how long?
+&lt;&lt;return&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="Sleep" tags="" position="350,350" size="100,100">Sleep for how long?
 
 &lt;&lt;link &quot;Sleep for 1 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 1 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;link &quot;Sleep for 2 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 2 0&gt;&gt;&lt;&lt;/link&gt;&gt;
@@ -719,49 +820,45 @@ You stand alone in your room. It&#39;s just the way you left it.
 &lt;&lt;link &quot;Sleep for 9 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 9 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;link &quot;Sleep for 10 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 10 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 
-[[Get out of Bed|In Your Room]]</tw-passagedata><tw-passagedata pid="9" name="Industrial District" tags="" position="1100,100" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
-&lt;&lt;set $player.location=&quot;The Industrial District&quot;&gt;&gt;\
-You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+[[Get out of Bed|In Your Room]]</tw-passagedata><tw-passagedata pid="24" name="Town Center" tags="" position="475,350" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
+&lt;&lt;incrementTime 0 2&gt;&gt;\
+You are in the town center.
+
+Places of Interest
+[[Go Home|In Your Room]]
+[[Chemical Imbalance (Bar)|Chemical Imbalance]]
 
 Travel
-[[Bubble and Broil (distillery)|Bubble and Broil]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="10" name="Bubble and Broil" tags="" position="1225,100" size="100,100">You open the door to the Bubble and Broil Distillery. The aroma of various scents and ingredients overwhelm your nose. It&#39;s nice to have a place in the city that is essentially an alchemist&#39;s lab. You&#39;ve always been able to get health and other various potions for cheaper than they would sell in other parts of the realm.
+[[Upper District|Upper District]]
+[[Industrial District|Industrial District]]
+[[Gray District|Gray District]]
+[[Port|Port]]
+&lt;&lt;link &quot;Loiter (1:00)&quot; &quot;Town Center&quot;&gt;&gt;&lt;&lt;incrementTime 1 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 
-[[Shop]]
+[[Leave Town|Crossroads]]</tw-passagedata><tw-passagedata pid="25" name="Linen Dreams" tags="" position="600,350" size="100,100">&lt;&lt;set $player.location=&quot;Linen Dreams&quot;&gt;&gt;\
+You push through the front doors leading into Linen Dreams. Inside the lobby are various important looking people of all races. Typically when notable people are travelling for business, they&#39;ll stay at Linen Dreams due to its incredible reputation, and proximity to the Salt Fort. Being so close to the Salt Fort, it can be kept secure by the royal guards for any patrons looking to rest their heads somewhere comfortable for the night.
 
-[[Leave| Industrial District]]</tw-passagedata><tw-passagedata pid="11" name="Journal" tags="" position="100,225" size="100,100">&lt;&lt;getQuestListInJournal&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Crossroads" tags="" position="225,225" size="100,100">&lt;&lt;set $player.location=&quot;Crossroads&quot;&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="26" name="Salt Fort Entrance" tags="" position="725,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
+You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
-You make your way to the crossroads outside town. One of the paths leads to the forest, and the other leads to the mountains.
+[[Enter the Fort|Salt Fort Entranceway]]
 
-Travel
-[[Forest]]
-[[Mountains|Mountain Base]]
-[[Town Center]]</tw-passagedata><tw-passagedata pid="13" name="Forest" tags="" position="350,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="27" name="Salt Fort Entranceway" tags="" position="850,350" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
+&lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
+The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
-You follow the path to the entrance of the forest.
+[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="28" name="Upper District" tags="" position="975,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+&lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
+You make your way to the Upper District.
 
-Travel
-[[Go Deeper into the Forest|Forest 2]]
-[[Exit the Forest|Crossroads]]</tw-passagedata><tw-passagedata pid="14" name="Forest 2" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest 2&quot;&gt;&gt;\
-You make your way deeper into the forest.
-
-&lt;&lt;link &quot;Search for trouble&quot; &quot;Encounter&quot;&gt;&gt;
-&lt;&lt;set _encounterEnemies = setup.getRandomEnemies(3)&gt;&gt;
-&lt;&lt;setupEncounter $player _encounterEnemies&gt;&gt;
-&lt;&lt;/link&gt;&gt;
-
-Travel
-[[Make your way towards the forest entrance|Forest]]</tw-passagedata><tw-passagedata pid="15" name="Mountain Base" tags="" position="600,225" size="100,100">&lt;&lt;set $player.location=&quot;Mountain Base&quot;&gt;&gt;\
-
-You make your way to the base of the mountain. The huge mountain looms over you. The path up the mountain looks daunting. So daunting, in fact, that you decide to turn around.
+Places of Interest
+[[Salt Fort|Salt Fort Entrance]]
+[[Linen Dreams|Linen Dreams]]
 
 Travel
-[[Leave the Mountain|Crossroads]]</tw-passagedata><tw-passagedata pid="16" name="Port" tags="" position="725,225" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
-&lt;&lt;set $player.location=&quot;The Port&quot;&gt;&gt;\
-You make your way to the Port. There&#39;s boats all around. And water. Definitely a port.
-
-Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="17" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="850,225" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
+[[Financial District|Financial District]]
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="29" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="1100,350" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].knownQuest = true&gt;&gt;\
 The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know, there actually is something that I could use your help for.&quot;
 
@@ -791,15 +888,15 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
         [[Leave|Chemical Imbalance]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="18" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="975,225" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="30" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="1225,350" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
 
 [[&#39;&quot;Sure, I&#39;ll help you.&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 3]]
-[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="19" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="1100,225" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
+[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="31" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="100,475" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
 
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].currentStep = 1&gt;&gt;\
-[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="20" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="1225,225" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
+[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="32" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="225,475" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="21" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="100,350" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="33" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="350,475" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
   The owner doesn&#39;t seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn&#39;t even look at you as he looks over his list of orders.
 
   Welp, guess all you can do is return the package to the barkeep.
@@ -816,54 +913,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
   [[Leave|Commercial District]]
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="22" name="Shady District" tags="" position="225,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
-&lt;&lt;set $player.location=&quot;The Shady District&quot;&gt;&gt;\
-You make your way to the Shady District. It&#39;s more of just the residential district for the poor, who you sympathize with, but it doesn&#39;t help your feeling that you&#39;re about to be stabbed.
-
-Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="23" name="Town Center" tags="" position="350,350" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
-&lt;&lt;incrementTime 0 2&gt;&gt;\
-You are in the town center.
-
-Places of Interest
-[[Go Home|In Your Room]]
-[[Chemical Imbalance (Bar)|Chemical Imbalance]]
-
-Travel
-[[Upper District|Upper District]]
-[[Industrial District|Industrial District]]
-[[Shady District|Shady District]]
-[[Port|Port]]
-&lt;&lt;link &quot;Loiter (1:00)&quot; &quot;Town Center&quot;&gt;&gt;&lt;&lt;incrementTime 1 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-
-[[Leave Town|Crossroads]]</tw-passagedata><tw-passagedata pid="24" name="Chemical Imbalance" tags="" position="475,350" size="100,100">As you enter the tavern, the warm glow covers you as you&#39;re greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
-
-&lt;&lt;if !$quests.questLog[&quot;A certain undergarment&quot;].knownQuest&gt;&gt;\
-&lt;&lt;link &#39;Ask the bartender &quot;Is there anything I can help you with?&quot;&#39; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;elseif $quests.questLog[&quot;A certain undergarment&quot;].currentStep != 3&gt;&gt;\
-&lt;&lt;link &quot;Ask about &#39;A certain undergarment&#39;&quot; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;/if&gt;&gt;\
-
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="25" name="Upper District" tags="" position="600,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
-&lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
-You make your way to the Upper District.
-
-Places of Interest
-[[Go to the Salt Fort|Salt Fort Entrance]]
-
-Travel
-[[Commercial District|Commercial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="26" name="Salt Fort Entrance" tags="" position="725,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
-&lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
-You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
-
-[[Enter the Fort|Salt Fort Entranceway]]
-
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="27" name="Salt Fort Entranceway" tags="" position="850,350" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
-&lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
-The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
-
-[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="28" name="StoryBanner" tags="" position="975,350" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="StorySubtitle" tags="" position="1100,350" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="30" name="StoryInit" tags="" position="1225,350" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="34" name="StoryBanner" tags="" position="475,475" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="StorySubtitle" tags="" position="600,475" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="36" name="StoryInit" tags="" position="725,475" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
     &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Health $player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
@@ -872,7 +922,7 @@ The guards let you pass without any hassle. You step into the castle. There&#39;
     &lt;&lt;colors &#39;blue&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Mana $player.mana / $player.maxMana&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
-&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="StoryCaption" tags="" position="100,475" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="StoryCaption" tags="" position="850,475" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -896,12 +946,12 @@ Location: $player.location
 
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Journal&quot;&gt;&gt;&lt;&lt;journal&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="Start" tags="" position="225,475" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="Start" tags="" position="975,475" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
-[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="33" name="Character Creation" tags="" position="350,475" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
+[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="39" name="Character Creation" tags="" position="1100,475" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 
