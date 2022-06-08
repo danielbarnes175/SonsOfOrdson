@@ -35,7 +35,7 @@ What would you like to do?
   <<if $currentEncounter.playerWonEncounter>>
   Encounter Complete!
 
-  You have received a sense of pride and accomplishment.
+  <<processEncounterWon>>
 
   <<link "Exit" $player.locationBeforeEncounter>><<endEncounter>><<incrementTime 0 3>><</link>>
   <<else>>

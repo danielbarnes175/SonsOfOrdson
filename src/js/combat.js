@@ -64,6 +64,22 @@ macros.endEncounter = {
   init() { },
 };
 
+macros.processEncounterWon = {
+  /* eslint-disable-next-line */
+  handler(place, macroName, params, parser) {
+    let gold = Math.floor(Math.random() * 20) + 10;
+    let exp = Math.floor(Math.random() * 50) + 50;
+
+    State.variables.player.gold += gold;
+    State.variables.player.exp += exp;
+
+    new Wikifier(place, "You've received: \n");
+    new Wikifier(place, `${gold} Gold\n`);
+    new Wikifier(place, `${exp} Exp\n`);
+  },
+  init() { },
+}
+
 let getPlayerActions = () => [
   State.variables.weapons.Dagger,
   State.variables.weapons.Fist,

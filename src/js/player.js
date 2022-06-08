@@ -2,6 +2,8 @@ State.variables.player = {
   name: 'Bob',
   age: '20',
   level: 1,
+  gold: 50,
+  exp: 0,
   health: 30,
   maxHealth: 30,
   mana: 30,

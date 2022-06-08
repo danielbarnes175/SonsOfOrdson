@@ -4,6 +4,7 @@
             "setupEncounter": {},
             "progressEncounter": {},
             "endEncounter": {},
+            "processEncounterWon": {}
         }
     }
 }
