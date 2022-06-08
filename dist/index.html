@@ -101,15 +101,19 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="40" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="40" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "style.css" */
+body {
+    font-family: Helvetica, sans-serif;
+}
+/* twine-user-stylesheet #2: "journal.css" */
 .journal button {
     width: 100%;
 }
-/* twine-user-stylesheet #2: "notify.min.css" */
+/* twine-user-stylesheet #3: "notify.min.css" */
 /* notify.min.css, by chapel; for use with notify.js; v1.0.0 */
 #notify{position:fixed;display:block;width:16em;right:-20em;top:2em;padding:.5em;background-color:#fff;color:#000;-webkit-transition:right .3s;-moz-transition:right .3s;-o-transition:right .3s;transition:right .3s}#notify.open{right:0}
 /* end notify.min.css */
-/* twine-user-stylesheet #3: "numberpool-macro-set.css" */
+/* twine-user-stylesheet #4: "numberpool-macro-set.css" */
 /*! <<numberpool>> macro set for SugarCube v2 */
 div[id|="numberinput-body"] {
 	display: inline-block;
@@ -291,8 +295,8 @@ macros.endEncounter = {
 macros.processEncounterWon = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    let gold = Math.floor(Math.random() * 20) + 10;
-    let exp = Math.floor(Math.random() * 50) + 50;
+    const gold = Math.floor(Math.random() * 20) + 10;
+    const exp = Math.floor(Math.random() * 50) + 50;
 
     State.variables.player.gold += gold;
     State.variables.player.exp += exp;
@@ -302,7 +306,7 @@ macros.processEncounterWon = {
     new Wikifier(place, `${exp} Exp\n`);
   },
   init() { },
-}
+};
 
 let getPlayerActions = () => [
   State.variables.weapons.Dagger,
@@ -706,9 +710,9 @@ As you stand at the entrance, you notice one of the bank workers starting to wal
 You make your way to the Financial District. Suddenly you&#39;re enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
 Places of Interest
-[[Silver Patchwork (Clothing)|Silver Patchwork]]
-[[Fourth Bank of Ordson|Fourth Bank of Ordson]]
-[[Market|Market]]
+[[🧵 Silver Patchwork|Silver Patchwork]]
+[[🏛️ Fourth Bank of Ordson|Fourth Bank of Ordson]]
+[[🤝 Market|Market]]
 
 Travel
 [[Upper District|Upper District]]</tw-passagedata><tw-passagedata pid="7" name="Silver Patchwork" tags="" position="850,100" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
@@ -753,9 +757,9 @@ Deeper back, you&#39;re able to see part of the forge, but you know that it open
 You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
 Places of Interest
-[[Bubble and Broil (distillery)|Bubble and Broil]]
-[[General Metalworks (blacksmith)|General Metalworks]]
-[[Chronicler&#39;s Temple|Chronicler&#39;s Temple]]
+[[🧪 Bubble and Broil|Bubble and Broil]]
+[[🔨 General Metalworks|General Metalworks]]
+[[🙏 Chronicler&#39;s Temple|Chronicler&#39;s Temple]]
 
 Travel
 [[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="13" name="Crossroads" tags="" position="350,225" size="100,100">&lt;&lt;set $player.location=&quot;Crossroads&quot;&gt;&gt;\
@@ -765,7 +769,7 @@ You make your way to the crossroads outside town. One of the paths leads to the 
 Travel
 [[Forest]]
 [[Mountains|Mountain Base]]
-[[Town Center]]</tw-passagedata><tw-passagedata pid="14" name="Forest" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
+[[Town|Town Center]]</tw-passagedata><tw-passagedata pid="14" name="Forest" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
 
 You follow the path to the entrance of the forest.
 
@@ -798,8 +802,8 @@ As soon as you step into the Green Raven, you&#39;re greeted by Trina Ventiro, o
 You make your way to the Port. There&#39;s boats all around. And water. And even a lighthouse in the distance! It&#39;s definitely a port.
 
 Places of Interest
-[[Boat Charters|Boat Charters]]
-[[Green Raven (tavern)|Green Raven]]
+[[⛵ Boat Charters|Boat Charters]]
+[[🍺 Green Raven|Green Raven]]
 
 Travel
 [[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="19" name="Boat Charters" tags="" position="1100,225" size="100,100">You walk over to the booth to charter a boat. Unfortunately, when you get there, you see a sign that says &quot;Out Fishing&quot;. Maybe someone knows where the owner is at the tavern?
@@ -843,8 +847,8 @@ You stand alone in your room. It&#39;s just the way you left it.
 You are in the town center.
 
 Places of Interest
-[[Go Home|In Your Room]]
-[[Chemical Imbalance (Bar)|Chemical Imbalance]]
+[[🏠 Go Home|In Your Room]]
+[[🍺 Chemical Imbalance|Chemical Imbalance]]
 
 Travel
 [[Upper District|Upper District]]
@@ -886,9 +890,9 @@ The guards let you pass without any hassle. You step into the castle. There&#39;
 You make your way to the Upper District.
 
 Places of Interest
-[[Salt Fort|Salt Fort Entrance]]
-[[Linen Dreams|Linen Dreams]]
-[[Ordson Medical|Ordson Medical]]
+[[🏰 Salt Fort|Salt Fort Entrance]]
+[[🛏️ Linen Dreams|Linen Dreams]]
+[[❤️ Ordson Medical|Ordson Medical]]
 
 Travel
 [[Financial District|Financial District]]
