@@ -1,0 +1,12 @@
+:: Upper District
+<<incrementTime 0 2>>\
+<<set $player.location="The Upper District">>\
+You make your way to the Upper District.
+
+Places of Interest
+[[Salt Fort|Salt Fort Entrance]]
+[[Linen Dreams|Linen Dreams]]
+
+Travel
+[[Financial District|Financial District]]
+[[Town Center|Town Center]]

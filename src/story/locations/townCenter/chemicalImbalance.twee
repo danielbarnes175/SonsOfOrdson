@@ -1,22 +1,5 @@
-:: Town Center
-<<set $player.location="Town Center">>\
-<<incrementTime 0 2>>\
-You are in the town center.
-
-Places of Interest
-[[Go Home|In Your Room]]
-[[Chemical Imbalance (Bar)|Chemical Imbalance]]
-
-Travel
-[[Upper District|Upper District]]
-[[Industrial District|Industrial District]]
-[[Shady District|Shady District]]
-[[Port|Port]]
-<<link "Loiter (1:00)" "Town Center">><<incrementTime 1 0>><</link>>
-
-[[Leave Town|Crossroads]]
-
 :: Chemical Imbalance
+<<set $player.location="Chemical Imbalance">>\
 As you enter the tavern, the warm glow covers you as you're greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
 
 <<if !$quests.questLog["A certain undergarment"].knownQuest>>\

@@ -1,0 +1,10 @@
+:: Green Raven
+<<set $player.location="Green Raven">>\
+
+As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner of Green Raven, the sleeziest bar in town, and also the village drunk.
+
+"Welcome to the Green Raven, hun" she says, slurring her speech. "If you need anything, just sit at one of the tables, and I'll be right uh-with you."
+
+[[Sit at a table|Shop]]
+
+[[Leave|Port]]

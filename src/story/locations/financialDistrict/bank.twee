@@ -1,0 +1,10 @@
+:: Fourth Bank of Ordson
+<<set $player.location="Fourth Bank of Ordson">>\
+
+You reluctantly walk into the Fourth Bank of Ordson. For a city like Ordson, you would think that a single bank would suffice. Unfortunately, the first three banks of Ordson befell horrific tragedies, and they had to make a new bank each time.
+
+You're not sure if it's poor management, ghosts, or something else entirely, but you, and many other citizens of the town know that it's not a good idea to store your money here.
+
+As you stand at the entrance, you notice one of the bank workers starting to walk up to you. Every time they want to give you their pitch about how your money is in perfectly good hands. Best to leave before they actually get to you.
+
+[[Leave|Financial District]]

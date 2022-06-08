@@ -1,0 +1,17 @@
+:: Town Center
+<<set $player.location="Town Center">>\
+<<incrementTime 0 2>>\
+You are in the town center.
+
+Places of Interest
+[[Go Home|In Your Room]]
+[[Chemical Imbalance (Bar)|Chemical Imbalance]]
+
+Travel
+[[Upper District|Upper District]]
+[[Industrial District|Industrial District]]
+[[Gray District|Gray District]]
+[[Port|Port]]
+<<link "Loiter (1:00)" "Town Center">><<incrementTime 1 0>><</link>>
+
+[[Leave Town|Crossroads]]

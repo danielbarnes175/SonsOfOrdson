@@ -1,0 +1,10 @@
+:: General Metalworks
+<<set $player.location="General Metalworks">>\
+You push open the heavy metal door and step into the shop. The walls are lined with various weapons, and armors that would be useful for adventurers.
+
+Deeper back, you're able to see part of the forge, but you know that it opens up into a much larger area that you cannot see. You're not shocked that it's a bit warmer in here than most other buildings in Ordson.
+
+[[Shop]]
+[[Walk to the back|General Metalworks - Forge]]
+
+[[Leave| Industrial District]]

@@ -1,14 +1,3 @@
-:: Commercial District
-<<incrementTime 0 2>>\
-<<set $player.location="The Commercial District">>\
-You make your way to the Commercial District. Suddenly you're enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
-
-Places of Interest
-[[Enter the Silver Patchwork (Clothing)|Silver Patchwork]]
-
-Travel
-[[Upper District|Upper District]]
-
 :: Silver Patchwork
 <<incrementTime 0 1>>\
 <<set $player.location="Silver Patchwork">>\
@@ -21,4 +10,4 @@ You walk into the giant clothing store. As you as you get inside, you see countl
     [[Ask about 'A certain undergarment'|Silver Patchwork - Owner - A certain undergarment 1]]
     <</if>>\
 <</if>>\
-[[Leave|Commercial District]]
+[[Leave|Financial District]]

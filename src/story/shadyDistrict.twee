@@ -1,7 +1,0 @@
-:: Shady District
-<<incrementTime 0 2>>\
-<<set $player.location="The Shady District">>\
-You make your way to the Shady District. It's more of just the residential district for the poor, who you sympathize with, but it doesn't help your feeling that you're about to be stabbed.
-
-Travel
-[[Town Center|Town Center]]

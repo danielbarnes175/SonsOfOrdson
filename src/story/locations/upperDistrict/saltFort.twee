@@ -1,15 +1,3 @@
-:: Upper District
-<<incrementTime 0 2>>\
-<<set $player.location="The Upper District">>\
-You make your way to the Upper District.
-
-Places of Interest
-[[Go to the Salt Fort|Salt Fort Entrance]]
-
-Travel
-[[Commercial District|Commercial District]]
-[[Town Center|Town Center]]
-
 :: Salt Fort Entrance
 <<incrementTime 0 2>>\
 <<set $player.location="Salt Fort Entrance">>\
