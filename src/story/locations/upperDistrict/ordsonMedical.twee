@@ -1,0 +1,20 @@
+:: Ordson Medical
+<<set $player.location="Ordson Medical">>\
+For adventurers, they often rely on health potions, and magic in the field. When you're in a big city like Ordson, you can oftentimes find treatment at a local hospital. Ordson Medical is exactly that.
+
+You walk into the lobby, and approach the front desk.
+
+[[See A Doctor|Doctor]]
+
+[[Leave|Upper District]]
+
+:: Doctor
+You're brought to a private room where a doctor comes in to see you.
+
+<<if $player.health < $player.maxHealth>>\
+    <<set $player.health = $player.maxHealth>>\
+    "You look hurt. Let me patch you right up," the doctor says, "there we go. You should feel much better!"
+<</if>>\
+The doctor doesn't see any further treatment that you might need, and quickly dismisses you.
+
+[[Leave|Upper District]]

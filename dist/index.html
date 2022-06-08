@@ -101,7 +101,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="38" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="40" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "journal.css" */
 .journal button {
     width: 100%;
 }
@@ -856,27 +856,43 @@ Travel
 [[Leave Town|Crossroads]]</tw-passagedata><tw-passagedata pid="25" name="Linen Dreams" tags="" position="600,350" size="100,100">&lt;&lt;set $player.location=&quot;Linen Dreams&quot;&gt;&gt;\
 You push through the front doors leading into Linen Dreams. Inside the lobby are various important looking people of all races. Typically when notable people are travelling for business, they&#39;ll stay at Linen Dreams due to its incredible reputation, and proximity to the Salt Fort. Being so close to the Salt Fort, it can be kept secure by the royal guards for any patrons looking to rest their heads somewhere comfortable for the night.
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="26" name="Salt Fort Entrance" tags="" position="725,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="26" name="Ordson Medical" tags="" position="725,350" size="100,100">&lt;&lt;set $player.location=&quot;Ordson Medical&quot;&gt;&gt;\
+For adventurers, they often rely on health potions, and magic in the field. When you&#39;re in a big city like Ordson, you can oftentimes find treatment at a local hospital. Ordson Medical is exactly that.
+
+You walk into the lobby, and approach the front desk.
+
+[[See A Doctor|Doctor]]
+
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="27" name="Doctor" tags="" position="850,350" size="100,100">You&#39;re brought to a private room where a doctor comes in to see you.
+
+&lt;&lt;if $player.health &lt; $player.maxHealth&gt;&gt;\
+    &lt;&lt;set $player.health = $player.maxHealth&gt;&gt;\
+    &quot;You look hurt. Let me patch you right up,&quot; the doctor says, &quot;there we go. You should feel much better!&quot;
+&lt;&lt;/if&gt;&gt;\
+The doctor doesn&#39;t see any further treatment that you might need, and quickly dismisses you.
+
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="28" name="Salt Fort Entrance" tags="" position="975,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
 You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="27" name="Salt Fort Entranceway" tags="" position="850,350" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="29" name="Salt Fort Entranceway" tags="" position="1100,350" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
 The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
-[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="28" name="Upper District" tags="" position="975,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="30" name="Upper District" tags="" position="1225,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
 You make your way to the Upper District.
 
 Places of Interest
 [[Salt Fort|Salt Fort Entrance]]
 [[Linen Dreams|Linen Dreams]]
+[[Ordson Medical|Ordson Medical]]
 
 Travel
 [[Financial District|Financial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="29" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="1100,350" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="31" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="100,475" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].knownQuest = true&gt;&gt;\
 The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know, there actually is something that I could use your help for.&quot;
 
@@ -906,15 +922,15 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
         [[Leave|Chemical Imbalance]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="30" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="1225,350" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="32" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="225,475" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
 
 [[&#39;&quot;Sure, I&#39;ll help you.&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 3]]
-[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="31" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="100,475" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
+[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="33" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="350,475" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
 
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].currentStep = 1&gt;&gt;\
-[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="32" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="225,475" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
+[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="34" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="475,475" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="33" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="350,475" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="35" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="600,475" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
   The owner doesn&#39;t seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn&#39;t even look at you as he looks over his list of orders.
 
   Welp, guess all you can do is return the package to the barkeep.
@@ -931,7 +947,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
   [[Leave|Commercial District]]
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="34" name="StoryBanner" tags="" position="475,475" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="StorySubtitle" tags="" position="600,475" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="36" name="StoryInit" tags="" position="725,475" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="36" name="StoryBanner" tags="" position="725,475" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="StorySubtitle" tags="" position="850,475" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="38" name="StoryInit" tags="" position="975,475" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
     &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Health $player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
@@ -940,7 +956,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
     &lt;&lt;colors &#39;blue&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Mana $player.mana / $player.maxMana&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
-&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="StoryCaption" tags="" position="850,475" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="StoryCaption" tags="" position="1100,475" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -966,12 +982,12 @@ Gold - $player.gold
 
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Journal&quot;&gt;&gt;&lt;&lt;journal&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="Start" tags="" position="975,475" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="Start" tags="" position="1225,475" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
-[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="39" name="Character Creation" tags="" position="1100,475" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
+[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="41" name="Character Creation" tags="" position="100,600" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 

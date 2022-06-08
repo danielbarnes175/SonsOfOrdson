@@ -6,7 +6,7 @@ You make your way to the crossroads outside town. One of the paths leads to the 
 Travel
 [[Forest]]
 [[Mountains|Mountain Base]]
-[[Town Center]]
+[[Town|Town Center]]
 
 :: Forest
 <<set $player.location="Forest">>\
