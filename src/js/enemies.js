@@ -12,5 +12,6 @@ State.variables.enemies = {
       cha: 8,
     },
     damage: '1d3+1',
+    guildProgress: 1,
   },
 };

@@ -29,27 +29,27 @@ Version: 0.0.1
 <</newmeter>>
 <<newmeter "merchantsGuildProgress">>
     <<colors 'blue' 'white'>>
-    <<label 'Progress $guildRelations.merchantsGuild.currentProgress / $guildRelations.merchantsGuild.maxProgress' 'black' center>>
+    <<label 'Progress $guilds.merchantsGuild.currentProgress / $guilds.merchantsGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 <<newmeter "adventurersGuildProgress">>
     <<colors 'blue' 'white'>>
-    <<label 'Progress $guildRelations.adventurersGuild.currentProgress / $guildRelations.adventurersGuild.maxProgress' 'black' center>>
+    <<label 'Progress $guilds.adventurersGuild.currentProgress / $guilds.adventurersGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 <<newmeter "thievesGuildProgress">>
     <<colors 'blue' 'white'>>
-    <<label 'Progress $guildRelations.thievesGuild.currentProgress / $guildRelations.thievesGuild.maxProgress' 'black' center>>
+    <<label 'Progress $guilds.thievesGuild.currentProgress / $guilds.thievesGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 <<newmeter "scienceGuildProgress">>
     <<colors 'blue' 'white'>>
-    <<label 'Progress $guildRelations.scienceGuild.currentProgress / $guildRelations.scienceGuild.maxProgress' 'black' center>>
+    <<label 'Progress $guilds.scienceGuild.currentProgress / $guilds.scienceGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 <<newmeter "churchGuildProgress">>
     <<colors 'blue' 'white'>>
-    <<label 'Progress $guildRelations.churchGuild.currentProgress / $guildRelations.churchGuild.maxProgress' 'black' center>>
+    <<label 'Progress $guilds.churchGuild.currentProgress / $guilds.churchGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 
@@ -79,7 +79,6 @@ Gold - $player.gold
 <div class="meter-container"><center><<showmeter "healthMeter" `$player.health / $player.maxHealth`>></center></div>\
 <div class="meter-container"><center><<showmeter "manaMeter" `$player.mana / $player.maxMana`>></center></div>\
 <hr>
-
 
 
 

@@ -2,6 +2,7 @@
     "sugarcube-2": {
         "macros": {
             "relationships": {},
+            "joinAdventurersGuild": {},
         }
     }
 }

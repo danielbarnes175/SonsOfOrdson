@@ -1,4 +1,59 @@
-:: Adventurers Guild
-You walk into the Adventurer's Guild. There's a job board to your right, crowded by various adventurers trying to make cost benefit analyses. To your left stands the Guildmaster.
+:: Adventurer's Guild
+You walk into the Adventurer's Guild. There's a job board to your right, crowded by various adventurers trying to make cost benefit analyses. You notice an old man standing on the left behind a counter. That must be the Guildmaster.
+
+[[Talk to the Guildmaster|Guildmaster 0]]
+[[Job Board|Adventurer's Guild Job Board]]
 
 [[Leave|Town Center]]
+
+:: Adventurer's Guild Job Board
+You walk up to the Job Board.
+
+<<if $guilds.adventurersGuild.isPlayerMemberOf>>\
+Surprisingly, the job board is completely empty! Maybe some jobs will be added in a future update.
+
+[[Leave|Adventurer's Guild]]
+<<else>>\
+One of the adventurer's nearby sees you. He walks up to you and puts a hand on your chest, holding you back from the job board. "Bro, not cool. Not cool." He says, "These jobs are only for members of the guild."
+
+[[Leave|Adventurer's Guild]]
+<</if>>\
+:: Guildmaster 0
+<<if !$guilds.adventurersGuild.isPlayerMemberOf>>\
+You walk up to the Guildmaster. He looks up and down at you. "Yep," he starts, "I can tell you're looking to get into adventuring. Do you want to join the Adventurer's Guild? I should also say that the membership fee is 25 gold every month."
+
+[[`"Yes, I'd like to join the Adventurer's Guild!"`|Guildmaster 1]]
+[[`"On second thought, maybe I'll pass for now."`|Adventurer's Guild]]
+<<else>>\
+You walk up to the Guildmaster. "Ah hello, $player.name."
+
+[[`"So how does this all work?"`|Guildmaster 2]]
+[[`"Hello! I just wanted to say hi."`|Guildmaster 3]]
+<</if>>\
+
+:: Guildmaster 1
+<<if $player.gold >= 25>>\
+"Perfect, just sign these forms here real quick, and then I'll also need 25 gold from you." The Guildmaster hands you some forms, and you quickly fill them out. He takes the forms and walks into the backroom.
+
+10 minutes pass, and right when you're starting to get worried that the old man ran off with your gold, he comes back, holding a badge. "This badge," he says, "is official proof that you're a member of the Adventurer's Guild. Welcome to the Guild!"
+
+[[`"So how does this all work?"`|Guildmaster 2]]
+[[`"Thank you! I'll be on my way now."`|Adventurer's Guild]]
+<<joinAdventurersGuild>>\
+<<else>>\
+"Perfect, just sign these forms here real quick, and then I'll also need 25 gold from you." The Guildmaster hands you some forms, and then waits for you to hand him the gold. "Oh? You don't have enough gold. How cute. Maybe you should come back another time."
+
+[[Leave|Adventurer's Guild]]
+<</if>>\
+
+:: Guildmaster 2
+"Being a member of the Adventurer's Guild is simple. First, as you become a more accomplished adventurer, you'll gain favor within the guild. This can be done by fighting monsters in the land, or by taking on jobs from the job board. Pretty straightforward. Then, as you progress through the tiers, you'll gain various perks that we offer. They can range from allowing you to take more difficult jobs to even giving you access to some of the more notable figures in the city."
+
+The Guildmaster looks at you and confirms your understanding. So all you have to do is kill monsters, and do jobs? That shouldn't be too difficult.
+
+[[`"Thank you, I'll be on my way now."`|Adventurer's Guild]]
+
+:: Guildmaster 3
+The guildmaster smiles, "Hello $player.name."
+
+[[Leave|Adventurer's Guild]]

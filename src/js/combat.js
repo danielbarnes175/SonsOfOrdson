@@ -99,6 +99,8 @@ let isEncounterOver = () => {
     const currentEnemy = State.variables.currentEncounter.enemies[i];
     if (currentEnemy.health > 0) {
       aliveEnemies.push(currentEnemy);
+    } else if (State.variables.guilds.adventurersGuild.isPlayerMemberOf) {
+      State.variables.guilds.adventurersGuild.currentProgress += currentEnemy.guildProgress;
     }
   }
 
