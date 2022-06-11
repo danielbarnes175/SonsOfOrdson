@@ -1,6 +1,8 @@
 :: Gray District
 <<incrementTime 0 2>>\
 <<set $player.location="The Gray District">>\
+<<getBannerForLocation $player.location>>
+
 You make your way to the Gray District. It's not even officially a district, but rather more of just the residential district for the poor. Everyone calls it the Gray District because of that. You sympathize with the poorer residents in town, but it doesn't help the feeling that you're about to be stabbed.
 
 Locations of Interest

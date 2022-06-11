@@ -1,4 +1,7 @@
 :: Adventurer's Guild
+<<set $player.location="Adventurer's Guild">>\
+<<getBannerForLocation $player.location>>
+
 You walk into the Adventurer's Guild. There's a job board to your right, crowded by various adventurers trying to make cost benefit analyses. You notice an old man standing on the left behind a counter. That must be the Guildmaster.
 
 [[Talk to the Guildmaster|Guildmaster 0]]

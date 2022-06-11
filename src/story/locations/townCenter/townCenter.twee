@@ -1,6 +1,8 @@
 :: Town Center
 <<set $player.location="Town Center">>\
 <<incrementTime 0 2>>\
+<<getBannerForLocation $player.location>>
+
 You are in the town center.
 
 Places of Interest

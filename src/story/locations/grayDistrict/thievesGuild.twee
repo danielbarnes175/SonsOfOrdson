@@ -1,4 +1,7 @@
 :: Thieves' Guild
+<<set $player.location="Thieves' Guild">>\
+<<getBannerForLocation $player.location>>
+
 The door is opened, and you walk into the Thieve's Guild. For a place that's meant for literal criminals, it's a little surprising how nice it is.
 
 [[Leave|Gray District Back Alley]]

@@ -1,6 +1,8 @@
 :: Industrial District
 <<incrementTime 0 2>>\
 <<set $player.location="The Industrial District">>\
+<<getBannerForLocation $player.location>>
+
 You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
 
 Places of Interest

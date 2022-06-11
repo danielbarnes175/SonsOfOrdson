@@ -1,6 +1,8 @@
 :: Port
 <<incrementTime 0 2>>\
 <<set $player.location="The Port">>\
+<<getBannerForLocation $player.location>>
+
 You make your way to the Port. There's boats all around. And water. And even a lighthouse in the distance! It's definitely a port.
 
 Places of Interest

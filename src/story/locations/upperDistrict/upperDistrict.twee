@@ -1,6 +1,8 @@
 :: Upper District
 <<incrementTime 0 2>>\
 <<set $player.location="The Upper District">>\
+<<getBannerForLocation $player.location>>
+
 You make your way to the Upper District.
 
 Places of Interest
