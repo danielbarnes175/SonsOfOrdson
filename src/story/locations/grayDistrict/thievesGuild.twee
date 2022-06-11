@@ -1,0 +1,46 @@
+:: Thieves' Guild
+The door is opened, and you walk into the Thieve's Guild. For a place that's meant for literal criminals, it's a little surprising how nice it is.
+
+[[Leave|Gray District Back Alley]]
+
+
+:: Thieves' Guild Entranceway
+You knock on the door. You hear a voice from the other side, "Who is it?".
+
+"Uhh, my name is $player.name" you say, hesitantly.
+
+"What are you doing here?" the voice replies.
+
+[[`"I'm wondering if I can help with your plague problem."`|Thieves' Guild Entranceway 3]]
+[[`"I'm wondering if the hare always beats the turtle."`|Thieves' Guild Entranceway 2]]
+[[`"Uhh, on second thought, nevermind."`|Gray District Back Alley]]
+
+:: Thieves' Guild Entranceway 2
+You say the seemingly random phrase, and the door opens up. A man with a dark beard stands at the door. "Come inside." He says.
+
+[[Go Inside|Thieves' Guild]]
+
+:: Thieves' Guild Entranceway 3
+The voice immediately says "No, go away."
+
+You wait a second, but it doesn't look like he's going to say much else.
+
+[[Knock on the door again|Thieves' Guild Entranceway 4]]
+[[Leave|Gray District Back Alley]]
+
+:: Thieves' Guild Entranceway 4
+You knock on the door again. You hear a voice from the other side, "Who is it?".
+
+You give a quick reply. "Hello, my name is $player.name."
+
+"Oh, not you again! Go away!" the voice aggressively says.
+
+[[Knock on the door again|Thieves' Guild Entranceway 5]]
+[[Leave|Gray District Back Alley]]
+
+:: Thieves' Guild Entranceway 5
+You knock on the door again. Before you even finish knocking, the door swings open.
+
+"Fine," the voice, who you now see is a man with a dark beard, says before continuing "Just get inside. Quick before anyone sees you."
+
+[[Go Inside|Thieves' Guild]]

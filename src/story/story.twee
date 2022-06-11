@@ -27,6 +27,32 @@ Version: 0.0.1
     <<label 'Mana $player.mana / $player.maxMana' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
+<<newmeter "merchantsGuildProgress">>
+    <<colors 'blue' 'white'>>
+    <<label 'Progress $guildRelations.merchantsGuild.currentProgress / $guildRelations.merchantsGuild.maxProgress' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+<<newmeter "adventurersGuildProgress">>
+    <<colors 'blue' 'white'>>
+    <<label 'Progress $guildRelations.adventurersGuild.currentProgress / $guildRelations.adventurersGuild.maxProgress' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+<<newmeter "thievesGuildProgress">>
+    <<colors 'blue' 'white'>>
+    <<label 'Progress $guildRelations.thievesGuild.currentProgress / $guildRelations.thievesGuild.maxProgress' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+<<newmeter "scienceGuildProgress">>
+    <<colors 'blue' 'white'>>
+    <<label 'Progress $guildRelations.scienceGuild.currentProgress / $guildRelations.scienceGuild.maxProgress' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+<<newmeter "churchGuildProgress">>
+    <<colors 'blue' 'white'>>
+    <<label 'Progress $guildRelations.churchGuild.currentProgress / $guildRelations.churchGuild.maxProgress' 'black' center>>
+    <<sizing "90%" "125%">>
+<</newmeter>>
+
 
 :: StoryCaption
 <<if $gameStarted>>
@@ -50,9 +76,15 @@ Gold - $player.gold
     </tr>
 </table></center>\
 <hr>
-<center><<showmeter "healthMeter" `$player.health / $player.maxHealth`>></center>
-<center><<showmeter "manaMeter" `$player.mana / $player.maxMana`>></center>
+<div class="meter-container"><center><<showmeter "healthMeter" `$player.health / $player.maxHealth`>></center></div>\
+<div class="meter-container"><center><<showmeter "manaMeter" `$player.mana / $player.maxMana`>></center></div>\
+<hr>
 
+
+
+
+
+<span class="journal"><<button "Relationships">><<relationships>><</button>></span>
 <span class="journal"><<button "Journal">><<journal>><</button>></span>
 
 <</if>>

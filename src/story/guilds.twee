@@ -1,0 +1,25 @@
+:: Relations
+
+__Faction Progress__
+
+Merchant's Guild\
+
+<div class="meter-container"><center><<showmeter "merchantsGuildProgress" `$guildRelations.merchantsGuild.currentProgress / $guildRelations.merchantsGuild.maxProgress`>></center></div>\
+<hr>
+Adventurer's Guild\
+
+<div class="meter-container"><center><<showmeter "adventurersGuildProgress" `$guildRelations.adventurersGuild.currentProgress / $guildRelations.adventurersGuild.maxProgress`>></center></div>\
+<hr>
+Thieves' Guild\
+
+<div class="meter-container"><center><<showmeter "thievesGuildProgress" `$guildRelations.thievesGuild.currentProgress / $guildRelations.thievesGuild.maxProgress`>></center></div>\
+<hr>
+Science Guild\
+
+<div class="meter-container"><center><<showmeter "scienceGuildProgress" `$guildRelations.scienceGuild.currentProgress / $guildRelations.scienceGuild.maxProgress`>></center></div>\
+<hr>
+Church\
+
+<div class="meter-container"><center><<showmeter "churchGuildProgress" `$guildRelations.churchGuild.currentProgress / $guildRelations.churchGuild.maxProgress`>></center></div>\
+<hr>
+__Unlocked Traits__

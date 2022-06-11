@@ -3,5 +3,16 @@
 <<set $player.location="The Gray District">>\
 You make your way to the Gray District. It's not even officially a district, but rather more of just the residential district for the poor. Everyone calls it the Gray District because of that. You sympathize with the poorer residents in town, but it doesn't help the feeling that you're about to be stabbed.
 
+Locations of Interest
+[[Back Alley|Gray District Back Alley]]
+
 Travel
 [[Town Center|Town Center]]
+
+:: Gray District Back Alley
+You walk down a dark, secluded alleyway. Surprisingly, you feel a little safer here, but you think that's more because nobody is around. At least, there's nobody that you can see around.
+
+There's a door with a giant red X on it. Usually that's used to mark the plague, but for some reason it looks a little suspicious.
+
+[[Knock on the door|Thieves' Guild Entranceway]]
+[[Return to the main road|Gray District]]
