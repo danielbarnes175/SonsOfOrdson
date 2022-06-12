@@ -101,7 +101,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="72" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "style.css" */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="76" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "style.css" */
 body {
     font-family: Helvetica, sans-serif;
 }
@@ -480,7 +480,7 @@ State.variables.guilds = {
     maxProgress: 100,
     isPlayerMemberOf: false,
   },
-  scienceGuild: {
+  ordTechGuild: {
     currentProgress: 0,
     maxProgress: 100,
     isPlayerMemberOf: false,
@@ -490,6 +490,67 @@ State.variables.guilds = {
     maxProgress: 100,
     isPlayerMemberOf: false,
   },
+};
+
+State.variables.ordTech = {
+  entranceExam: [
+    {
+      question: 'What is the first element of the periodic table?',
+      choices: [
+        'Hydrogen',
+        'Oxygen',
+        'Beryllium',
+        'None of the above',
+      ],
+      correctAnswerIndex: 0,
+      selectedAnswerIndex: -1,
+    },
+    {
+      question: '2?',
+      choices: [
+        'Hydrogen2',
+        'Oxygen2',
+        'Beryllium2',
+        'None of the above2',
+      ],
+      correctAnswerIndex: 0,
+      selectedAnswerIndex: -2,
+    },
+    {
+      question: '3?',
+      choices: [
+        'Hydrogen3',
+        'Oxygen3',
+        'Beryllium3',
+        'None of the above3',
+      ],
+      correctAnswerIndex: 0,
+      selectedAnswerIndex: -3,
+    },
+    {
+      question: '4?',
+      choices: [
+        'Hydrogen4',
+        'Oxygen4',
+        'Beryllium4',
+        'None of the above4',
+      ],
+      correctAnswerIndex: 0,
+      selectedAnswerIndex: -4,
+    },
+    {
+      question: '5?',
+      choices: [
+        'Hydrogen5',
+        'Oxygen5',
+        'Beryllium5',
+        'None of the above5',
+      ],
+      correctAnswerIndex: 0,
+      selectedAnswerIndex: -5,
+    },
+  ],
+  entranceExamScore: 0,
 };
 
 macros.relationships = {
@@ -507,6 +568,25 @@ macros.joinAdventurersGuild = {
     handler(place, macroName, params, parser) {
     State.variables.player.gold -= 25;
     State.variables.guilds.adventurersGuild.isPlayerMemberOf = true;
+  },
+  init() { },
+};
+
+macros.getEntranceExamScore = {
+  /* eslint-disable-next-line */
+    handler(place, macroName, params, parser) {
+    let correctAnswers = 0.0;
+    let i = 0;
+    State.variables.ordTech.entranceExam.forEach((question) => {
+      i++;
+      if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
+      console.log(`Question ${i}: ` + question.selectedAnswerIndex);
+    });
+
+    console.log(correctAnswers);
+    const examPercentage = correctAnswers / State.variables.ordTech.entranceExam.length;
+    State.variables.ordTech.entranceExamScore = examPercentage;
+    new Wikifier(place, `${examPercentage * 100}`);
   },
   init() { },
 };
@@ -619,7 +699,6 @@ macros.getBannerForLocation = {
       }
     }
 
-    
     const fileType = '.png';
     new Wikifier(place, `<img src="${directory}${imageKey}${time}${fileType}" onerror="this.onerror=null; this.src='${directory}default-banner.png'" alt="Image of ${State.variables.player.location}"  width=850 height=300>`);
   },
@@ -1145,14 +1224,62 @@ Travel
 [[Leave Town|Crossroads]]</tw-passagedata><tw-passagedata pid="56" name="Linen Dreams" tags="" position="725,725" size="100,100">&lt;&lt;set $player.location=&quot;Linen Dreams&quot;&gt;&gt;\
 You push through the front doors leading into Linen Dreams. Inside the lobby are various important looking people of all races. Typically when notable people are travelling for business, they&#39;ll stay at Linen Dreams due to its incredible reputation, and proximity to the Salt Fort. Being so close to the Salt Fort, it can be kept secure by the royal guards for any patrons looking to rest their heads somewhere comfortable for the night.
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="57" name="Ordson Medical" tags="" position="850,725" size="100,100">&lt;&lt;set $player.location=&quot;Ordson Medical&quot;&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="57" name="Ord Tech" tags="" position="850,725" size="100,100">&lt;&lt;set $player.location=&quot;Ord Tech&quot;&gt;&gt;\
+&lt;&lt;getBannerForLocation $player.location&gt;&gt;
+
+You open the door to the Ordson Technical University, also known as Ord Tech. Inside are a bunch of people wearing lab coats. They look like nerds. In reality, they&#39;re probably just students or researchers. That doesn&#39;t necessarily disqualify them from being nerds, though.
+
+[[Headmaster&#39;s Office|Ord Tech Headmaster&#39;s Office]]
+[[Research Labs|Ord Tech Research Labs]]
+
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="58" name="Ord Tech Headmaster&#39;s Office" tags="" position="975,725" size="100,100">&lt;&lt;if $guilds.ordTechGuild.isPlayerMemberOf&gt;&gt;\
+&quot;Hello,&quot; the Headmaster says, &quot;Staying on top of your studies, I assume?&quot;
+
+[[Return to main hall|Ord Tech]]
+&lt;&lt;else&gt;&gt;\
+The Headmaster notices you as you walk in. &quot;Ah! A new prospective student! Have you come to Ord Tech to learn about something new? We&#39;re the primo academy in all of Gerajyo when it comes to Science &amp; Technology, you know.&quot;
+
+[[`&quot;I&#39;d like to take the entrance exam.&quot;`|Ord Tech Entrance Exam]]
+[[Leave|Ord Tech]]
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="59" name="Ord Tech Entrance Exam" tags="" position="1100,725" size="100,100">The Headmaster hands you a piece of paper. On it contains 5 questions, of which you need to get at least 4 correct, or an 80%.
+
+You look down at the paper.
+&lt;hr&gt;
+&lt;&lt;for _i to 0; _i lt $ordTech.entranceExam.length; _i++&gt;&gt;\
+    &lt;&lt;set $_question = $ordTech.entranceExam[_i]&gt;&gt;\
+    $ordTech.entranceExam[_i].question:
+        &lt;&lt;radiobutton &quot;$_question.selectedAnswerIndex&quot; 0&gt;&gt; $_question.choices[0]
+        &lt;&lt;radiobutton &quot;$ordTech.entranceExam[_i].selectedAnswerIndex&quot; 1&gt;&gt; $_question.choices[1]
+        &lt;&lt;radiobutton &quot;$ordTech.entranceExam[_i].selectedAnswerIndex&quot; 2&gt;&gt; $_question.choices[2]
+        &lt;&lt;radiobutton &quot;$ordTech.entranceExam[_i].selectedAnswerIndex&quot; 3&gt;&gt; $_question.choices[3]
+    &lt;hr&gt;
+&lt;&lt;/for&gt;&gt;\
+
+[[Submit|Ord Tech Entrance Exam Results]]</tw-passagedata><tw-passagedata pid="60" name="Ord Tech Entrance Exam Results" tags="" position="1225,725" size="100,100">You hand the exam to the Headmaster. He looks it over, then pulls out a pen and marks it up. He hands it back to you, and you can see that you got a score of &lt;&lt;getEntranceExamScore&gt;&gt;%.
+
+&lt;&lt;if $ordTech.entranceExamScore &gt;= 0.8&gt;&gt;\
+&quot;Congratulations!&quot; The Guildmaster says, &quot;You&#39;ve passed! I&#39;ll put you into the school roster, and you&#39;ll officially be a student. Make sure to go to class, and study! If you&#39;d like, you can also help out at the research labs. Every month we hold exams to make sure students are staying on top of their studies. If you don&#39;t study enough in a month, you wont be able to pass, so be diligent!&quot;
+&lt;&lt;set $guilds.ordTechGuild.isPlayerMemberOf = true&gt;&gt;\
+
+[[Leave|Ord Tech]]
+&lt;&lt;else&gt;&gt;\
+&quot;Sorry,&quot; the Guildmaster says, &quot;it looks like you didn&#39;t reach the mark to be accepted to the university. Study up, and try again when you feel more confident!&quot;
+
+[[Leave|Ord Tech]]
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="61" name="Ord Tech Research Labs" tags="" position="100,850" size="100,100">&lt;&lt;if $guilds.ordTechGuild.isPlayerMemberOf&gt;&gt;\
+You walk into the Ord Tech Research Labs. There&#39;s a bunch of shiny equipment. Unfortunately, there&#39;s no lead researcher around, so there&#39;s nothing to do here right now.
+&lt;&lt;else&gt;&gt;\
+You walk to the Ord Tech research labs, but find that the door is locked! Perhaps if you were a student, you would have access to these labs...
+&lt;&lt;/if&gt;&gt;\
+
+[[Leave|Ord Tech]]</tw-passagedata><tw-passagedata pid="62" name="Ordson Medical" tags="" position="225,850" size="100,100">&lt;&lt;set $player.location=&quot;Ordson Medical&quot;&gt;&gt;\
 For adventurers, they often rely on health potions, and magic in the field. When you&#39;re in a big city like Ordson, you can oftentimes find treatment at a local hospital. Ordson Medical is exactly that.
 
 You walk into the lobby, and approach the front desk.
 
 [[See A Doctor|Doctor]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="58" name="Doctor" tags="" position="975,725" size="100,100">You&#39;re brought to a private room where a doctor comes in to see you.
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="63" name="Doctor" tags="" position="350,850" size="100,100">You&#39;re brought to a private room where a doctor comes in to see you.
 
 &lt;&lt;if $player.health &lt; $player.maxHealth&gt;&gt;\
     &lt;&lt;set $player.health = $player.maxHealth&gt;&gt;\
@@ -1160,22 +1287,17 @@ You walk into the lobby, and approach the front desk.
 &lt;&lt;/if&gt;&gt;\
 The doctor doesn&#39;t see any further treatment that you might need, and quickly dismisses you.
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="59" name="Salt Fort Entrance" tags="" position="1100,725" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="64" name="Salt Fort Entrance" tags="" position="475,850" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
 You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="60" name="Salt Fort Entranceway" tags="" position="1225,725" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="65" name="Salt Fort Entranceway" tags="" position="600,850" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
 The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
-[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="61" name="Science Guild" tags="" position="100,850" size="100,100">&lt;&lt;set $player.location=&quot;Science Guild&quot;&gt;&gt;\
-&lt;&lt;getBannerForLocation $player.location&gt;&gt;
-
-You open the door to the Science Guild. Inside are a bunch of people wearing lab coats. They look like nerds.
-
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="62" name="Upper District" tags="" position="225,850" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="66" name="Upper District" tags="" position="725,850" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
@@ -1185,11 +1307,11 @@ Places of Interest
 [[🏰 Salt Fort|Salt Fort Entrance]]
 [[🛏️ Linen Dreams|Linen Dreams]]
 [[❤️ Ordson Medical|Ordson Medical]]
-[[🧪 Science Guild|Science Guild]]
+[[🧪 Ordson Technical University|Ord Tech]]
 
 Travel
 [[Financial District|Financial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="63" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="350,850" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="67" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="850,850" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].knownQuest = true&gt;&gt;\
 The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know, there actually is something that I could use your help for.&quot;
 
@@ -1219,15 +1341,15 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
         [[Leave|Chemical Imbalance]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="64" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="475,850" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="68" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="975,850" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
 
 [[&#39;&quot;Sure, I&#39;ll help you.&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 3]]
-[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="65" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="600,850" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
+[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="69" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="1100,850" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
 
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].currentStep = 1&gt;&gt;\
-[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="66" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="725,850" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
+[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="70" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="1225,850" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="67" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="850,850" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="71" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="100,975" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
   The owner doesn&#39;t seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn&#39;t even look at you as he looks over his list of orders.
 
   Welp, guess all you can do is return the package to the barkeep.
@@ -1244,7 +1366,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
   [[Leave|Commercial District]]
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="68" name="StoryBanner" tags="" position="975,850" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="StorySubtitle" tags="" position="1100,850" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="70" name="StoryInit" tags="" position="1225,850" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="72" name="StoryBanner" tags="" position="225,975" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="StorySubtitle" tags="" position="350,975" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="74" name="StoryInit" tags="" position="475,975" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
     &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Health $player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
@@ -1278,7 +1400,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
     &lt;&lt;colors &#39;blue&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Progress $guilds.churchGuild.currentProgress / $guilds.churchGuild.maxProgress&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
-&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="StoryCaption" tags="" position="100,975" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="StoryCaption" tags="" position="600,975" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -1309,12 +1431,12 @@ Gold - $player.gold
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Relationships&quot;&gt;&gt;&lt;&lt;relationships&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Journal&quot;&gt;&gt;&lt;&lt;journal&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="Start" tags="" position="225,975" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="Start" tags="" position="725,975" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
-[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="73" name="Character Creation" tags="" position="350,975" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
+[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="77" name="Character Creation" tags="" position="850,975" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 

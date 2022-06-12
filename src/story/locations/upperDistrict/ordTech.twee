@@ -1,0 +1,62 @@
+:: Ord Tech
+<<set $player.location="Ord Tech">>\
+<<getBannerForLocation $player.location>>
+
+You open the door to the Ordson Technical University, also known as Ord Tech. Inside are a bunch of people wearing lab coats. They look like nerds. In reality, they're probably just students or researchers. That doesn't necessarily disqualify them from being nerds, though.
+
+[[Headmaster's Office|Ord Tech Headmaster's Office]]
+[[Research Labs|Ord Tech Research Labs]]
+
+[[Leave|Upper District]]
+
+:: Ord Tech Headmaster's Office
+<<if $guilds.ordTechGuild.isPlayerMemberOf>>\
+"Hello," the Headmaster says, "Staying on top of your studies, I assume?"
+
+[[Return to main hall|Ord Tech]]
+<<else>>\
+The Headmaster notices you as you walk in. "Ah! A new prospective student! Have you come to Ord Tech to learn about something new? We're the primo academy in all of Gerajyo when it comes to Science & Technology, you know."
+
+[[`"I'd like to take the entrance exam."`|Ord Tech Entrance Exam]]
+[[Leave|Ord Tech]]
+<</if>>\
+
+:: Ord Tech Entrance Exam
+The Headmaster hands you a piece of paper. On it contains 5 questions, of which you need to get at least 4 correct, or an 80%.
+
+You look down at the paper.
+<hr>
+<<for _i to 0; _i lt $ordTech.entranceExam.length; _i++>>\
+    <<set $_question = $ordTech.entranceExam[_i]>>\
+    $ordTech.entranceExam[_i].question:
+        <<radiobutton "$_question.selectedAnswerIndex" 0>> $_question.choices[0]
+        <<radiobutton "$ordTech.entranceExam[_i].selectedAnswerIndex" 1>> $_question.choices[1]
+        <<radiobutton "$ordTech.entranceExam[_i].selectedAnswerIndex" 2>> $_question.choices[2]
+        <<radiobutton "$ordTech.entranceExam[_i].selectedAnswerIndex" 3>> $_question.choices[3]
+    <hr>
+<</for>>\
+
+[[Submit|Ord Tech Entrance Exam Results]]
+
+:: Ord Tech Entrance Exam Results
+You hand the exam to the Headmaster. He looks it over, then pulls out a pen and marks it up. He hands it back to you, and you can see that you got a score of <<getEntranceExamScore>>%.
+
+<<if $ordTech.entranceExamScore >= 0.8>>\
+"Congratulations!" The Guildmaster says, "You've passed! I'll put you into the school roster, and you'll officially be a student. Make sure to go to class, and study! If you'd like, you can also help out at the research labs. Every month we hold exams to make sure students are staying on top of their studies. If you don't study enough in a month, you wont be able to pass, so be diligent!"
+<<set $guilds.ordTechGuild.isPlayerMemberOf = true>>\
+
+[[Leave|Ord Tech]]
+<<else>>\
+"Sorry," the Guildmaster says, "it looks like you didn't reach the mark to be accepted to the university. Study up, and try again when you feel more confident!"
+
+[[Leave|Ord Tech]]
+<</if>>\
+
+:: Ord Tech Research Labs
+<<if $guilds.ordTechGuild.isPlayerMemberOf>>\
+You walk into the Ord Tech Research Labs. There's a bunch of shiny equipment. Unfortunately, there's no lead researcher around, so there's nothing to do here right now.
+<<else>>\
+You walk to the Ord Tech research labs, but find that the door is locked! Perhaps if you were a student, you would have access to these labs...
+<</if>>\
+
+[[Leave|Ord Tech]]

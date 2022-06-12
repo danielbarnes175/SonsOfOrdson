@@ -17,7 +17,6 @@ macros.getBannerForLocation = {
       }
     }
 
-    
     const fileType = '.png';
     new Wikifier(place, `<img src="${directory}${imageKey}${time}${fileType}" onerror="this.onerror=null; this.src='${directory}default-banner.png'" alt="Image of ${State.variables.player.location}"  width=850 height=300>`);
   },
