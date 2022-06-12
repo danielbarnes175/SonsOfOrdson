@@ -31,6 +31,7 @@ State.variables.quests = {
       rewards: {
         exp: 20,
       },
+    },
     'test quest': {
       title: 'A certain undergarment',
       description: 'Test quest',
