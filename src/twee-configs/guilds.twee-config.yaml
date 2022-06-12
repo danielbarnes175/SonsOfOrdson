@@ -3,6 +3,7 @@
         "macros": {
             "relationships": {},
             "joinAdventurersGuild": {},
+            "getOrdTechEntranceExam": {},
             "getEntranceExamScore": {}
         }
     }

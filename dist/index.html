@@ -493,8 +493,8 @@ State.variables.guilds = {
 };
 
 State.variables.ordTech = {
-  entranceExam0: {
-    "0": {
+  entranceExam: [
+    {
       question: 'What is the first element of the periodic table?',
       choices: [
         'Hydrogen',
@@ -505,7 +505,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -1,
     },
-    "1": {
+    {
       question: '2?',
       choices: [
         'Hydrogen2',
@@ -516,7 +516,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -2,
     },
-    "2": {
+    {
       question: '3?',
       choices: [
         'Hydrogen3',
@@ -527,7 +527,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -3,
     },
-    "3": {
+    {
       question: '4?',
       choices: [
         'Hydrogen4',
@@ -538,7 +538,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -4,
     },
-    "4": {
+    {
       question: '5?',
       choices: [
         'Hydrogen5',
@@ -549,7 +549,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -5,
     },
-  },
+  ],
   entranceExamScore: 0,
 };
 
@@ -572,18 +572,33 @@ macros.joinAdventurersGuild = {
   init() { },
 };
 
+macros.getOrdTechEntranceExam = {
+  /* eslint-disable-next-line */
+  handler(place, macroName, params, parser) {
+    State.variables.ordTech.entranceExam.forEach((question, i) => {
+      new Wikifier(place, `${question.question}\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 0>> $ordTech.entranceExam[${i}].choices[0]\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 1>> $ordTech.entranceExam[${i}].choices[1]\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 2>> $ordTech.entranceExam[${i}].choices[2]\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 3>> $ordTech.entranceExam[${i}].choices[3]\n`);
+      new Wikifier(place, `<hr>`);
+    });
+  },
+  init() { },
+}
+
 macros.getEntranceExamScore = {
   /* eslint-disable-next-line */
     handler(place, macroName, params, parser) {
     let correctAnswers = 0.0;
     let i = 0;
-    Object.keys(State.variables.ordTech.entranceExam0).forEach(key => {
-      let question = State.variables.ordTech.entranceExam0[key];
+    Object.keys(State.variables.ordTech.entranceExam).forEach((key) => {
+      const question = State.variables.ordTech.entranceExam[key];
       i++;
       if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
-      console.log(`Question ${i}: ` + question.selectedAnswerIndex);
+      console.log(`Question ${i}: ${question.selectedAnswerIndex}`);
     });
-    // State.variables.ordTech.entranceExam0.forEach((question) => {
+    // State.variables.ordTech.entranceExam.forEach((question) => {
     //   i++;
     //   if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
     //   console.log(`Question ${i}: ` + question.selectedAnswerIndex);
@@ -764,13 +779,13 @@ macros.getQuestListInJournal = {
 };
 /* twine-user-script #10: "stringify.js" */
 macros.getJsonString = {
-    /* eslint-disable-next-line */
+  /* eslint-disable-next-line */
     handler(place, macroName, params, parser) {
-        params.forEach(element => {
-            new Wikifier(place, JSON.stringify(element));
-        });
-      },
-    init() { },
+    params.forEach((element) => {
+      new Wikifier(place, JSON.stringify(element));
+    });
+  },
+  init() { },
 };
 /* twine-user-script #11: "time.js" */
 let currentDay = 1;
@@ -1261,56 +1276,7 @@ The Headmaster notices you as you walk in. &quot;Ah! A new prospective student! 
 
 You look down at the paper.
 &lt;hr&gt;
-
-&lt;div&gt;
-    $ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex.question
-
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex&quot; 0&gt;&gt; $ordTech.entranceExam0[&#39;0&#39;].choices[0]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex&quot; 1&gt;&gt; $ordTech.entranceExam0[&#39;0&#39;].choices[1]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex&quot; 2&gt;&gt; $ordTech.entranceExam0[&#39;0&#39;].choices[2]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex&quot; 3&gt;&gt; $ordTech.entranceExam0[&#39;0&#39;].choices[3]
-    &lt;hr&gt;
-&lt;/div&gt;
-
-&lt;div&gt;
-    $ordTech.entranceExam0[&#39;1&#39;].selectedAnswerIndex.question
-
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;1&#39;].selectedAnswerIndex&quot; 0&gt;&gt; $ordTech.entranceExam0[&#39;1&#39;].choices[0]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;1&#39;].selectedAnswerIndex&quot; 1&gt;&gt; $ordTech.entranceExam0[&#39;1&#39;].choices[1]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;1&#39;].selectedAnswerIndex&quot; 2&gt;&gt; $ordTech.entranceExam0[&#39;1&#39;].choices[2]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;1&#39;].selectedAnswerIndex&quot; 3&gt;&gt; $ordTech.entranceExam0[&#39;1&#39;].choices[3]
-    &lt;hr&gt;
-&lt;/div&gt;
-
-&lt;div&gt;
-    $ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex.question
-
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;2&#39;].selectedAnswerIndex&quot; 0&gt;&gt; $ordTech.entranceExam0[&#39;2&#39;].choices[0]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;2&#39;].selectedAnswerIndex&quot; 1&gt;&gt; $ordTech.entranceExam0[&#39;2&#39;].choices[1]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;2&#39;].selectedAnswerIndex&quot; 2&gt;&gt; $ordTech.entranceExam0[&#39;2&#39;].choices[2]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;2&#39;].selectedAnswerIndex&quot; 3&gt;&gt; $ordTech.entranceExam0[&#39;2&#39;].choices[3]
-    &lt;hr&gt;
-&lt;/div&gt;
-
-&lt;div&gt;
-    $ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex.question
-
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;3&#39;].selectedAnswerIndex&quot; 0&gt;&gt; $ordTech.entranceExam0[&#39;3&#39;].choices[0]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;3&#39;].selectedAnswerIndex&quot; 1&gt;&gt; $ordTech.entranceExam0[&#39;3&#39;].choices[1]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;3&#39;].selectedAnswerIndex&quot; 2&gt;&gt; $ordTech.entranceExam0[&#39;3&#39;].choices[2]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;3&#39;].selectedAnswerIndex&quot; 3&gt;&gt; $ordTech.entranceExam0[&#39;3&#39;].choices[3]
-    &lt;hr&gt;
-&lt;/div&gt;
-
-&lt;div&gt;
-    $ordTech.entranceExam0[&#39;0&#39;].selectedAnswerIndex.question
-
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;4&#39;].selectedAnswerIndex&quot; 0&gt;&gt; $ordTech.entranceExam0[&#39;4&#39;].choices[0]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;4&#39;].selectedAnswerIndex&quot; 1&gt;&gt; $ordTech.entranceExam0[&#39;4&#39;].choices[1]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;4&#39;].selectedAnswerIndex&quot; 2&gt;&gt; $ordTech.entranceExam0[&#39;4&#39;].choices[2]
-    &lt;&lt;radiobutton &quot;$ordTech.entranceExam0[&#39;4&#39;].selectedAnswerIndex&quot; 3&gt;&gt; $ordTech.entranceExam0[&#39;4&#39;].choices[3]
-    &lt;hr&gt;
-&lt;/div&gt;
+&lt;&lt;getOrdTechEntranceExam&gt;&gt;
 
 [[Submit|Ord Tech Entrance Exam Results]]</tw-passagedata><tw-passagedata pid="60" name="Ord Tech Entrance Exam Results" tags="" position="1225,725" size="100,100">You hand the exam to the Headmaster. He looks it over, then pulls out a pen and marks it up. He hands it back to you, and you can see that you got a score of &lt;&lt;getEntranceExamScore&gt;&gt;%.
 

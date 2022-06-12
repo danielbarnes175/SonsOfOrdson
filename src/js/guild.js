@@ -27,8 +27,8 @@ State.variables.guilds = {
 };
 
 State.variables.ordTech = {
-  entranceExam: {
-    0: {
+  entranceExam: [
+    {
       question: 'What is the first element of the periodic table?',
       choices: [
         'Hydrogen',
@@ -39,7 +39,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -1,
     },
-    1: {
+    {
       question: '2?',
       choices: [
         'Hydrogen2',
@@ -50,7 +50,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -2,
     },
-    2: {
+    {
       question: '3?',
       choices: [
         'Hydrogen3',
@@ -61,7 +61,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -3,
     },
-    3: {
+    {
       question: '4?',
       choices: [
         'Hydrogen4',
@@ -72,7 +72,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -4,
     },
-    4: {
+    {
       question: '5?',
       choices: [
         'Hydrogen5',
@@ -83,7 +83,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -5,
     },
-  },
+  ],
   entranceExamScore: 0,
 };
 
@@ -105,6 +105,21 @@ macros.joinAdventurersGuild = {
   },
   init() { },
 };
+
+macros.getOrdTechEntranceExam = {
+  /* eslint-disable-next-line */
+  handler(place, macroName, params, parser) {
+    State.variables.ordTech.entranceExam.forEach((question, i) => {
+      new Wikifier(place, `${question.question}\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 0>> $ordTech.entranceExam[${i}].choices[0]\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 1>> $ordTech.entranceExam[${i}].choices[1]\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 2>> $ordTech.entranceExam[${i}].choices[2]\n`);
+      new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 3>> $ordTech.entranceExam[${i}].choices[3]\n`);
+      new Wikifier(place, `<hr>`);
+    });
+  },
+  init() { },
+}
 
 macros.getEntranceExamScore = {
   /* eslint-disable-next-line */

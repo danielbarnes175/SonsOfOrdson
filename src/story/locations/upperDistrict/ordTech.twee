@@ -26,56 +26,7 @@ The Headmaster hands you a piece of paper. On it contains 5 questions, of which 
 
 You look down at the paper.
 <hr>
-
-<div>
-    $ordTech.entranceExam['0'].selectedAnswerIndex.question
-
-    <<radiobutton "$ordTech.entranceExam['0'].selectedAnswerIndex" 0>> $ordTech.entranceExam['0'].choices[0]
-    <<radiobutton "$ordTech.entranceExam['0'].selectedAnswerIndex" 1>> $ordTech.entranceExam['0'].choices[1]
-    <<radiobutton "$ordTech.entranceExam['0'].selectedAnswerIndex" 2>> $ordTech.entranceExam['0'].choices[2]
-    <<radiobutton "$ordTech.entranceExam['0'].selectedAnswerIndex" 3>> $ordTech.entranceExam['0'].choices[3]
-    <hr>
-</div>
-
-<div>
-    $ordTech.entranceExam['1'].selectedAnswerIndex.question
-
-    <<radiobutton "$ordTech.entranceExam['1'].selectedAnswerIndex" 0>> $ordTech.entranceExam['1'].choices[0]
-    <<radiobutton "$ordTech.entranceExam['1'].selectedAnswerIndex" 1>> $ordTech.entranceExam['1'].choices[1]
-    <<radiobutton "$ordTech.entranceExam['1'].selectedAnswerIndex" 2>> $ordTech.entranceExam['1'].choices[2]
-    <<radiobutton "$ordTech.entranceExam['1'].selectedAnswerIndex" 3>> $ordTech.entranceExam['1'].choices[3]
-    <hr>
-</div>
-
-<div>
-    $ordTech.entranceExam['0'].selectedAnswerIndex.question
-
-    <<radiobutton "$ordTech.entranceExam['2'].selectedAnswerIndex" 0>> $ordTech.entranceExam['2'].choices[0]
-    <<radiobutton "$ordTech.entranceExam['2'].selectedAnswerIndex" 1>> $ordTech.entranceExam['2'].choices[1]
-    <<radiobutton "$ordTech.entranceExam['2'].selectedAnswerIndex" 2>> $ordTech.entranceExam['2'].choices[2]
-    <<radiobutton "$ordTech.entranceExam['2'].selectedAnswerIndex" 3>> $ordTech.entranceExam['2'].choices[3]
-    <hr>
-</div>
-
-<div>
-    $ordTech.entranceExam['0'].selectedAnswerIndex.question
-
-    <<radiobutton "$ordTech.entranceExam['3'].selectedAnswerIndex" 0>> $ordTech.entranceExam['3'].choices[0]
-    <<radiobutton "$ordTech.entranceExam['3'].selectedAnswerIndex" 1>> $ordTech.entranceExam['3'].choices[1]
-    <<radiobutton "$ordTech.entranceExam['3'].selectedAnswerIndex" 2>> $ordTech.entranceExam['3'].choices[2]
-    <<radiobutton "$ordTech.entranceExam['3'].selectedAnswerIndex" 3>> $ordTech.entranceExam['3'].choices[3]
-    <hr>
-</div>
-
-<div>
-    $ordTech.entranceExam['0'].selectedAnswerIndex.question
-
-    <<radiobutton "$ordTech.entranceExam['4'].selectedAnswerIndex" 0>> $ordTech.entranceExam['4'].choices[0]
-    <<radiobutton "$ordTech.entranceExam['4'].selectedAnswerIndex" 1>> $ordTech.entranceExam['4'].choices[1]
-    <<radiobutton "$ordTech.entranceExam['4'].selectedAnswerIndex" 2>> $ordTech.entranceExam['4'].choices[2]
-    <<radiobutton "$ordTech.entranceExam['4'].selectedAnswerIndex" 3>> $ordTech.entranceExam['4'].choices[3]
-    <hr>
-</div>
+<<getOrdTechEntranceExam>>
 
 [[Submit|Ord Tech Entrance Exam Results]]
 
