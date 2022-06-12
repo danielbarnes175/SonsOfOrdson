@@ -40,48 +40,48 @@ State.variables.ordTech = {
       selectedAnswerIndex: -1,
     },
     {
-      question: '2?',
+      question: 'What is the second element of the periodic table?',
       choices: [
-        'Hydrogen2',
-        'Oxygen2',
-        'Beryllium2',
-        'None of the above2',
+        'Calcium',
+        'Lithium',
+        'Helium',
+        'Hydrogen',
       ],
-      correctAnswerIndex: 0,
-      selectedAnswerIndex: -2,
+      correctAnswerIndex: 2,
+      selectedAnswerIndex: -1,
     },
     {
-      question: '3?',
+      question: 'What is the third element of the periodic table?',
       choices: [
-        'Hydrogen3',
-        'Oxygen3',
-        'Beryllium3',
-        'None of the above3',
+        'Lithium',
+        'Carbon',
+        'Oxygen',
+        'Sodium',
       ],
       correctAnswerIndex: 0,
-      selectedAnswerIndex: -3,
+      selectedAnswerIndex: -1,
     },
     {
-      question: '4?',
+      question: 'What is the fourth element of the periodic table?',
       choices: [
-        'Hydrogen4',
-        'Oxygen4',
-        'Beryllium4',
-        'None of the above4',
+        'Carbon',
+        'Bromine',
+        'Beryllium',
+        'Boron',
       ],
-      correctAnswerIndex: 0,
-      selectedAnswerIndex: -4,
+      correctAnswerIndex: 2,
+      selectedAnswerIndex: -1,
     },
     {
-      question: '5?',
+      question: 'What is the fifth element of the periodic table?',
       choices: [
-        'Hydrogen5',
-        'Oxygen5',
-        'Beryllium5',
-        'None of the above5',
+        'Carbon',
+        'Bromine',
+        'Beryllium',
+        'Boron',
       ],
-      correctAnswerIndex: 0,
-      selectedAnswerIndex: -5,
+      correctAnswerIndex: 3,
+      selectedAnswerIndex: -1,
     },
   ],
   entranceExamScore: 0,
@@ -115,30 +115,21 @@ macros.getOrdTechEntranceExam = {
       new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 1>> $ordTech.entranceExam[${i}].choices[1]\n`);
       new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 2>> $ordTech.entranceExam[${i}].choices[2]\n`);
       new Wikifier(place, `<<radiobutton "$ordTech.entranceExam[${i}].selectedAnswerIndex" 3>> $ordTech.entranceExam[${i}].choices[3]\n`);
-      new Wikifier(place, `<hr>`);
+      new Wikifier(place, '<hr>');
     });
   },
   init() { },
-}
+};
 
 macros.getEntranceExamScore = {
   /* eslint-disable-next-line */
     handler(place, macroName, params, parser) {
-    let correctAnswers = 0.0;
-    let i = 0;
+    let correctAnswers = 0;
     Object.keys(State.variables.ordTech.entranceExam).forEach((key) => {
       const question = State.variables.ordTech.entranceExam[key];
-      i++;
       if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
-      console.log(`Question ${i}: ${question.selectedAnswerIndex}`);
     });
-    // State.variables.ordTech.entranceExam.forEach((question) => {
-    //   i++;
-    //   if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
-    //   console.log(`Question ${i}: ` + question.selectedAnswerIndex);
-    // });
 
-    console.log(correctAnswers);
     const examPercentage = correctAnswers / 5;
     State.variables.ordTech.entranceExamScore = examPercentage;
     new Wikifier(place, `${examPercentage * 100}`);
