@@ -27,8 +27,8 @@ State.variables.guilds = {
 };
 
 State.variables.ordTech = {
-  entranceExam: [
-    {
+  entranceExam: {
+    0: {
       question: 'What is the first element of the periodic table?',
       choices: [
         'Hydrogen',
@@ -39,7 +39,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -1,
     },
-    {
+    1: {
       question: '2?',
       choices: [
         'Hydrogen2',
@@ -50,7 +50,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -2,
     },
-    {
+    2: {
       question: '3?',
       choices: [
         'Hydrogen3',
@@ -61,7 +61,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -3,
     },
-    {
+    3: {
       question: '4?',
       choices: [
         'Hydrogen4',
@@ -72,7 +72,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -4,
     },
-    {
+    4: {
       question: '5?',
       choices: [
         'Hydrogen5',
@@ -83,7 +83,7 @@ State.variables.ordTech = {
       correctAnswerIndex: 0,
       selectedAnswerIndex: -5,
     },
-  ],
+  },
   entranceExamScore: 0,
 };
 
@@ -111,14 +111,20 @@ macros.getEntranceExamScore = {
     handler(place, macroName, params, parser) {
     let correctAnswers = 0.0;
     let i = 0;
-    State.variables.ordTech.entranceExam.forEach((question) => {
+    Object.keys(State.variables.ordTech.entranceExam).forEach((key) => {
+      const question = State.variables.ordTech.entranceExam[key];
       i++;
       if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
-      console.log(`Question ${i}: ` + question.selectedAnswerIndex);
+      console.log(`Question ${i}: ${question.selectedAnswerIndex}`);
     });
+    // State.variables.ordTech.entranceExam.forEach((question) => {
+    //   i++;
+    //   if (question.selectedAnswerIndex === question.correctAnswerIndex) correctAnswers += 1;
+    //   console.log(`Question ${i}: ` + question.selectedAnswerIndex);
+    // });
 
     console.log(correctAnswers);
-    const examPercentage = correctAnswers / State.variables.ordTech.entranceExam.length;
+    const examPercentage = correctAnswers / 5;
     State.variables.ordTech.entranceExamScore = examPercentage;
     new Wikifier(place, `${examPercentage * 100}`);
   },
