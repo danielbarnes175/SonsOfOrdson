@@ -16,6 +16,21 @@ State.variables.quests = {
         exp: 20,
       },
     },
+    'Thieves Guild Entrance Exam': {
+      title: 'Thieves Guild Entrance Exam',
+      description: 'The dude at the Thieve\'s Guild said that to join them, you\'d have to steal something valuable from the Salt Fort. Shouldn\'t be too difficult.',
+      quest_steps: [
+        'Quest not yet started',
+        'You first have to explore the Salt Fort, and figure out what\'s valuable to steal.',
+        'Sneak into the Salt Fort and steal the artifact',
+        'Bring the artifact back to the Thieve\'s Guild and hopefully they\'ll let you in.',
+        'Quest Complete',
+      ],
+      currentStep: 0,
+      knownQuest: false,
+      rewards: {
+        exp: 20,
+      },
     'test quest': {
       title: 'A certain undergarment',
       description: 'Test quest',
@@ -24,6 +39,7 @@ State.variables.quests = {
         'Quest Complete',
       ],
       currentStep: 0,
+      knownQuest: false,
       rewards: {
         gold: 10,
         exp: 20,

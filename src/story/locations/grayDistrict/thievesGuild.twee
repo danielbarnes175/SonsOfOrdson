@@ -1,15 +1,131 @@
+:: Thieves' Guild Hub
+You enter the Thieves' Guild hub. The doorman introduced you to a few different people. Of course, he didn't introduce you by telling you their names, but rather what they can help you with.
+
+[[Sell stolen goods at the fencer|Thieves' Guild Fence]]
+[[Talk to the Guildmaster|Thieves' Guild Guildmaster]]
+[[Erase your bounties at the Eraser|Thieves' Guild Eraser]]
+
+[[Leave|Gray District Back Alley]]
+
 :: Thieves' Guild
 <<set $player.location="Thieves' Guild">>\
 <<getBannerForLocation $player.location>>
 
+<<if $guilds.thievesGuild.isPlayerMemberOf>>\
 The door is opened, and you walk into the Thieve's Guild. For a place that's meant for literal criminals, it's a little surprising how nice it is.
+
+[[Hub|Thieves' Guild Hub]]
+[[Leave|Gray District Back Alley]]
+<<else>>\
+The doorman walks you to the back. Once back there, you suddenly realize that all your weapons have been taken from you. You hadn't even noticed the 2nd person sifting through your pockets. "Alright mate," the first man says, "now that you're here, you have two options. You either join us, or we kill you. Which is it?"
+
+[[`"H-hang on a second! Join you? Who even are you guys?"`|Thieves' Guild 3]]
+[[`"I think I'll go with the second option."`|Thieves' Guild 2]]
+<</if>>\
+
+:: Thieves' Guild 2
+"What?" Both men look at you strange. "You weren't supposed to pick that one. Come on, dude, we're the Thieves' Guild, we're not killers. Have some respect."
+
+[["What!? The Thieves Guild?!"|Thieves' Guild 4]]
+
+:: Thieves' Guild 3
+"I thought it was pretty obvious when my mate pickpocketed all your items. We're the Thieves Guild. You know, the ones that go around at night robbing and stealing from the innocent?" As the man says this he rolls his eyes. "So what will it be?"
+
+[["What!? The Thieves Guild?!"|Thieves' Guild 4]]
+[[`"I think I'll go with the second option."`|Thieves' Guild 2]]
+
+:: Thieves' Guild 4
+"Yes, we're the Thieves' Guild." The man stares at you blankly, clearly not appreciating how you're jumping around the question. "So, about joining us. I'm just going to assume it's a yes. Just so you know, it costs 25 gold per month, and I just need to you fill out some paperwork."
+
+<<if $player.gold >= 25>>\
+[[Hand him the money and fill out the paperwork|Thieves' Guild 5]]
+<<else>>\
+    <<if $player.gold > 0>>\
+        [[`"I only have $player.gold gold!"`|Thieves Guild 6]]
+    <<else>>\
+        You man quickly realizes that you have no gold, and then throws you outside. At least he gave you your items back...
+
+        [[Gray District Back Alley]]
+    <</if>>\
+<</if>>\
+
+:: Thieves' Guild 5
+<<if $player.gold < 25>>\
+<<set $player.gold = 0>>\
+<<else>>\
+<<set $player.gold -= 25>>\
+<</if>>\
+You hand the man your money. He gives you the forms, and then goes into the back of the room to deposit your money. You quickly realize that following him will not lead to anywhere. This place is practically a maze.
+
+[[Complete the paperwork|Thieves' Guild 7]]
+
+:: Thieves' Guild 6
+"You know what," the bearded man says, "just for you, I'll lower the entrance fee down to $player.gold."
+
+[[`"Oh thank you so much! Here you go!"`|Thieves' Guild 5]]
+
+:: Thieves' Guild 7
+You wait 30 minutes, and neither man comes back. Maybe they are having some problems? They'll be here any second now.
+
+[[Continue waiting|Thieves' Guild 8]]
+<<incrementTime 0 30>>\
+
+:: Thieves' Guild 8
+Annyyy second now...
+<<incrementTime 0 30>>\
+
+[[Wait some more|Thieves' Guild 9]]
+
+:: Thieves' Guild 9
+You keep on waiting.
+
+[[Keep on waiting some more|Thieves' Guild 10]]
+<<incrementTime 0 30>>\
+
+:: Thieves' Guild 10
+You've waited this long, what's another half hour?
+
+[[30 more minutes!|Thieves' Guild 11]]
+<<incrementTime 0 30>>\
+
+:: Thieves' Guild 11
+Finally the man returns. He notices you still waiting there, and in a shocked voice says "What the?! You're still here?"
+
+You grab the papers and hand them to the man. He looks even more shocked than before. "What are-? Dude, you really didn't expect us to rob you? You're not just joining us that easily. If you actually wanted to join, you'd show up here with something valuable. It would probably have to be something from the Salt Fort. You know, prove your worth and all that."
+
+[[`"Can I at least have my money back?"`|Thieves' Guild 12]]
+[[`"Fine, I'll go get something valuable from the Salt Fort! I'll prove to you that I can be a good a thief as you guys!"`|Gray District Back Alley]]
+<<set $quests.questLog['Thieves Guild Entrance Exam'].knownQuest = true>>\
+<<set $quests.questLog['Thieves Guild Entrance Exam'].currentStep = 1>>\
+
+:: Thieves' Guild 12
+"What? Dude, no. We're stealing your money. Go away."
 
 [[Leave|Gray District Back Alley]]
 
+:: Thieves' Guild 13
+The man opens the door. "Come on in."
+
+The two of you walk inside, and you take out the artifact.
+
+The man's eyes widen. "How did you..? I didn't think you'd actually do it, but alright, I guess you're officially a member of the Thieves' Guild now. Follow me, I'll take you to the hub. And just so you know, we're still going to charge you that 25 gold a month to stay a member. You agreed to it, didn't you? In the future, I'll take you straight to the hub if you don't tell me your name. We all stay anonymous here. It's safer that way."
+
+<<set $guilds.thievesGuild.isPlayerMemberOf = true>>\
+[[Follow the man to the hub|Thieves' Guild Hub]]
 
 :: Thieves' Guild Entranceway
 You knock on the door. You hear a voice from the other side, "Who is it?".
 
+<<set _quest = $quest.questLog['Thieves Guild Entrance Exam']>>\
+<<if _quest.knownQuest && _quest.currentStep != 4>>\
+    <<if _quest.currentStep === 3>>
+    [[`"It's $player.name, I have an artifact for you."`|Thieves' Guild 13]]
+    <<else>>
+    You don't have the valuable item to get you into the guild yet. You probably shouldn't bother them until you get it.
+
+    [[Leave|Gray District Back Alley]]
+    <</if>>
+<<else>>\
 "Uhh, my name is $player.name" you say, hesitantly.
 
 "What are you doing here?" the voice replies.
@@ -18,6 +134,7 @@ You knock on the door. You hear a voice from the other side, "Who is it?".
 [[`"I'm wondering if the hare always beats the turtle."`|Thieves' Guild Entranceway 2]]
 [[`"Uhh, on second thought, nevermind."`|Gray District Back Alley]]
 
+<</if>>\
 :: Thieves' Guild Entranceway 2
 You say the seemingly random phrase, and the door opens up. A man with a dark beard stands at the door. "Come inside." He says.
 

@@ -101,7 +101,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="59" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "style.css" */
+	<!-- UUID://C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8// --><tw-storydata name="Sons of Ordson" startnode="72" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="C276CA7C-52E8-4E51-BA1E-CBACE9BFE5E8" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "style.css" */
 body {
     font-family: Helvetica, sans-serif;
 }
@@ -550,6 +550,21 @@ State.variables.quests = {
         exp: 20,
       },
     },
+    'Thieves Guild Entrance Exam': {
+      title: 'Thieves Guild Entrance Exam',
+      description: 'The dude at the Thieve\'s Guild said that to join them, you\'d have to steal something valuable from the Salt Fort. Shouldn\'t be too difficult.',
+      quest_steps: [
+        'Quest not yet started',
+        'You first have to explore the Salt Fort, and figure out what\'s valuable to steal.',
+        'Sneak into the Salt Fort and steal the artifact',
+        'Bring the artifact back to the Thieve\'s Guild and hopefully they\'ll let you in.',
+        'Quest Complete',
+      ],
+      currentStep: 0,
+      knownQuest: false,
+      rewards: {
+        exp: 20,
+      },
     'test quest': {
       title: 'A certain undergarment',
       description: 'Test quest',
@@ -558,6 +573,7 @@ State.variables.quests = {
         'Quest Complete',
       ],
       currentStep: 0,
+      knownQuest: false,
       rewards: {
         gold: 10,
         exp: 20,
@@ -826,43 +842,123 @@ Travel
 There&#39;s a door with a giant red X on it. Usually that&#39;s used to mark the plague, but for some reason it looks a little suspicious.
 
 [[Knock on the door|Thieves&#39; Guild Entranceway]]
-[[Return to the main road|Gray District]]</tw-passagedata><tw-passagedata pid="13" name="Thieves&#39; Guild" tags="" position="350,225" size="100,100">&lt;&lt;set $player.location=&quot;Thieves&#39; Guild&quot;&gt;&gt;\
+[[Return to the main road|Gray District]]</tw-passagedata><tw-passagedata pid="13" name="Thieves&#39; Guild Hub" tags="" position="350,225" size="100,100">You enter the Thieves&#39; Guild hub. The doorman introduced you to a few different people. Of course, he didn&#39;t introduce you by telling you their names, but rather what they can help you with.
+
+[[Sell stolen goods at the fencer|Thieves&#39; Guild Fence]]
+[[Talk to the Guildmaster|Thieves&#39; Guild Guildmaster]]
+[[Erase your bounties at the Eraser|Thieves&#39; Guild Eraser]]
+
+[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="14" name="Thieves&#39; Guild" tags="" position="475,225" size="100,100">&lt;&lt;set $player.location=&quot;Thieves&#39; Guild&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
+&lt;&lt;if $guilds.thievesGuild.isPlayerMemberOf&gt;&gt;\
 The door is opened, and you walk into the Thieve&#39;s Guild. For a place that&#39;s meant for literal criminals, it&#39;s a little surprising how nice it is.
 
-[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="14" name="Thieves&#39; Guild Entranceway" tags="" position="475,225" size="100,100">You knock on the door. You hear a voice from the other side, &quot;Who is it?&quot;.
+[[Hub|Thieves&#39; Guild Hub]]
+[[Leave|Gray District Back Alley]]
+&lt;&lt;else&gt;&gt;\
+The doorman walks you to the back. Once back there, you suddenly realize that all your weapons have been taken from you. You hadn&#39;t even noticed the 2nd person sifting through your pockets. &quot;Alright mate,&quot; the first man says, &quot;now that you&#39;re here, you have two options. You either join us, or we kill you. Which is it?&quot;
 
+[[`&quot;H-hang on a second! Join you? Who even are you guys?&quot;`|Thieves&#39; Guild 3]]
+[[`&quot;I think I&#39;ll go with the second option.&quot;`|Thieves&#39; Guild 2]]
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="15" name="Thieves&#39; Guild 2" tags="" position="600,225" size="100,100">&quot;What?&quot; Both men look at you strange. &quot;You weren&#39;t supposed to pick that one. Come on, dude, we&#39;re the Thieves&#39; Guild, we&#39;re not killers. Have some respect.&quot;
+
+[[&quot;What!? The Thieves Guild?!&quot;|Thieves&#39; Guild 4]]</tw-passagedata><tw-passagedata pid="16" name="Thieves&#39; Guild 3" tags="" position="725,225" size="100,100">&quot;I thought it was pretty obvious when my mate pickpocketed all your items. We&#39;re the Thieves Guild. You know, the ones that go around at night robbing and stealing from the innocent?&quot; As the man says this he rolls his eyes. &quot;So what will it be?&quot;
+
+[[&quot;What!? The Thieves Guild?!&quot;|Thieves&#39; Guild 4]]
+[[`&quot;I think I&#39;ll go with the second option.&quot;`|Thieves&#39; Guild 2]]</tw-passagedata><tw-passagedata pid="17" name="Thieves&#39; Guild 4" tags="" position="850,225" size="100,100">&quot;Yes, we&#39;re the Thieves&#39; Guild.&quot; The man stares at you blankly, clearly not appreciating how you&#39;re jumping around the question. &quot;So, about joining us. I&#39;m just going to assume it&#39;s a yes. Just so you know, it costs 25 gold per month, and I just need to you fill out some paperwork.&quot;
+
+&lt;&lt;if $player.gold &gt;= 25&gt;&gt;\
+[[Hand him the money and fill out the paperwork|Thieves&#39; Guild 5]]
+&lt;&lt;else&gt;&gt;\
+    &lt;&lt;if $player.gold &gt; 0&gt;&gt;\
+        [[`&quot;I only have $player.gold gold!&quot;`|Thieves Guild 6]]
+    &lt;&lt;else&gt;&gt;\
+        You man quickly realizes that you have no gold, and then throws you outside. At least he gave you your items back...
+
+        [[Gray District Back Alley]]
+    &lt;&lt;/if&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="18" name="Thieves&#39; Guild 5" tags="" position="975,225" size="100,100">&lt;&lt;if $player.gold &lt; 25&gt;&gt;\
+&lt;&lt;set $player.gold = 0&gt;&gt;\
+&lt;&lt;else&gt;&gt;\
+&lt;&lt;set $player.gold -= 25&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\
+You hand the man your money. He gives you the forms, and then goes into the back of the room to deposit your money. You quickly realize that following him will not lead to anywhere. This place is practically a maze.
+
+[[Complete the paperwork|Thieves&#39; Guild 7]]</tw-passagedata><tw-passagedata pid="19" name="Thieves&#39; Guild 6" tags="" position="1100,225" size="100,100">&quot;You know what,&quot; the bearded man says, &quot;just for you, I&#39;ll lower the entrance fee down to $player.gold.&quot;
+
+[[`&quot;Oh thank you so much! Here you go!&quot;`|Thieves&#39; Guild 5]]</tw-passagedata><tw-passagedata pid="20" name="Thieves&#39; Guild 7" tags="" position="1225,225" size="100,100">You wait 30 minutes, and neither man comes back. Maybe they are having some problems? They&#39;ll be here any second now.
+
+[[Continue waiting|Thieves&#39; Guild 8]]
+&lt;&lt;incrementTime 0 30&gt;&gt;\</tw-passagedata><tw-passagedata pid="21" name="Thieves&#39; Guild 8" tags="" position="100,350" size="100,100">Annyyy second now...
+&lt;&lt;incrementTime 0 30&gt;&gt;\
+
+[[Wait some more|Thieves&#39; Guild 9]]</tw-passagedata><tw-passagedata pid="22" name="Thieves&#39; Guild 9" tags="" position="225,350" size="100,100">You keep on waiting.
+
+[[Keep on waiting some more|Thieves&#39; Guild 10]]
+&lt;&lt;incrementTime 0 30&gt;&gt;\</tw-passagedata><tw-passagedata pid="23" name="Thieves&#39; Guild 10" tags="" position="350,350" size="100,100">You&#39;ve waited this long, what&#39;s another half hour?
+
+[[30 more minutes!|Thieves&#39; Guild 11]]
+&lt;&lt;incrementTime 0 30&gt;&gt;\</tw-passagedata><tw-passagedata pid="24" name="Thieves&#39; Guild 11" tags="" position="475,350" size="100,100">Finally the man returns. He notices you still waiting there, and in a shocked voice says &quot;What the?! You&#39;re still here?&quot;
+
+You grab the papers and hand them to the man. He looks even more shocked than before. &quot;What are-? Dude, you really didn&#39;t expect us to rob you? You&#39;re not just joining us that easily. If you actually wanted to join, you&#39;d show up here with something valuable. It would probably have to be something from the Salt Fort. You know, prove your worth and all that.&quot;
+
+[[`&quot;Can I at least have my money back?&quot;`|Thieves&#39; Guild 12]]
+[[`&quot;Fine, I&#39;ll go get something valuable from the Salt Fort! I&#39;ll prove to you that I can be a good a thief as you guys!&quot;`|Gray District Back Alley]]
+&lt;&lt;set $quests.questLog[&#39;Thieves Guild Entrance Exam&#39;].knownQuest = true&gt;&gt;\
+&lt;&lt;set $quests.questLog[&#39;Thieves Guild Entrance Exam&#39;].currentStep = 1&gt;&gt;\</tw-passagedata><tw-passagedata pid="25" name="Thieves&#39; Guild 12" tags="" position="600,350" size="100,100">&quot;What? Dude, no. We&#39;re stealing your money. Go away.&quot;
+
+[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="26" name="Thieves&#39; Guild 13" tags="" position="725,350" size="100,100">The man opens the door. &quot;Come on in.&quot;
+
+The two of you walk inside, and you take out the artifact.
+
+The man&#39;s eyes widen. &quot;How did you..? I didn&#39;t think you&#39;d actually do it, but alright, I guess you&#39;re officially a member of the Thieves&#39; Guild now. Follow me, I&#39;ll take you to the hub. And just so you know, we&#39;re still going to charge you that 25 gold a month to stay a member. You agreed to it, didn&#39;t you? In the future, I&#39;ll take you straight to the hub if you don&#39;t tell me your name. We all stay anonymous here. It&#39;s safer that way.&quot;
+
+&lt;&lt;set $guilds.thievesGuild.isPlayerMemberOf = true&gt;&gt;\
+[[Follow the man to the hub|Thieves&#39; Guild Hub]]</tw-passagedata><tw-passagedata pid="27" name="Thieves&#39; Guild Entranceway" tags="" position="850,350" size="100,100">You knock on the door. You hear a voice from the other side, &quot;Who is it?&quot;.
+
+&lt;&lt;set _quest = $quest.questLog[&#39;Thieves Guild Entrance Exam&#39;]&gt;&gt;\
+&lt;&lt;if _quest.knownQuest &amp;&amp; _quest.currentStep != 4&gt;&gt;\
+    &lt;&lt;if _quest.currentStep === 3&gt;&gt;
+    [[`&quot;It&#39;s $player.name, I have an artifact for you.&quot;`|Thieves&#39; Guild 13]]
+    &lt;&lt;else&gt;&gt;
+    You don&#39;t have the valuable item to get you into the guild yet. You probably shouldn&#39;t bother them until you get it.
+
+    [[Leave|Gray District Back Alley]]
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;else&gt;&gt;\
 &quot;Uhh, my name is $player.name&quot; you say, hesitantly.
 
 &quot;What are you doing here?&quot; the voice replies.
 
 [[`&quot;I&#39;m wondering if I can help with your plague problem.&quot;`|Thieves&#39; Guild Entranceway 3]]
 [[`&quot;I&#39;m wondering if the hare always beats the turtle.&quot;`|Thieves&#39; Guild Entranceway 2]]
-[[`&quot;Uhh, on second thought, nevermind.&quot;`|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="15" name="Thieves&#39; Guild Entranceway 2" tags="" position="600,225" size="100,100">You say the seemingly random phrase, and the door opens up. A man with a dark beard stands at the door. &quot;Come inside.&quot; He says.
+[[`&quot;Uhh, on second thought, nevermind.&quot;`|Gray District Back Alley]]
 
-[[Go Inside|Thieves&#39; Guild]]</tw-passagedata><tw-passagedata pid="16" name="Thieves&#39; Guild Entranceway 3" tags="" position="725,225" size="100,100">The voice immediately says &quot;No, go away.&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="28" name="Thieves&#39; Guild Entranceway 2" tags="" position="975,350" size="100,100">You say the seemingly random phrase, and the door opens up. A man with a dark beard stands at the door. &quot;Come inside.&quot; He says.
+
+[[Go Inside|Thieves&#39; Guild]]</tw-passagedata><tw-passagedata pid="29" name="Thieves&#39; Guild Entranceway 3" tags="" position="1100,350" size="100,100">The voice immediately says &quot;No, go away.&quot;
 
 You wait a second, but it doesn&#39;t look like he&#39;s going to say much else.
 
 [[Knock on the door again|Thieves&#39; Guild Entranceway 4]]
-[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="17" name="Thieves&#39; Guild Entranceway 4" tags="" position="850,225" size="100,100">You knock on the door again. You hear a voice from the other side, &quot;Who is it?&quot;.
+[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="30" name="Thieves&#39; Guild Entranceway 4" tags="" position="1225,350" size="100,100">You knock on the door again. You hear a voice from the other side, &quot;Who is it?&quot;.
 
 You give a quick reply. &quot;Hello, my name is $player.name.&quot;
 
 &quot;Oh, not you again! Go away!&quot; the voice aggressively says.
 
 [[Knock on the door again|Thieves&#39; Guild Entranceway 5]]
-[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="18" name="Thieves&#39; Guild Entranceway 5" tags="" position="975,225" size="100,100">You knock on the door again. Before you even finish knocking, the door swings open.
+[[Leave|Gray District Back Alley]]</tw-passagedata><tw-passagedata pid="31" name="Thieves&#39; Guild Entranceway 5" tags="" position="100,475" size="100,100">You knock on the door again. Before you even finish knocking, the door swings open.
 
 &quot;Fine,&quot; the voice, who you now see is a man with a dark beard, says before continuing &quot;Just get inside. Quick before anyone sees you.&quot;
 
-[[Go Inside|Thieves&#39; Guild]]</tw-passagedata><tw-passagedata pid="19" name="Bubble and Broil" tags="" position="1100,225" size="100,100">&lt;&lt;set $player.location=&quot;Bubble and Broil&quot;&gt;&gt;\
+[[Go Inside|Thieves&#39; Guild]]</tw-passagedata><tw-passagedata pid="32" name="Bubble and Broil" tags="" position="225,475" size="100,100">&lt;&lt;set $player.location=&quot;Bubble and Broil&quot;&gt;&gt;\
 You open the door to the Bubble and Broil Distillery. The aroma of various scents and ingredients overwhelm your nose. It&#39;s nice to have a place in the city that is essentially an alchemist&#39;s lab. You&#39;ve always been able to get health and other various potions for cheaper than they would sell in other parts of the realm.
 
 [[Shop]]
 
-[[Leave| Industrial District]]</tw-passagedata><tw-passagedata pid="20" name="Chronicler&#39;s Temple" tags="" position="1225,225" size="100,100">&lt;&lt;set $player.location=&quot;Chronicler&#39;s Temple&quot;&gt;&gt;\
+[[Leave| Industrial District]]</tw-passagedata><tw-passagedata pid="33" name="Chronicler&#39;s Temple" tags="" position="350,475" size="100,100">&lt;&lt;set $player.location=&quot;Chronicler&#39;s Temple&quot;&gt;&gt;\
 
 You open the wooden door and step foot into the temple. It&#39;s no surprise that such an important building to Ordson would be in the heart of the industrial district. Ordson has always valued science, and progress, and knowledge is an integral part of its mission.
 
@@ -870,10 +966,10 @@ Some could say that the Chronicler Aeyenlo was one of the most important Gods in
 
 [[Pray|Chronicler&#39;s Temple - Pray]]
 
-[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="21" name="Chronicler&#39;s Temple - Pray" tags="" position="100,350" size="100,100">You bow your head in front of the statue and say a prayer to Aeyenlo.
+[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="34" name="Chronicler&#39;s Temple - Pray" tags="" position="475,475" size="100,100">You bow your head in front of the statue and say a prayer to Aeyenlo.
 
 [[Continue Praying|Chronicler&#39;s Temple - Pray]]
-[[Stop|Chronicler&#39;s Temple]]</tw-passagedata><tw-passagedata pid="22" name="General Metalworks" tags="" position="225,350" size="100,100">&lt;&lt;set $player.location=&quot;General Metalworks&quot;&gt;&gt;\
+[[Stop|Chronicler&#39;s Temple]]</tw-passagedata><tw-passagedata pid="35" name="General Metalworks" tags="" position="600,475" size="100,100">&lt;&lt;set $player.location=&quot;General Metalworks&quot;&gt;&gt;\
 You push open the heavy metal door and step into the shop. The walls are lined with various weapons, and armors that would be useful for adventurers.
 
 Deeper back, you&#39;re able to see part of the forge, but you know that it opens up into a much larger area that you cannot see. You&#39;re not shocked that it&#39;s a bit warmer in here than most other buildings in Ordson.
@@ -881,13 +977,13 @@ Deeper back, you&#39;re able to see part of the forge, but you know that it open
 [[Shop]]
 [[Walk to the back|General Metalworks - Forge]]
 
-[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="23" name="Metalworks - Forge" tags="" position="350,350" size="100,100">You make your way to the back of the metal shop. The heat increases as you make your way through a doorway. It opens up to a larger area where you can see various machines mass producing different metal parts.
+[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="36" name="Metalworks - Forge" tags="" position="725,475" size="100,100">You make your way to the back of the metal shop. The heat increases as you make your way through a doorway. It opens up to a larger area where you can see various machines mass producing different metal parts.
 
 Before you can explore further, a guard notices you and shouts &quot;What are you doing back here?&quot;
 
 You make your way out before he can catch you.
 
-[[Continue|Industrial District]]</tw-passagedata><tw-passagedata pid="24" name="Industrial District" tags="" position="475,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Continue|Industrial District]]</tw-passagedata><tw-passagedata pid="37" name="Industrial District" tags="" position="850,475" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Industrial District&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
@@ -899,20 +995,20 @@ Places of Interest
 [[🙏 Chronicler&#39;s Temple|Chronicler&#39;s Temple]]
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="25" name="Crossroads" tags="" position="600,350" size="100,100">&lt;&lt;set $player.location=&quot;Crossroads&quot;&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="38" name="Crossroads" tags="" position="975,475" size="100,100">&lt;&lt;set $player.location=&quot;Crossroads&quot;&gt;&gt;\
 
 You make your way to the crossroads outside town. One of the paths leads to the forest, and the other leads to the mountains.
 
 Travel
 [[Forest]]
 [[Mountains|Mountain Base]]
-[[Ordson|Town Center]]</tw-passagedata><tw-passagedata pid="26" name="Forest" tags="" position="725,350" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
+[[Ordson|Town Center]]</tw-passagedata><tw-passagedata pid="39" name="Forest" tags="" position="1100,475" size="100,100">&lt;&lt;set $player.location=&quot;Forest&quot;&gt;&gt;\
 
 You follow the path to the entrance of the forest.
 
 Travel
 [[Go Deeper into the Forest|Forest 2]]
-[[Exit the Forest|Crossroads]]</tw-passagedata><tw-passagedata pid="27" name="Forest 2" tags="" position="850,350" size="100,100">&lt;&lt;set $player.location=&quot;Forest 2&quot;&gt;&gt;\
+[[Exit the Forest|Crossroads]]</tw-passagedata><tw-passagedata pid="40" name="Forest 2" tags="" position="1225,475" size="100,100">&lt;&lt;set $player.location=&quot;Forest 2&quot;&gt;&gt;\
 You make your way deeper into the forest.
 
 &lt;&lt;link &quot;Search for trouble&quot; &quot;Encounter&quot;&gt;&gt;
@@ -921,12 +1017,12 @@ You make your way deeper into the forest.
 &lt;&lt;/link&gt;&gt;
 
 Travel
-[[Make your way towards the forest entrance|Forest]]</tw-passagedata><tw-passagedata pid="28" name="Mountain Base" tags="" position="975,350" size="100,100">&lt;&lt;set $player.location=&quot;Mountain Base&quot;&gt;&gt;\
+[[Make your way towards the forest entrance|Forest]]</tw-passagedata><tw-passagedata pid="41" name="Mountain Base" tags="" position="100,600" size="100,100">&lt;&lt;set $player.location=&quot;Mountain Base&quot;&gt;&gt;\
 
 You make your way to the base of the mountain. The huge mountain looms over you. The path up the mountain looks daunting. So daunting, in fact, that you decide to turn around.
 
 Travel
-[[Leave the Mountain|Crossroads]]</tw-passagedata><tw-passagedata pid="29" name="Green Raven" tags="" position="1100,350" size="100,100">&lt;&lt;set $player.location=&quot;Green Raven&quot;&gt;&gt;\
+[[Leave the Mountain|Crossroads]]</tw-passagedata><tw-passagedata pid="42" name="Green Raven" tags="" position="225,600" size="100,100">&lt;&lt;set $player.location=&quot;Green Raven&quot;&gt;&gt;\
 
 As soon as you step into the Green Raven, you&#39;re greeted by Trina Ventiro, owner of Green Raven, the sleeziest bar in town, and also the village drunk.
 
@@ -934,7 +1030,7 @@ As soon as you step into the Green Raven, you&#39;re greeted by Trina Ventiro, o
 
 [[Sit at a table|Shop]]
 
-[[Leave|Port]]</tw-passagedata><tw-passagedata pid="30" name="Port" tags="" position="1225,350" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave|Port]]</tw-passagedata><tw-passagedata pid="43" name="Port" tags="" position="350,600" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Port&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
@@ -945,9 +1041,9 @@ Places of Interest
 [[🍺 Green Raven|Green Raven]]
 
 Travel
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="31" name="Boat Charters" tags="" position="100,475" size="100,100">You walk over to the booth to charter a boat. Unfortunately, when you get there, you see a sign that says &quot;Out Fishing&quot;. Maybe someone knows where the owner is at the tavern?
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="44" name="Boat Charters" tags="" position="475,600" size="100,100">You walk over to the booth to charter a boat. Unfortunately, when you get there, you see a sign that says &quot;Out Fishing&quot;. Maybe someone knows where the owner is at the tavern?
 
-[[Leave|Port]]</tw-passagedata><tw-passagedata pid="32" name="Adventurer&#39;s Guild" tags="" position="225,475" size="100,100">&lt;&lt;set $player.location=&quot;Adventurer&#39;s Guild&quot;&gt;&gt;\
+[[Leave|Port]]</tw-passagedata><tw-passagedata pid="45" name="Adventurer&#39;s Guild" tags="" position="600,600" size="100,100">&lt;&lt;set $player.location=&quot;Adventurer&#39;s Guild&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
 You walk into the Adventurer&#39;s Guild. There&#39;s a job board to your right, crowded by various adventurers trying to make cost benefit analyses. You notice an old man standing on the left behind a counter. That must be the Guildmaster.
@@ -955,7 +1051,7 @@ You walk into the Adventurer&#39;s Guild. There&#39;s a job board to your right,
 [[Talk to the Guildmaster|Guildmaster 0]]
 [[Job Board|Adventurer&#39;s Guild Job Board]]
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="33" name="Adventurer&#39;s Guild Job Board" tags="" position="350,475" size="100,100">You walk up to the Job Board.
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="46" name="Adventurer&#39;s Guild Job Board" tags="" position="725,600" size="100,100">You walk up to the Job Board.
 
 &lt;&lt;if $guilds.adventurersGuild.isPlayerMemberOf&gt;&gt;\
 Surprisingly, the job board is completely empty! Maybe some jobs will be added in a future update.
@@ -965,7 +1061,7 @@ Surprisingly, the job board is completely empty! Maybe some jobs will be added i
 One of the adventurer&#39;s nearby sees you. He walks up to you and puts a hand on your chest, holding you back from the job board. &quot;Bro, not cool. Not cool.&quot; He says, &quot;These jobs are only for members of the guild.&quot;
 
 [[Leave|Adventurer&#39;s Guild]]
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="34" name="Guildmaster 0" tags="" position="475,475" size="100,100">&lt;&lt;if !$guilds.adventurersGuild.isPlayerMemberOf&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="47" name="Guildmaster 0" tags="" position="850,600" size="100,100">&lt;&lt;if !$guilds.adventurersGuild.isPlayerMemberOf&gt;&gt;\
 You walk up to the Guildmaster. He looks up and down at you. &quot;Yep,&quot; he starts, &quot;I can tell you&#39;re looking to get into adventuring. Do you want to join the Adventurer&#39;s Guild? I should also say that the membership fee is 25 gold every month.&quot;
 
 [[`&quot;Yes, I&#39;d like to join the Adventurer&#39;s Guild!&quot;`|Guildmaster 1]]
@@ -975,7 +1071,7 @@ You walk up to the Guildmaster. &quot;Ah hello, $player.name.&quot;
 
 [[`&quot;So how does this all work?&quot;`|Guildmaster 2]]
 [[`&quot;Hello! I just wanted to say hi.&quot;`|Guildmaster 3]]
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="35" name="Guildmaster 1" tags="" position="600,475" size="100,100">&lt;&lt;if $player.gold &gt;= 25&gt;&gt;\
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="48" name="Guildmaster 1" tags="" position="975,600" size="100,100">&lt;&lt;if $player.gold &gt;= 25&gt;&gt;\
 &quot;Perfect, just sign these forms here real quick, and then I&#39;ll also need 25 gold from you.&quot; The Guildmaster hands you some forms, and you quickly fill them out. He takes the forms and walks into the backroom.
 
 10 minutes pass, and right when you&#39;re starting to get worried that the old man ran off with your gold, he comes back, holding a badge. &quot;This badge,&quot; he says, &quot;is official proof that you&#39;re a member of the Adventurer&#39;s Guild. Welcome to the Guild!&quot;
@@ -987,13 +1083,13 @@ You walk up to the Guildmaster. &quot;Ah hello, $player.name.&quot;
 &quot;Perfect, just sign these forms here real quick, and then I&#39;ll also need 25 gold from you.&quot; The Guildmaster hands you some forms, and then waits for you to hand him the gold. &quot;Oh? You don&#39;t have enough gold. How cute. Maybe you should come back another time.&quot;
 
 [[Leave|Adventurer&#39;s Guild]]
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="36" name="Guildmaster 2" tags="" position="725,475" size="100,100">&quot;Being a member of the Adventurer&#39;s Guild is simple. First, as you become a more accomplished adventurer, you&#39;ll gain favor within the guild. This can be done by fighting monsters in the land, or by taking on jobs from the job board. Pretty straightforward. Then, as you progress through the tiers, you&#39;ll gain various perks that we offer. They can range from allowing you to take more difficult jobs to even giving you access to some of the more notable figures in the city.&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="49" name="Guildmaster 2" tags="" position="1100,600" size="100,100">&quot;Being a member of the Adventurer&#39;s Guild is simple. First, as you become a more accomplished adventurer, you&#39;ll gain favor within the guild. This can be done by fighting monsters in the land, or by taking on jobs from the job board. Pretty straightforward. Then, as you progress through the tiers, you&#39;ll gain various perks that we offer. They can range from allowing you to take more difficult jobs to even giving you access to some of the more notable figures in the city.&quot;
 
 The Guildmaster looks at you and confirms your understanding. So all you have to do is kill monsters, and do jobs? That shouldn&#39;t be too difficult.
 
-[[`&quot;Thank you, I&#39;ll be on my way now.&quot;`|Adventurer&#39;s Guild]]</tw-passagedata><tw-passagedata pid="37" name="Guildmaster 3" tags="" position="850,475" size="100,100">The guildmaster smiles, &quot;Hello $player.name.&quot;
+[[`&quot;Thank you, I&#39;ll be on my way now.&quot;`|Adventurer&#39;s Guild]]</tw-passagedata><tw-passagedata pid="50" name="Guildmaster 3" tags="" position="1225,600" size="100,100">The guildmaster smiles, &quot;Hello $player.name.&quot;
 
-[[Leave|Adventurer&#39;s Guild]]</tw-passagedata><tw-passagedata pid="38" name="Chemical Imbalance" tags="" position="975,475" size="100,100">&lt;&lt;set $player.location=&quot;Chemical Imbalance&quot;&gt;&gt;\
+[[Leave|Adventurer&#39;s Guild]]</tw-passagedata><tw-passagedata pid="51" name="Chemical Imbalance" tags="" position="100,725" size="100,100">&lt;&lt;set $player.location=&quot;Chemical Imbalance&quot;&gt;&gt;\
 As you enter the tavern, the warm glow covers you as you&#39;re greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
 
 &lt;&lt;if !$quests.questLog[&quot;A certain undergarment&quot;].knownQuest&gt;&gt;\
@@ -1002,7 +1098,7 @@ As you enter the tavern, the warm glow covers you as you&#39;re greeted by a sle
 &lt;&lt;link &quot;Ask about &#39;A certain undergarment&#39;&quot; &quot;Chemical Imbalance - Barkeep - A certain undergarment 1&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;&lt;/if&gt;&gt;\
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="39" name="In Your Room" tags="" position="1100,475" size="100,100">&lt;&lt;if !$gameStarted&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="52" name="In Your Room" tags="" position="225,725" size="100,100">&lt;&lt;if !$gameStarted&gt;&gt;\
 &lt;&lt;set $gameStarted = true&gt;&gt;\
 &lt;&lt;/if&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Your Room&quot;&gt;&gt;\
@@ -1012,22 +1108,22 @@ You stand alone in your room. It&#39;s just the way you left it.
 
 [[Change Your Equipment|Change Equipment]]
 [[Sleep]]
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="40" name="Change Equipment" tags="" position="1225,475" size="100,100">(Todo)
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="53" name="Change Equipment" tags="" position="350,725" size="100,100">(Todo)
 
-&lt;&lt;return&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="Sleep" tags="" position="100,600" size="100,100">Sleep for how long?
+&lt;&lt;return&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="Sleep" tags="" position="475,725" size="100,100">Sleep for how long?
 
 &lt;&lt;link &quot;Sleep for 1 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 1 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 2 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 2 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 3 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 3 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 4 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 4 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 5 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 5 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 6 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 6 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 7 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 7 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 8 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 8 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 9 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 9 0&gt;&gt;&lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;Sleep for 10 hour&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 10 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 2 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 2 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 3 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 3 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 4 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 4 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 5 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 5 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 6 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 6 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 7 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 7 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 8 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 8 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 9 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 9 0&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Sleep for 10 hours&quot; &quot;Sleep&quot;&gt;&gt;&lt;&lt;incrementTime 10 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 
-[[Get out of Bed|In Your Room]]</tw-passagedata><tw-passagedata pid="42" name="Town Center" tags="" position="225,600" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
+[[Get out of Bed|In Your Room]]</tw-passagedata><tw-passagedata pid="55" name="Town Center" tags="" position="600,725" size="100,100">&lt;&lt;set $player.location=&quot;Town Center&quot;&gt;&gt;\
 &lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
@@ -1045,17 +1141,17 @@ Travel
 [[Port|Port]]
 &lt;&lt;link &quot;Loiter (1:00)&quot; &quot;Town Center&quot;&gt;&gt;&lt;&lt;incrementTime 1 0&gt;&gt;&lt;&lt;/link&gt;&gt;
 
-[[Leave Town|Crossroads]]</tw-passagedata><tw-passagedata pid="43" name="Linen Dreams" tags="" position="350,600" size="100,100">&lt;&lt;set $player.location=&quot;Linen Dreams&quot;&gt;&gt;\
+[[Leave Town|Crossroads]]</tw-passagedata><tw-passagedata pid="56" name="Linen Dreams" tags="" position="725,725" size="100,100">&lt;&lt;set $player.location=&quot;Linen Dreams&quot;&gt;&gt;\
 You push through the front doors leading into Linen Dreams. Inside the lobby are various important looking people of all races. Typically when notable people are travelling for business, they&#39;ll stay at Linen Dreams due to its incredible reputation, and proximity to the Salt Fort. Being so close to the Salt Fort, it can be kept secure by the royal guards for any patrons looking to rest their heads somewhere comfortable for the night.
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="44" name="Ordson Medical" tags="" position="475,600" size="100,100">&lt;&lt;set $player.location=&quot;Ordson Medical&quot;&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="57" name="Ordson Medical" tags="" position="850,725" size="100,100">&lt;&lt;set $player.location=&quot;Ordson Medical&quot;&gt;&gt;\
 For adventurers, they often rely on health potions, and magic in the field. When you&#39;re in a big city like Ordson, you can oftentimes find treatment at a local hospital. Ordson Medical is exactly that.
 
 You walk into the lobby, and approach the front desk.
 
 [[See A Doctor|Doctor]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="45" name="Doctor" tags="" position="600,600" size="100,100">You&#39;re brought to a private room where a doctor comes in to see you.
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="58" name="Doctor" tags="" position="975,725" size="100,100">You&#39;re brought to a private room where a doctor comes in to see you.
 
 &lt;&lt;if $player.health &lt; $player.maxHealth&gt;&gt;\
     &lt;&lt;set $player.health = $player.maxHealth&gt;&gt;\
@@ -1063,22 +1159,22 @@ You walk into the lobby, and approach the front desk.
 &lt;&lt;/if&gt;&gt;\
 The doctor doesn&#39;t see any further treatment that you might need, and quickly dismisses you.
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="46" name="Salt Fort Entrance" tags="" position="725,600" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="59" name="Salt Fort Entrance" tags="" position="1100,725" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entrance&quot;&gt;&gt;\
 You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="47" name="Salt Fort Entranceway" tags="" position="850,600" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="60" name="Salt Fort Entranceway" tags="" position="1225,725" size="100,100">&lt;&lt;incrementTime 0 1&gt;&gt;\
 &lt;&lt;set $player.location=&quot;Salt Fort Entranceway&quot;&gt;&gt;\
 The guards let you pass without any hassle. You step into the castle. There&#39;s nothing here!
 
-[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="48" name="Science Guild" tags="" position="975,600" size="100,100">&lt;&lt;set $player.location=&quot;Science Guild&quot;&gt;&gt;\
+[[Leave, all sad|Salt Fort Entrance]]</tw-passagedata><tw-passagedata pid="61" name="Science Guild" tags="" position="100,850" size="100,100">&lt;&lt;set $player.location=&quot;Science Guild&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
 You open the door to the Science Guild. Inside are a bunch of people wearing lab coats. They look like nerds.
 
-[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="49" name="Upper District" tags="" position="1100,600" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
+[[Leave|Upper District]]</tw-passagedata><tw-passagedata pid="62" name="Upper District" tags="" position="225,850" size="100,100">&lt;&lt;incrementTime 0 2&gt;&gt;\
 &lt;&lt;set $player.location=&quot;The Upper District&quot;&gt;&gt;\
 &lt;&lt;getBannerForLocation $player.location&gt;&gt;
 
@@ -1092,7 +1188,7 @@ Places of Interest
 
 Travel
 [[Financial District|Financial District]]
-[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="50" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="1225,600" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
+[[Town Center|Town Center]]</tw-passagedata><tw-passagedata pid="63" name="Chemical Imbalance - Barkeep - A certain undergarment 1" tags="" position="350,850" size="100,100">&lt;&lt;if !$quests.questLog[&#39;A certain undergarment&#39;].knownQuest&gt;&gt;\
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].knownQuest = true&gt;&gt;\
 The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know, there actually is something that I could use your help for.&quot;
 
@@ -1122,15 +1218,15 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
         [[Leave|Chemical Imbalance]]
     &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="51" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="100,725" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="64" name="Chemical Imbalance - Barkeep - A certain undergarment 2" tags="" position="475,850" size="100,100">&quot;Woah, woah! Not so loud! I&#39;m trying to be a little discreet here.&quot; The bartender takes another look around before leaning back to you and saying, &quot;It&#39;s not important what the clothing is. I just need you to go get it for me. I can&#39;t go grab it since I have to man the bar. Can you help me?&quot;
 
 [[&#39;&quot;Sure, I&#39;ll help you.&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 3]]
-[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="52" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="225,725" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
+[[&#39;&quot;You know what, I&#39;m actually busy that day, so I can&#39;t. Sorry!&quot;&#39;|Chemical Imbalance - Barkeep - A certain undergarment 4]]</tw-passagedata><tw-passagedata pid="65" name="Chemical Imbalance - Barkeep - A certain undergarment 3" tags="" position="600,850" size="100,100">A smile breaks out on the barkeeps face. &quot;Really?!&quot; he says, &quot;That&#39;s great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it&#39;s for me, and the owner will know what to grab.&quot;
 
 &lt;&lt;set $quests.questLog[&#39;A certain undergarment&#39;].currentStep = 1&gt;&gt;\
-[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="53" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="350,725" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
+[[&#39;&quot;Sounds good!&quot;&#39;|Chemical Imbalance]]</tw-passagedata><tw-passagedata pid="66" name="Chemical Imbalance - Barkeep - A certain undergarment 4" tags="" position="725,850" size="100,100">The barkeep looks a little sad. &quot;Alright, well let me know if you change your mind. I&#39;ll be working here, like always...&quot;
 
-[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="54" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="475,725" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
+[[Leave|Town Center]]</tw-passagedata><tw-passagedata pid="67" name="Silver Patchwork - Owner - A certain undergarment 1" tags="" position="850,850" size="100,100">&lt;&lt;if $quests.questLog[&#39;A certain undergarment&#39;].currentStep == 1&gt;&gt;\
   The owner doesn&#39;t seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn&#39;t even look at you as he looks over his list of orders.
 
   Welp, guess all you can do is return the package to the barkeep.
@@ -1147,7 +1243,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
 
   [[Leave|Commercial District]]
 &lt;&lt;/if&gt;&gt;\
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="55" name="StoryBanner" tags="" position="600,725" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="StorySubtitle" tags="" position="725,725" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="57" name="StoryInit" tags="" position="850,725" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
+&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="68" name="StoryBanner" tags="" position="975,850" size="100,100">&lt;&lt;getImage &quot;sons-of-ordson-logo.png&quot; 128 128&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="StorySubtitle" tags="" position="1100,850" size="100,100">Version: 0.0.1</tw-passagedata><tw-passagedata pid="70" name="StoryInit" tags="" position="1225,850" size="100,100">&lt;&lt;newmeter &quot;healthMeter&quot; center&gt;&gt;
     &lt;&lt;colors &#39;yellow&#39; &#39;red&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Health $player.health / $player.maxHealth&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
@@ -1181,7 +1277,7 @@ The barkeep takes a quite look around, and then leans in close. &quot;Y&#39;know
     &lt;&lt;colors &#39;blue&#39; &#39;white&#39;&gt;&gt;
     &lt;&lt;label &#39;Progress $guilds.churchGuild.currentProgress / $guilds.churchGuild.maxProgress&#39; &#39;black&#39; center&gt;&gt;
     &lt;&lt;sizing &quot;90%&quot; &quot;125%&quot;&gt;&gt;
-&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="StoryCaption" tags="" position="975,725" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
+&lt;&lt;/newmeter&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="StoryCaption" tags="" position="100,975" size="100,100">&lt;&lt;if $gameStarted&gt;&gt;
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -1212,12 +1308,12 @@ Gold - $player.gold
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Relationships&quot;&gt;&gt;&lt;&lt;relationships&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 &lt;span class=&quot;journal&quot;&gt;&lt;&lt;button &quot;Journal&quot;&gt;&gt;&lt;&lt;journal&gt;&gt;&lt;&lt;/button&gt;&gt;&lt;/span&gt;
 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="Start" tags="" position="1100,725" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="Start" tags="" position="225,975" size="100,100">&lt;&lt;set $gameStarted = false&gt;&gt;
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don&#39;t expect much of a working game.
 
 For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
-[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="60" name="Character Creation" tags="" position="1225,725" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
+[[Start Your Adventure|Character Creation]]</tw-passagedata><tw-passagedata pid="73" name="Character Creation" tags="" position="350,975" size="100,100">You are a son of Ordson. You&#39;ve lived here your whole life, and it&#39;s been a city you&#39;ve both loved at times, and hated. With all your experiences here, it&#39;s no doubt that you can call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 
