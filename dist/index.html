@@ -1019,7 +1019,7 @@ The man&#39;s eyes widen. &quot;How did you..? I didn&#39;t think you&#39;d actu
 &lt;&lt;set $guilds.thievesGuild.isPlayerMemberOf = true&gt;&gt;\
 [[Follow the man to the hub|Thieves&#39; Guild Hub]]</tw-passagedata><tw-passagedata pid="27" name="Thieves&#39; Guild Entranceway" tags="" position="850,350" size="100,100">You knock on the door. You hear a voice from the other side, &quot;Who is it?&quot;.
 
-&lt;&lt;set _quest = $quest.questLog[&#39;Thieves Guild Entrance Exam&#39;]&gt;&gt;\
+&lt;&lt;set _quest = $quests.questLog[&#39;Thieves Guild Entrance Exam&#39;]&gt;&gt;\
 &lt;&lt;if _quest.knownQuest &amp;&amp; _quest.currentStep != 4&gt;&gt;\
     &lt;&lt;if _quest.currentStep === 3&gt;&gt;
     [[`&quot;It&#39;s $player.name, I have an artifact for you.&quot;`|Thieves&#39; Guild 13]]

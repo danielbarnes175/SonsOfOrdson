@@ -116,7 +116,7 @@ The man's eyes widen. "How did you..? I didn't think you'd actually do it, but a
 :: Thieves' Guild Entranceway
 You knock on the door. You hear a voice from the other side, "Who is it?".
 
-<<set _quest = $quest.questLog['Thieves Guild Entrance Exam']>>\
+<<set _quest = $quests.questLog['Thieves Guild Entrance Exam']>>\
 <<if _quest.knownQuest && _quest.currentStep != 4>>\
     <<if _quest.currentStep === 3>>
     [[`"It's $player.name, I have an artifact for you."`|Thieves' Guild 13]]
