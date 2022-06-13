@@ -1,6 +1,5 @@
 :: Ord Tech
 <<set $player.location="Ord Tech">>\
-<<getBannerForLocation $player.location>>
 
 You open the door to the Ordson Technical University, also known as Ord Tech. Inside are a bunch of people wearing lab coats. They look like nerds. In reality, they're probably just students or researchers. That doesn't necessarily disqualify them from being nerds, though.
 
