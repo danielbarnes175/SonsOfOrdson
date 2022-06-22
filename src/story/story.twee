@@ -42,9 +42,9 @@ Version: 0.0.1
     <<label 'Progress $guilds.thievesGuild.currentProgress / $guilds.thievesGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
-<<newmeter "scienceGuildProgress">>
+<<newmeter "ordTechGuildProgress">>
     <<colors 'blue' 'white'>>
-    <<label 'Progress $guilds.scienceGuild.currentProgress / $guilds.scienceGuild.maxProgress' 'black' center>>
+    <<label 'Progress $guilds.ordTechGuild.currentProgress / $guilds.ordTechGuild.maxProgress' 'black' center>>
     <<sizing "90%" "125%">>
 <</newmeter>>
 <<newmeter "churchGuildProgress">>

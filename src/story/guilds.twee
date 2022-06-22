@@ -16,7 +16,7 @@ Thieves' Guild\
 <hr>
 Science Guild\
 
-<div class="meter-container"><center><<showmeter "scienceGuildProgress" `$guilds.scienceGuild.currentProgress / $guilds.scienceGuild.maxProgress`>></center></div>\
+<div class="meter-container"><center><<showmeter "ordTechGuildProgress" `$guilds.ordTechGuild.currentProgress / $guilds.ordTechGuild.maxProgress`>></center></div>\
 <hr>
 Church\
 
