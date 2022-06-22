@@ -129,4 +129,8 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 
 [[Confirm|In Your Room]]
 
+<<nobr>>
+<<getStarterEquipment>>
+<</nobr>>
+
 

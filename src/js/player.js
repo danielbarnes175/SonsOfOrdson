@@ -19,18 +19,29 @@ State.variables.player = {
   location: 'Unknown',
   inventory: {
     currentlyEquipped: {
-      head: 'None',
-      chest: 'None',
-      legs: 'None',
-      feet: 'None',
-      weapon: 'None',
+      head: {
+        name: 'None',
+      },
+      chest: {
+        name: 'None',
+      },
+      legs: {
+        name: 'None',
+      },
+      feet: {
+        name: 'None',
+      },
+      weapons: {
+        name: 'None',
+      },
     },
     backpack: {
       head: [],
       chest: [],
       legs: [],
       feet: [],
-      weapon: [],
-    }
-  }
+      weapons: [],
+      general: [],
+    },
+  },
 };

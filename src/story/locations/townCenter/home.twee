@@ -12,9 +12,92 @@ You stand alone in your room. It's just the way you left it.
 [[Leave|Town Center]]
 
 :: Change Equipment
-(Todo)
+
+<span id="currentlyEquipped">
+<<include "Equipment Equipped">>
+</span>
+
+<div>
+    <<link "(1) General" "Change Equipment">><<set $currentInventoryTab = "Equipment General">><</link>>\
+    <<link "(2) Weapons" "Change Equipment">><<set $currentInventoryTab = "Equipment Weapons">><</link>>\
+    <<link "(3) Head" "Change Equipment">><<set $currentInventoryTab = "Equipment Head">><</link>>\
+    <<link "(4) Chest" "Change Equipment">><<set $currentInventoryTab = "Equipment Chest">><</link>>\
+    <<link "(5) Legs" "Change Equipment">><<set $currentInventoryTab = "Equipment Legs">><</link>>\
+    <<link "(6) Feet" "Change Equipment">><<set $currentInventoryTab = "Equipment Feet">><</link>>\
+</div>\
+
+<<if !$currentInventoryTab>>\
+    <<set $currentInventoryTab = "Equipment General">>\
+<</if>>\
+<span id="inventoryTab">
+<<include $currentInventoryTab>>
+</span>
 
 <<return>>
+
+:: Equipment Equipped
+Head: $player.inventory.currentlyEquipped.head.name
+Chest: $player.inventory.currentlyEquipped.chest.name
+Legs: $player.inventory.currentlyEquipped.legs.name
+Feet: $player.inventory.currentlyEquipped.feet.name
+
+Weapons: $player.inventory.currentlyEquipped.weapons.name
+
+:: Equipment General
+<<for _i = 0; _i < $player.inventory.backpack.general.length; _i++>>\
+    <<set _value = $player.inventory.backpack.general[_i]>>\
+    _value.name <<link '(Use)' 'Change Equipment'>><<useItem _value>><</link>>
+<</for>>\
+
+:: Equipment Weapons
+<<for _i = 0; _i < $player.inventory.backpack.weapons.length; _i++>>\
+    <<set _value = $player.inventory.backpack.weapons[_i]>>\
+    <<if _value.id == State.variables.player.inventory.currentlyEquipped.weapons.id>>\
+        _value.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _value.slot>><</link>>
+    <<else>>\
+        _value.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+    <</if>>\
+<</for>>\
+
+:: Equipment Head
+<<for _i = 0; _i < $player.inventory.backpack.head.length; _i++>>\
+    <<set _value = $player.inventory.backpack.head[_i]>>\
+    <<if _value.id == State.variables.player.inventory.currentlyEquipped.head.id>>\
+        _value.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _value.slot>><</link>>
+    <<else>>\
+        _value.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+    <</if>>\
+<</for>>\
+
+:: Equipment Chest
+<<for _i = 0; _i < $player.inventory.backpack.chest.length; _i++>>\
+    <<set _value = $player.inventory.backpack.chest[_i]>>\
+    <<if _value.id == State.variables.player.inventory.currentlyEquipped.chest.id>>\
+        _value.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _value.slot>><</link>>
+    <<else>>\
+        _value.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+    <</if>>\
+<</for>>\
+
+:: Equipment Legs
+<<for _i = 0; _i < $player.inventory.backpack.legs.length; _i++>>\
+    <<set _value = $player.inventory.backpack.legs[_i]>>\
+    <<if _value.id == State.variables.player.inventory.currentlyEquipped.legs.id>>\
+        _value.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _value.slot>><</link>>
+    <<else>>\
+        _value.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+    <</if>>\
+<</for>>\
+
+:: Equipment Feet
+<<for _i = 0; _i < $player.inventory.backpack.feet.length; _i++>>\
+    <<set _value = $player.inventory.backpack.feet[_i]>>\
+    <<if _value.id == State.variables.player.inventory.currentlyEquipped.feet.id>>\
+        _value.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _value.slot>><</link>>
+    <<else>>\
+        _value.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+    <</if>>\
+<</for>>\
 
 :: Sleep
 Sleep for how long?

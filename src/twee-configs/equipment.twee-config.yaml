@@ -1,0 +1,12 @@
+{
+    "sugarcube-2": {
+        "macros": {
+            "getInventoryTab": {},
+            "getStarterEquipment": {},
+            "getCurrentlyEquipped": {},
+            "equipItem": {},
+            "unequipItemHelper": {},
+            "useItem": {},
+        }
+    }
+}
