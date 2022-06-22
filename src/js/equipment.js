@@ -1,5 +1,5 @@
 State.variables.weapons = {
-  Dagger: {
+  dagger: {
     name: 'Dagger',
     type: 'melee',
     damage: '1d4+2',
@@ -22,7 +22,7 @@ State.variables.weapons = {
     description: 'A small dagger. You could stab someone with this.',
     attackDescription: 'Attack with your dagger',
   },
-  Fist: {
+  fist: {
     name: 'Fist',
     type: 'melee',
     damage: '1d2',
@@ -46,3 +46,48 @@ State.variables.weapons = {
     attackDescription: 'Punch with your fist',
   },
 };
+
+State.variables.headEquipment = {
+  ironHelmet: {
+    name: 'Iron Helmet',
+    type: 'armor',
+    armorAmount: '3',
+    description: 'An iron helmet that offers basic protection.',
+  },
+}
+
+State.variables.chestEquipment = {
+  ironHelmet: {
+    name: 'Iron Chestplate',
+    type: 'armor',
+    armorAmount: '5',
+    description: 'An iron chestplate that offers basic protection.',
+  },
+}
+
+State.variables.legEquipment = {
+  ironHelmet: {
+    name: 'Iron Platelegs',
+    type: 'armor',
+    armorAmount: '4',
+    description: 'Iron platelegs that offers basic protection.',
+  },
+}
+
+State.variables.feetEquipment = {
+  ironHelmet: {
+    name: 'Iron Boots',
+    type: 'armor',
+    armorAmount: '2',
+    description: 'A pair of iron boots that offers basic protection.',
+  },
+}
+
+State.variables.generalEquipment = {
+  healthPotion: {
+    name: 'Health Potion',
+    type: 'potion',
+    effect: 'heal',
+    amount: 10
+  }
+}

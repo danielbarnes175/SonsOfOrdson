@@ -81,8 +81,8 @@ macros.processEncounterWon = {
 };
 
 let getPlayerActions = () => [
-  State.variables.weapons.Dagger,
-  State.variables.weapons.Fist,
+  State.variables.weapons.dagger,
+  State.variables.weapons.fist,
 ];
 
 let isEncounterOver = () => {
