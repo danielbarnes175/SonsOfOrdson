@@ -98,11 +98,37 @@ State.variables.feetEquipment = {
 State.variables.generalEquipment = {
   healthPotion: {
     name: 'Health Potion',
-    type: 'potion',
+    type: 'consumable',
     slot: 'general',
     effect: 'heal',
     amount: 10,
   },
+};
+
+macros.useItem = {
+  /* eslint-disable-next-line */
+  handler(place, macroName, params, parser) {
+    const item = params[0];
+    let itemUsed = true;
+    switch (item.effect) {
+      case 'heal':
+        State.variables.player.health += item.amount;
+        if (State.variables.player.health > State.variables.player.maxHealth) {
+          State.variables.player.health = State.variables.player.maxHealth;
+        }
+        break;
+      default:
+        console.error(`No item use implemented for type ${item.effect}`);
+        itemUsed = false;
+        break;
+    }
+
+    if (item.type === 'consumable' && itemUsed) {
+      const index = State.variables.player.inventory.backpack.general.indexOf(item);
+      State.variables.player.inventory.backpack.general.splice(index, 1);
+    }
+  },
+  init() { },
 };
 
 macros.equipItem = {
