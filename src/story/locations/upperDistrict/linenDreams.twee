@@ -2,4 +2,28 @@
 <<set $player.location="Linen Dreams">>\
 You push through the front doors leading into Linen Dreams. Inside the lobby are various important looking people of all races. Typically when notable people are travelling for business, they'll stay at Linen Dreams due to its incredible reputation, and proximity to the Salt Fort. Being so close to the Salt Fort, it can be kept secure by the royal guards for any patrons looking to rest their heads somewhere comfortable for the night.
 
+There's also a bar to the side. You've found it a little strange how there are so many taverns in the city, but at least this one doubles as an inn as well.
+
+<<if $shopRelations.linenDreams.isPlayerHired>>\
+<<link "Work a shift (1:00)" "Linen Dreams Shift">><<incrementTime 1 0>><</link>>
+<<else>>\
+[[Ask for work|Linen Dreams Application]]
+<</if>>\
+
 [[Leave|Upper District]]
+
+:: Linen Dreams Application
+You walk over to the front desk. "Hello," you say, "is there any way I could help out here?"
+
+The owner looks at you and says, "Actually, the bar has been needing some extra help lately. With all the competition in town, it's hard to find good help. I'll give you 5 gold for every hour you work."
+
+<<set $shopRelations.linenDreams.isPlayerHired = true>>
+
+[[Continue|Linen Dreams]]
+
+:: Linen Dreams Shift
+You spend an hour serving guests, and cleaning tables.
+
+<<workForLinenDreams>>
+
+[[Continue|Linen Dreams]]

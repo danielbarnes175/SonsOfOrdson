@@ -89,7 +89,7 @@ State.variables.ordTech = {
 
 macros.relationships = {
   /* eslint-disable-next-line */
-    handler(place, macroName, params, parser) {
+  handler(place, macroName, params, parser) {
     Dialog.setup('Relations');
     Dialog.wiki(Story.get('Relations').processText());
     Dialog.open();
@@ -99,7 +99,7 @@ macros.relationships = {
 
 macros.joinAdventurersGuild = {
   /* eslint-disable-next-line */
-    handler(place, macroName, params, parser) {
+  handler(place, macroName, params, parser) {
     State.variables.player.gold -= 25;
     State.variables.guilds.adventurersGuild.isPlayerMemberOf = true;
   },
@@ -123,7 +123,7 @@ macros.getOrdTechEntranceExam = {
 
 macros.getEntranceExamScore = {
   /* eslint-disable-next-line */
-    handler(place, macroName, params, parser) {
+  handler(place, macroName, params, parser) {
     let correctAnswers = 0;
     Object.keys(State.variables.ordTech.entranceExam).forEach((key) => {
       const question = State.variables.ordTech.entranceExam[key];

@@ -5,6 +5,27 @@ As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner
 
 "Welcome to the Green Raven, hun" she says, slurring her speech. "If you need anything, just sit at one of the tables, and I'll be right uh-with you."
 
+<<if $shopRelations.greenRaven.isPlayerHired>>\
+<<link "Work a shift (1:00)" "Green Raven Shift">><<incrementTime 1 0>><</link>>
+<<else>>\
+[[Ask for work|Green Raven Application]]
+<</if>>\
 [[Sit at a table|Shop]]
 
 [[Leave|Port]]
+
+:: Green Raven Application
+"Can I have a job?" You ask Trina.
+
+She looks at you with a crooked head, and for a second you're worried that she is too drunk to understand what you're saying. Before you can say another word, she suddenly says "Of course, honey! I'll give you 5 gold for every hour you work."
+
+<<set $shopRelations.greenRaven.isPlayerHired = true>>
+
+[[Continue|Green Raven]]
+
+:: Green Raven Shift
+You spend an hour serving guests, and cleaning tables.
+
+<<workForGreenRaven>>
+
+[[Continue|Green Raven]]

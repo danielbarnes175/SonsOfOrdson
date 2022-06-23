@@ -8,4 +8,26 @@ As you enter the tavern, the warm glow covers you as you're greeted by a slew of
 <<link "Ask about 'A certain undergarment'" "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
 <</if>>\
 
+<<if $shopRelations.chemicalImbalance.isPlayerHired>>\
+<<link "Work a shift (1:00)" "Chemical Imbalance Shift">><<incrementTime 1 0>><</link>>
+<<else>>\
+[[Ask for work|Chemical Imbalance Application]]
+<</if>>\
+
 [[Leave|Town Center]]
+
+:: Chemical Imbalance Application
+You walk up to the bartender, and ask "Is there any way I could help out?"
+
+The bartender smiles when you say that. "Actually," he says, "I've been needing some more help lately. I'll tell you what, for each hour you help out, I'll pay you 5 gold."
+
+<<set $shopRelations.chemicalImbalance.isPlayerHired = true>>
+
+[[Continue|Chemical Imbalance]]
+
+:: Chemical Imbalance Shift
+You spend an hour serving guests, and cleaning tables.
+
+<<workForChemicalImbalance>>
+
+[[Continue|Chemical Imbalance]]

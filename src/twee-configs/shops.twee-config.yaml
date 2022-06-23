@@ -1,0 +1,9 @@
+{
+    "sugarcube-2": {
+        "macros": {
+            "workForChemicalImbalance": {},
+            "workForGreenRaven": {},
+            "workForLinenDreams": {},
+        }
+    }
+}
