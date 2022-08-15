@@ -87,6 +87,7 @@ Gold - $player.gold
 
 <span class="journal"><<button "Relationships">><<relationships>><</button>></span>
 <span class="journal"><<button "Journal">><<journal>><</button>></span>
+<span class="journal"><<button "Map">><<map>><</button>></span>
 
 <</if>>
 
