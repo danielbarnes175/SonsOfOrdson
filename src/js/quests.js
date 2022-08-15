@@ -3,7 +3,7 @@ State.variables.quests = {
     'A certain undergarment': {
       title: 'A certain undergarment',
       description: "Apparently the barkeep wants a specific piece of clothing, but he can't quite get it right now...",
-      questSteps: [
+      quest_steps: [
         'Not yet started',
         'The barkeep wants you to get a specific custom made piece of clothing. You should be able to pick it up at the Silver Patchwork.',
         'You spoke to the tailor at the Silver Patchwork, and they gave you the piece of clothing. You need to take it back to the barkeep',

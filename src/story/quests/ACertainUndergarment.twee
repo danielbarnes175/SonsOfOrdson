@@ -41,6 +41,7 @@ The barkeep takes a quite look around, and then leans in close. "Y'know, there a
 A smile breaks out on the barkeeps face. "Really?!" he says, "That's great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it's for me, and the owner will know what to grab."
 
 <<set $quests.questLog['A certain undergarment'].currentStep = 1>>\
+<<notify>>Quest Started - A certain undergarment!<</notify>>\
 [['"Sounds good!"'|Chemical Imbalance]]
 
 :: Chemical Imbalance - Barkeep - A certain undergarment 4
@@ -55,7 +56,8 @@ The barkeep looks a little sad. "Alright, well let me know if you change your mi
   Welp, guess all you can do is return the package to the barkeep.
 
   <<set $quests.questLog['A certain undergarment'].currentStep = 2>>\
-  [[Leave|Commercial District]]
+  <<notify>>Quest Step Complete - A certain undergarment!<</notify>>\
+  [[Leave|Financial District]]
 <<else>>
 <<if $quests.questLog['A certain undergarment'].currentStep == 2>>\
   You already have the package, so all you need to do it bring it to the barkeep, but there has been one thing on your mind.
@@ -64,7 +66,7 @@ The barkeep looks a little sad. "Alright, well let me know if you change your mi
 
   The owner actually stops working for a second to laugh. "Son, it's better if you don't know." Before you can say anything, the owner walks away to the back.
 
-  [[Leave|Commercial District]]
+  [[Leave|Financial District]]
 <</if>>\
 <</if>>\
 

@@ -14,10 +14,10 @@ macros.getQuestListInJournal = {
     const activeQuests = [];
     const completedQuests = [];
     for (const [key, value] of Object.entries(State.variables.quests.questLog)) {
-      if (value.knownQuest && value.currentStep < value.questSteps.length - 1) {
+      if (value.knownQuest && value.currentStep < value.quest_steps.length - 1) {
         activeQuests.push({
           name: key,
-          step: value.questSteps[value.currentStep],
+          step: value.quest_steps[value.currentStep],
         });
       } else if (value.knownQuest) {
         completedQuests.push(value.title);
