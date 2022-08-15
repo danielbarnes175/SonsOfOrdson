@@ -65,14 +65,16 @@ Gold - $player.gold
 <hr>
 <center><table style="width:100%">
     <tr>
-    <td><strong>STR:</strong> $player.stats.str</td>
-    <td><strong>CON:</strong> $player.stats.con</td>
-    <td><strong>WIS:</strong> $player.stats.wis</td>
+    <td><strong>STR:</strong> $player.stats.str (<<getAbilityModifierForPlayer str>>)</td>
+    <td><strong>DEX:</strong> $player.stats.dex (<<getAbilityModifierForPlayer dex>>)</td>
     </tr>
     <tr>
-    <td><strong>DEX:</strong> $player.stats.dex</td>
-    <td><strong>INT:</strong> $player.stats.int</td>
-    <td><strong>CHA:</strong> $player.stats.cha</td>
+    <td><strong>CON:</strong> $player.stats.con (<<getAbilityModifierForPlayer con>>)</td>
+    <td><strong>WIS:</strong> $player.stats.wis (<<getAbilityModifierForPlayer wis>>)</td>
+    </tr>
+    <tr>
+    <td><strong>INT:</strong> $player.stats.int (<<getAbilityModifierForPlayer int>>)</td>
+    <td><strong>CHA:</strong> $player.stats.cha (<<getAbilityModifierForPlayer cha>>)</td>
     </tr>
 </table></center>\
 <hr>
