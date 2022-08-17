@@ -27,6 +27,7 @@ State.variables.guilds = {
 };
 
 State.variables.ordTech = {
+  smarts: 0,
   entranceExam: [
     {
       question: 'What is the first element of the periodic table?',

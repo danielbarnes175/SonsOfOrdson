@@ -44,4 +44,5 @@ State.variables.player = {
       general: [],
     },
   },
+  intoxication: 0,
 };

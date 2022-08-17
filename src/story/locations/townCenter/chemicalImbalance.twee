@@ -1,27 +1,38 @@
 :: Chemical Imbalance
 <<set $player.location="Chemical Imbalance">>\
-As you enter the tavern, the warm glow covers you as you're greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. The large stone pillars holding up the second floor are beautifully crafted, soft wood furbishing the floor. A quiet ambience exudes from the tavern, sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself.
+As you enter the tavern, the warm glow covers you as you're greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. A quiet ambience exudes from the tavern, with sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself, and have a quick drink, or, perhaps you could strike up a conversation with the bartender.
 
-<<if !$quests.questLog["A certain undergarment"].knownQuest>>\
-<<link 'Ask the bartender "Is there anything I can help you with?"' "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
-<<elseif $quests.questLog["A certain undergarment"].currentStep != 3>>\
-<<link "Ask about 'A certain undergarment'" "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
-<</if>>\
+What would you like to do?
 
 <<if $shopRelations.chemicalImbalance.isPlayerHired>>\
 <<link "Work a shift (1:00)" "Chemical Imbalance Shift">><<incrementTime 1 0>><</link>>
+<</if>>\
+[[Talk to the Barkeep|Chemical Imbalance Barkeep]]
+[[Order a drink (3 gold)|Chemical Imbalance Drink]]
+[[Leave|Town Center]]
+
+:: Chemical Imbalance Barkeep
+You flag down the bartender to strike up a conversation with him. He makes his way over to you.
+
+<<if $shopRelations.chemicalImbalance.isPlayerHired>>\
 <<else>>\
 [[Ask for work|Chemical Imbalance Application]]
 <</if>>\
-
-[[Leave|Town Center]]
+\
+<<if !$quests.questLog["A certain undergarment"].knownQuest>>\
+<<link '"Is there anything I can help you with?"' "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
+<<elseif $quests.questLog["A certain undergarment"].currentStep != 3>>\
+<<link "Ask about 'A certain undergarment'" "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
+<</if>>\
+\
+[[`"On second thought, nevermind."`|Chemical Imbalance]]
 
 :: Chemical Imbalance Application
 You walk up to the bartender, and ask "Is there any way I could help out?"
 
 The bartender smiles when you say that. "Actually," he says, "I've been needing some more help lately. I'll tell you what, for each hour you help out, I'll pay you 5 gold."
-
-<<set $shopRelations.chemicalImbalance.isPlayerHired = true>>
+\
+<<set $shopRelations.chemicalImbalance.isPlayerHired = true>>\
 
 [[Continue|Chemical Imbalance]]
 
@@ -30,4 +41,15 @@ You spend an hour serving guests, and cleaning tables.
 
 <<workForChemicalImbalance>>
 
+[[Continue|Chemical Imbalance]]
+
+:: Chemical Imbalance Drink
+<<if $player.intoxication < 4>>
+You order a drink from the bar. Warm thoughts flood your mind as it trickles down your throat.
+\
+<<set $player.gold -= 3>>\
+<<set $player.intoxication += 1>>\
+<<else>>
+You go to order another drink when the bartender stops you. "Alright buddy," he says, "I think you've had enough tonight..."
+<</if>>
 [[Continue|Chemical Imbalance]]

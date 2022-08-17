@@ -65,16 +65,16 @@ Gold - $player.gold
 <hr>
 <center><table style="width:100%">
     <tr>
-    <td><strong>STR:</strong> $player.stats.str (<<getAbilityModifierForPlayer str>>)</td>
-    <td><strong>DEX:</strong> $player.stats.dex (<<getAbilityModifierForPlayer dex>>)</td>
+    <td><strong>STR:</strong> $player.stats.str (<<getAbilityModifierStringForPlayer str>>)</td>
+    <td><strong>DEX:</strong> $player.stats.dex (<<getAbilityModifierStringForPlayer dex>>)</td>
     </tr>
     <tr>
-    <td><strong>CON:</strong> $player.stats.con (<<getAbilityModifierForPlayer con>>)</td>
-    <td><strong>WIS:</strong> $player.stats.wis (<<getAbilityModifierForPlayer wis>>)</td>
+    <td><strong>CON:</strong> $player.stats.con (<<getAbilityModifierStringForPlayer con>>)</td>
+    <td><strong>WIS:</strong> $player.stats.wis (<<getAbilityModifierStringForPlayer wis>>)</td>
     </tr>
     <tr>
-    <td><strong>INT:</strong> $player.stats.int (<<getAbilityModifierForPlayer int>>)</td>
-    <td><strong>CHA:</strong> $player.stats.cha (<<getAbilityModifierForPlayer cha>>)</td>
+    <td><strong>INT:</strong> $player.stats.int (<<getAbilityModifierStringForPlayer int>>)</td>
+    <td><strong>CHA:</strong> $player.stats.cha (<<getAbilityModifierStringForPlayer cha>>)</td>
     </tr>
 </table></center>\
 <hr>
@@ -95,12 +95,12 @@ Gold - $player.gold
 <<set $gameStarted = false>>
 Welcome to Sons of Ordson, a text based game set in the world of Gerajyo. It currently is very early in development, so don't expect much of a working game.
 
-For suggestions or concerns, feel free to open an Issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
+For suggestions or concerns, feel free to open an issue on Github: https://github.com/danielbarnes175/SonsOfOrdson/issues
 
 [[Start Your Adventure|Character Creation]]
 
 :: Character Creation
-You are a son of Ordson. You've lived here your whole life, and it's been a city you've both loved at times, and hated at times. Despite that, with all your experiences here, it's no doubt that you call Ordson your home.
+You are a Son of Ordson. You've lived here your whole life, and it's been a city you've both loved at times, and hated at times. Despite that, with all your experiences here, you still call Ordson your home.
 
 Before you set out for the day, you take a look in the mirror.
 
@@ -108,7 +108,7 @@ Before you set out for the day, you take a look in the mirror.
 You see a <<numberinput "$player.age" $player.age 13 65>> year old male looking back. You see someone worthy of having the name <<textbox "$player.name" $player.name>>
 
 <hr>
-You think back to your life and the strengths and weaknesses it has given you.
+You think back to your life and the strengths and weaknesses that you've developed.
 <<nobr>>
 <<set $statPool = 27>>
 <<set $STR = 8>>

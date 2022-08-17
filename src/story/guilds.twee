@@ -5,21 +5,25 @@ __Faction Progress__
 Merchant's Guild\
 
 <div class="meter-container"><center><<showmeter "merchantsGuildProgress" `$guilds.merchantsGuild.currentProgress / $guilds.merchantsGuild.maxProgress`>></center></div>\
+* Currently a member of this guild: $guilds.merchantsGuild.isPlayerMemberOf
 <hr>
 Adventurer's Guild\
 
 <div class="meter-container"><center><<showmeter "adventurersGuildProgress" `$guilds.adventurersGuild.currentProgress / $guilds.adventurersGuild.maxProgress`>></center></div>\
+* Currently a member of this guild: $guilds.adventurersGuild.isPlayerMemberOf
 <hr>
 Thieves' Guild\
 
 <div class="meter-container"><center><<showmeter "thievesGuildProgress" `$guilds.thievesGuild.currentProgress / $guilds.thievesGuild.maxProgress`>></center></div>\
+* Currently a member of this guild: $guilds.thievesGuild.isPlayerMemberOf
 <hr>
 Science Guild\
 
 <div class="meter-container"><center><<showmeter "ordTechGuildProgress" `$guilds.ordTechGuild.currentProgress / $guilds.ordTechGuild.maxProgress`>></center></div>\
+* Currently a member of this guild: $guilds.ordTechGuild.isPlayerMemberOf
 <hr>
 Church\
 
 <div class="meter-container"><center><<showmeter "churchGuildProgress" `$guilds.churchGuild.currentProgress / $guilds.churchGuild.maxProgress`>></center></div>\
+* Currently a member of this guild: $guilds.churchGuild.isPlayerMemberOf
 <hr>
-__Unlocked Perks__

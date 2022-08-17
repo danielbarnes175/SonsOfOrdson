@@ -1,4 +1,4 @@
-const abilityScoreModifiers = [
+State.variables.abilityScoreModifiers = [
   -5,
   -4,
   -4,
@@ -31,7 +31,15 @@ const abilityScoreModifiers = [
   10,
 ];
 
-macros.getAbilityModifierForPlayer = {
+State.variables.getAbilityModifierForPlayer = (stat) => {
+  const baseValue = State.variables.player.stats[stat];
+
+  // Calculate based off of items and other perks here.
+  const computedValue = baseValue;
+  return State.variables.abilityScoreModifiers[computedValue - 1];
+};
+
+macros.getAbilityModifierStringForPlayer = {
   /* eslint-disable-next-line */
     handler(place, macroName, params, parser) {
     const stat = params[0];
@@ -39,7 +47,7 @@ macros.getAbilityModifierForPlayer = {
 
     // Calculate based off of items and other perks here.
     const computedValue = baseValue;
-    const modifier = abilityScoreModifiers[computedValue - 1];
+    const modifier = State.variables.abilityScoreModifiers[computedValue - 1];
     const sign = (modifier >= 0) ? '+' : '';
 
     new Wikifier(place, sign + modifier);
