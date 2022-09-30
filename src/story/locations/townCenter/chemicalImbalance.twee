@@ -44,12 +44,16 @@ You spend an hour serving guests, and cleaning tables.
 [[Continue|Chemical Imbalance]]
 
 :: Chemical Imbalance Drink
-<<if $player.intoxication < 4>>
+<<if $player.intoxication < 4 && $player.gold >= 3>>
 You order a drink from the bar. Warm thoughts flood your mind as it trickles down your throat.
 \
 <<set $player.gold -= 3>>\
 <<set $player.intoxication += 1>>\
 <<else>>
-You go to order another drink when the bartender stops you. "Alright buddy," he says, "I think you've had enough tonight..."
+    <<if $player.intoxication >= 4>>
+    You go to order another drink when the bartender stops you. "Alright buddy," he says, "I think you've had enough tonight..."
+    <<else>>
+    You go to order a drink when you reach into your pocket to find you don't have enough money!
+    <</if>>
 <</if>>
 [[Continue|Chemical Imbalance]]

@@ -9,6 +9,7 @@ There's also a bar to the side. You've found it a little strange how there are s
 <<else>>\
 [[Ask for work|Linen Dreams Application]]
 <</if>>\
+[[Order a drink at the bar (7 gold)|Linen Dreams Drink]]
 
 [[Leave|Upper District]]
 
@@ -27,3 +28,18 @@ You spend an hour serving guests, and cleaning tables.
 <<workForLinenDreams>>
 
 [[Continue|Linen Dreams]]
+
+:: Linen Dreams Drink
+<<if $player.intoxication <= 4 && $player.gold >= 7>>
+You order a drink from the bar. It's really strong, but the taste is great!
+\
+<<set $player.gold -= 7>>\
+<<set $player.intoxication += 2>>\
+<<else>>
+    <<if $player.intoxication > 4>>
+    You walk up to a random person and try to order a drink from them. They look at you strangely, then walk away.
+    <<else>>
+    You go to order a drink when you reach into your pocket to find you don't have enough money!
+    <</if>>
+<</if>>
+[[Continue|Chemical Imbalance]]

@@ -10,6 +10,7 @@ As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner
 <<else>>\
 [[Ask for work|Green Raven Application]]
 <</if>>\
+[[Order a drink (5 gold)|Green Raven Drink]]
 [[Sit at a table|Shop]]
 
 [[Leave|Port]]
@@ -29,3 +30,18 @@ You spend an hour serving guests, and cleaning tables.
 <<workForGreenRaven>>
 
 [[Continue|Green Raven]]
+
+:: Green Raven Drink
+<<if $player.intoxication < 4 && $player.gold >= 5>>
+You order a drink from the bar. It's a little bitter as it trickles down your throat.
+\
+<<set $player.gold -= 5>>\
+<<set $player.intoxication += 1>>\
+<<else>>
+    <<if $player.intoxication >= 4>>
+    You go to order another drink in your drunken haze, you can't find the bartender!
+    <<else>>
+    You go to order a drink when you reach into your pocket to find you don't have enough money!
+    <</if>>
+<</if>>
+[[Continue|Chemical Imbalance]]

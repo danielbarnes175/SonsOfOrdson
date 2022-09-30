@@ -55,7 +55,7 @@ Version: 0.0.1
 
 
 :: StoryCaption
-<<if $gameStarted>>
+<<if $gameStarted>>\
 <<include "Player Avatar">>\
 Name: $player.name
 Level: $player.level
