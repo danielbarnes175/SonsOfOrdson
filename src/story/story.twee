@@ -56,6 +56,7 @@ Version: 0.0.1
 
 :: StoryCaption
 <<if $gameStarted>>
+<<include "Player Avatar">>\
 Name: $player.name
 Level: $player.level
 Location: $player.location
@@ -136,4 +137,18 @@ You have <span id="stat-pool">$statPool</span> points remaining to allocate.
 <<getStarterEquipment>>
 <</nobr>>
 
-
+:: Player Avatar
+<div id="playerAvatar">\
+    <div id="head" style="margin-bottom: -10px;">\
+        <<getImage "avatar/head-empty.png" 16 16>>\
+    </div>\
+    <div id="torso" style="margin-bottom: -10px;">\
+        <<getImage "avatar/torso-empty.png" 32 28>>\
+    </div>\
+    <div id="legs" style="margin-bottom: -20px;">\
+        <<getImage "avatar/legs-empty.png" 20 36>>\
+    </div>\
+    <div id="feet">\
+        <<getImage "avatar/feet-empty.png" 28 8>>\
+    </div>\
+</div>\
