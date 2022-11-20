@@ -1,0 +1,15 @@
+:: Financial District
+<<incrementTime 0 2>>\
+<<set $player.location="The Commercial District">>\
+<<getBannerForLocation $player.location>>
+
+You make your way to the Commercial District. Suddenly you're enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
+
+Places of Interest
+[[🧵 Silver Patchwork|Silver Patchwork]]
+[[🏛️ Fourth Bank of Ordson|Fourth Bank of Ordson]]
+[[💰 Merchant's Guild|Merchant's Guild]]
+[[🤝 Market|Market]]
+
+Travel
+[[Upper District|Upper District]]
