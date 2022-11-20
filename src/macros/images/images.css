@@ -2,3 +2,10 @@
  width: 832px;
  height: 320px;
 }
+
+@media only screen and (max-width: 600px) {
+    .bannerImage {
+        width: 100%;
+        height: 160px;
+       }
+  }
