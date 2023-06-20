@@ -1,3 +1,4 @@
 *.exe
 .vscode/
 node_modules
+dist/index.html
