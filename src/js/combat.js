@@ -9,7 +9,7 @@ setup.getRandomEnemies = (maxEnemyCount) => {
   for (let i = 0; i < numberOfEnemies; i++) {
     const enemyType = Math.floor(Math.random() * Object.keys(State.variables.enemies).length);
     const enemyKey = Object.keys(State.variables.enemies)[enemyType];
-    const randomEnemy = State.variables.enemies[enemyKey];
+    const randomEnemy = clone(State.variables.enemies[enemyKey]);
     enemies.push(randomEnemy);
   }
 
@@ -45,10 +45,15 @@ macros.progressEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     processPlayerAction(params[0], params[1]);
-    processEnemyActions();
 
     if (isEncounterOver()) {
       processEncounterOver();
+    } else {
+      processEnemyActions();
+
+      if (isEncounterOver()) {
+        processEncounterOver();
+      }
     }
 
     State.variables.currentEncounter.turn += 1;
