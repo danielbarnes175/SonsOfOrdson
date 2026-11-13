@@ -126,7 +126,13 @@ let processPlayerAction = (playerAction, playerTargetIndex) => {
   const diceRoll = dice('1d20');
   const success = diceRoll >= 6;
   const damage = dice(playerAction.damage);
-  if (success) {
+  if (diceRoll === 1) {
+    State.variables.currentEncounter.playerAction = playerAction.flavor.criticalFailure;
+    State.variables.player.health -= Math.floor(damage / 2);
+  } else if (diceRoll === 20) {
+    State.variables.currentEncounter.playerAction = `${playerAction.flavor.criticalSuccess} ${damage * 2} damage.`;
+    State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage * 2;
+  } else if (success) {
     const playerSuccessFlavor = playerAction.flavor.success;
     const index = Math.floor(Math.random() * playerSuccessFlavor.length);
 
@@ -137,14 +143,6 @@ let processPlayerAction = (playerAction, playerTargetIndex) => {
     const index = Math.floor(Math.random() * playerFailureFlavor.length);
 
     State.variables.currentEncounter.playerAction = playerFailureFlavor[index];
-  }
-
-  if (diceRoll === 1) {
-    State.variables.currentEncounter.playerAction = playerAction.flavor.criticalFailure;
-    State.variables.player.health -= Math.floor(damage / 2);
-  } else if (diceRoll === 20) {
-    State.variables.currentEncounter.playerAction = `${playerAction.flavor.criticalSuccess} ${damage * 2} damage.`;
-    State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage * 2;
   }
 };
 
