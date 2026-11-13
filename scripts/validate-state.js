@@ -256,6 +256,19 @@ assert.strictEqual(linenDreamsRelation.currentProgress, 0);
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
 
+State.variables.ordTech = {
+  smarts: 7,
+  entranceExam: [
+    { selectedAnswerIndex: 0 },
+    { selectedAnswerIndex: 2 },
+  ],
+};
+const migratedOrdTech = setup.ensureOrdTechState();
+assert.strictEqual(migratedOrdTech.smarts, 7);
+assert.strictEqual(migratedOrdTech.entranceExamAnswers.join(','), '0,2,-1,-1,-1');
+assert.strictEqual(migratedOrdTech.entranceExamScore, 0);
+assert.strictEqual(Object.prototype.hasOwnProperty.call(migratedOrdTech, 'entranceExam'), false);
+
 State.variables.player.name = 'Changed';
 assert.strictEqual(setup.playerDefaults.name, 'Bob');
 assert.deepStrictEqual(Object.keys(State.variables.quests.questLog['test quest']).sort(), [

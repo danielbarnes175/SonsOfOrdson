@@ -87,6 +87,31 @@ State.variables.ordTech = {
   entranceExamScore: 0,
 };
 
+setup.ensureOrdTechState = () => {
+  const exam = setup.getDefinition('exams', 'ordTechEntrance');
+  const ordTech = State.variables.ordTech || {};
+  const legacyExam = Array.isArray(ordTech.entranceExam) ? ordTech.entranceExam : [];
+  const savedAnswers = Array.isArray(ordTech.entranceExamAnswers)
+    ? ordTech.entranceExamAnswers
+    : legacyExam.map((question) => question.selectedAnswerIndex);
+  const entranceExamAnswers = exam.questions.map((question, index) => {
+    const answer = savedAnswers[index];
+    const isValidAnswer = Number.isInteger(answer)
+      && answer >= -1
+      && answer < question.choices.length;
+    return isValidAnswer ? answer : -1;
+  });
+
+  State.variables.ordTech = {
+    smarts: Number.isFinite(ordTech.smarts) ? ordTech.smarts : 0,
+    entranceExamAnswers,
+    entranceExamScore: Number.isFinite(ordTech.entranceExamScore)
+      ? ordTech.entranceExamScore
+      : 0,
+  };
+  return State.variables.ordTech;
+};
+
 macros.relationships = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
@@ -110,6 +135,7 @@ macros.getOrdTechEntranceExam = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     const exam = setup.getDefinition('exams', 'ordTechEntrance');
+    setup.ensureOrdTechState();
     exam.questions.forEach((question, i) => {
       new Wikifier(place, `${question.question}\n`);
       question.choices.forEach((choice, choiceIndex) => {
@@ -129,8 +155,9 @@ macros.getEntranceExamScore = {
   handler(place, macroName, params, parser) {
     let correctAnswers = 0;
     const exam = setup.getDefinition('exams', 'ordTechEntrance');
+    const ordTech = setup.ensureOrdTechState();
     exam.questions.forEach((question, index) => {
-      if (State.variables.ordTech.entranceExamAnswers[index] === question.correctAnswerIndex) {
+      if (ordTech.entranceExamAnswers[index] === question.correctAnswerIndex) {
         correctAnswers += 1;
       }
     });

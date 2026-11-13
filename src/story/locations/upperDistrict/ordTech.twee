@@ -24,6 +24,7 @@ You walk into the classroom and sit down for the lecture. The professor walks in
 :: Ord Tech Class 1
 You focus hard on the concepts that the professor goes over.
 
+<<set _ordTechState = setup.ensureOrdTechState()>>\
 <<set _intModifier = setup.getPlayerAbilityModifier('int')>>\
 <<set _roll to dice(`1d20+${_intModifier}`)>>\
 <<if _roll > 18>>\
