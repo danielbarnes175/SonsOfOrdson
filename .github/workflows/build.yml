@@ -28,7 +28,7 @@ jobs:
       - name: Build game
         run: |
           mkdir -p dist/src
-          tweego src -o dist/index.html --module=env-prod.js
+          tweego src/story src/js src/css src/macros -o dist/index.html --module=env-prod.js
           cp -R src/images dist/src/images
 
       - name: Deploy to Pages
