@@ -5,35 +5,35 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - name: Use Go 1.13
-        uses: actions/setup-go@v1
-        with:
-          go-version: 1.13.x
-
-      - name: build game
+      - name: Install Tweego
+        env:
+          TWEEGO_VERSION: 2.1.1
         run: |
-          go get github.com/tmedwards/tweego
-          export PATH=$PATH:$(go env GOPATH)/bin
+          curl -fsSL "https://github.com/tmedwards/tweego/releases/download/v${TWEEGO_VERSION}/tweego-${TWEEGO_VERSION}-linux-x64.zip" -o "$RUNNER_TEMP/tweego.zip"
+          mkdir -p "$RUNNER_TEMP/tweego"
+          unzip -q "$RUNNER_TEMP/tweego.zip" -d "$RUNNER_TEMP/tweego"
+          chmod +x "$RUNNER_TEMP/tweego/tweego"
+          echo "$RUNNER_TEMP/tweego" >> "$GITHUB_PATH"
+
+      - name: Build game
+        run: |
+          mkdir -p dist/src
           tweego src -o dist/index.html --module=env-prod.js
+          cp -R src/images dist/src/images
 
       - name: Deploy to Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./dist
-
-      - name: Deploy to Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./src/images
-          destination_dir: src/images
-          keep_files: true
