@@ -1160,16 +1160,16 @@ macros.getBannerForLocation = {
     handler(place, macroName, params, parser) {
     let imageKey = params[0].toLowerCase().replaceAll(' ', '-');
     imageKey = imageKey.replace(/'/g, '');
-    console.log(imageKey);
     const directory = (ENV === 'production') ? 'src/images/' : '../src/images/';
 
     let time = '';
     if (params[1]) {
-      if (currentHour < 12 && currentHour >= 6) {
+      const { currentHour } = State.variables;
+      if (currentHour >= 6 && currentHour < 12) {
         time = '-morning';
-      } else if (currentHour < 18) {
+      } else if (currentHour >= 12 && currentHour < 18) {
         time = '-afternoon';
-      } else if (currentHour < 22) {
+      } else if (currentHour >= 18 && currentHour < 22) {
         time = '-evening';
       } else {
         time = '-night';
