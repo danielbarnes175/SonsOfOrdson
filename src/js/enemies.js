@@ -1,7 +1,6 @@
-State.variables.enemies = {
+setup.registerDefinitions('enemies', {
   goblin: {
     name: 'Goblin',
-    health: 10,
     maxHealth: 10,
     stats: {
       str: 8,
@@ -14,4 +13,4 @@ State.variables.enemies = {
     damage: '1d3+1',
     guildProgress: 1,
   },
-};
+});

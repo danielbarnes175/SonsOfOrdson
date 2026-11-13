@@ -52,6 +52,20 @@ The majority of code for the project will be in the `/src` directory. Within tha
 - `twee-configs` if a macro is created, in order for the Twee 3 Language Tools plugin to recognize them, you must create a twee-config for them.
 - `images` images that are stored locally.
 
+#### Runtime State and Definitions
+
+Static game definitions belong in `setup.data`, where they are registered with
+`setup.registerDefinitions()` and deeply frozen. Story variables should contain only
+serializable runtime state such as player progress, quest progress, inventory instances,
+and encounter instances.
+
+- Use `setup.getDefinition(category, id)` to read an immutable definition.
+- Use `setup.createRuntimeInstance(category, id, prefix, runtimeState)` when runtime state
+  needs a stable ID and mutable instance-specific fields.
+- Keep reusable functions on `setup`; do not store functions in `State.variables`.
+- Add new runtime-state schema changes to the version in `$system.schemaVersion`.
+- Run `npm run validate:state` after changing definitions or the shape of runtime state.
+
 After your changes have been created, you can create a pull request that will then be reviewed and merged, if applicable.
 
 

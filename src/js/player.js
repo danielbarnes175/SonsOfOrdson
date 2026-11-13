@@ -1,4 +1,4 @@
-State.variables.player = {
+setup.playerDefaults = setup.deepFreeze({
   name: 'Bob',
   age: '20',
   level: 1,
@@ -19,21 +19,11 @@ State.variables.player = {
   location: 'Unknown',
   inventory: {
     currentlyEquipped: {
-      head: {
-        name: 'None',
-      },
-      chest: {
-        name: 'None',
-      },
-      legs: {
-        name: 'None',
-      },
-      feet: {
-        name: 'None',
-      },
-      weapons: {
-        name: 'None',
-      },
+      head: null,
+      chest: null,
+      legs: null,
+      feet: null,
+      weapons: null,
     },
     backpack: {
       head: [],
@@ -45,4 +35,6 @@ State.variables.player = {
     },
   },
   intoxication: 0,
-};
+});
+
+State.variables.player = clone(setup.playerDefaults);

@@ -1,4 +1,4 @@
-State.variables.weapons = {
+setup.registerDefinitions('items', {
   dagger: {
     name: 'Dagger',
     type: 'melee',
@@ -22,7 +22,6 @@ State.variables.weapons = {
     },
     description: 'A small dagger. You could stab someone with this.',
     attackDescription: 'Attack with your dagger',
-    isCurrentlyEquipped: false,
   },
   fist: {
     name: 'Fist',
@@ -47,55 +46,35 @@ State.variables.weapons = {
     },
     description: 'Your fist. Good for punching.',
     attackDescription: 'Punch with your fist',
-    isCurrentlyEquipped: true,
   },
-};
-
-State.variables.headEquipment = {
   ironHelmet: {
     name: 'Iron Helmet',
     type: 'armor',
     slot: 'head',
-    armorAmount: '3',
+    armorAmount: 3,
     description: 'An iron helmet that offers basic protection.',
-    isCurrentlyEquipped: false,
   },
-};
-
-State.variables.chestEquipment = {
   ironChestplate: {
     name: 'Iron Chestplate',
     type: 'armor',
     slot: 'chest',
-    armorAmount: '5',
+    armorAmount: 5,
     description: 'An iron chestplate that offers basic protection.',
-    isCurrentlyEquipped: false,
   },
-};
-
-State.variables.legEquipment = {
   ironPlatelegs: {
     name: 'Iron Platelegs',
     type: 'armor',
     slot: 'legs',
-    armorAmount: '4',
+    armorAmount: 4,
     description: 'Iron platelegs that offers basic protection.',
-    isCurrentlyEquipped: false,
   },
-};
-
-State.variables.feetEquipment = {
   ironBoots: {
     name: 'Iron Boots',
     type: 'armor',
     slot: 'feet',
-    armorAmount: '2',
+    armorAmount: 2,
     description: 'A pair of iron boots that offers basic protection.',
-    isCurrentlyEquipped: false,
   },
-};
-
-State.variables.generalEquipment = {
   healthPotion: {
     name: 'Health Potion',
     type: 'consumable',
@@ -103,28 +82,41 @@ State.variables.generalEquipment = {
     effect: 'heal',
     amount: 10,
   },
+});
+
+setup.getItemDefinition = (item) => (
+  item ? setup.getDefinition('items', item.definitionId || item.id) : null
+);
+
+setup.getInventoryItemById = (itemId) => {
+  const { backpack } = State.variables.player.inventory;
+  const items = Object.values(backpack).reduce((allItems, slotItems) => (
+    allItems.concat(slotItems)
+  ), []);
+  return items.find((item) => item.id === itemId) || null;
 };
 
 macros.useItem = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     const item = params[0];
+    const definition = setup.getItemDefinition(item);
     let itemUsed = true;
-    switch (item.effect) {
+    switch (definition.effect) {
       case 'heal':
-        State.variables.player.health += item.amount;
+        State.variables.player.health += definition.amount;
         if (State.variables.player.health > State.variables.player.maxHealth) {
           State.variables.player.health = State.variables.player.maxHealth;
         }
         break;
       default:
         // eslint-disable-next-line no-console
-        console.error(`No item use implemented for type ${item.effect}`);
+        console.error(`No item use implemented for type ${definition.effect}`);
         itemUsed = false;
         break;
     }
 
-    if (item.type === 'consumable' && itemUsed) {
+    if (definition.type === 'consumable' && itemUsed) {
       const index = State.variables.player.inventory.backpack.general.indexOf(item);
       State.variables.player.inventory.backpack.general.splice(index, 1);
     }
@@ -136,10 +128,13 @@ macros.equipItem = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     const item = params[0];
+    const definition = setup.getItemDefinition(item);
 
-    if (State.variables.player.inventory.currentlyEquipped[item.slot]) unequipItem(item.slot);
+    if (State.variables.player.inventory.currentlyEquipped[definition.slot]) {
+      setup.unequipItem(definition.slot);
+    }
 
-    State.variables.player.inventory.currentlyEquipped[item.slot] = item;
+    State.variables.player.inventory.currentlyEquipped[definition.slot] = item.id;
   },
   init() { },
 };
@@ -147,28 +142,26 @@ macros.equipItem = {
 macros.unequipItemHelper = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    unequipItem(params[0]);
+    setup.unequipItem(params[0]);
   },
   init() { },
 };
 
-let unequipItem = (itemSlot) => {
-  State.variables.player.inventory.currentlyEquipped[itemSlot] = {
-    name: 'None',
-  };
+setup.unequipItem = (itemSlot) => {
+  State.variables.player.inventory.currentlyEquipped[itemSlot] = null;
 };
 
 macros.getStarterEquipment = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    addItemToInventory(State.variables.weapons.dagger);
-    addItemToInventory(State.variables.headEquipment.ironHelmet);
-    addItemToInventory(State.variables.chestEquipment.ironChestplate);
-    addItemToInventory(State.variables.legEquipment.ironPlatelegs);
-    addItemToInventory(State.variables.feetEquipment.ironBoots);
+    setup.addItemToInventory('dagger');
+    setup.addItemToInventory('ironHelmet');
+    setup.addItemToInventory('ironChestplate');
+    setup.addItemToInventory('ironPlatelegs');
+    setup.addItemToInventory('ironBoots');
 
     for (let i = 0; i < 5; i++) {
-      addItemToInventory(State.variables.generalEquipment.healthPotion);
+      setup.addItemToInventory('healthPotion');
     }
   },
   init() { },
@@ -177,12 +170,18 @@ macros.getStarterEquipment = {
 macros.getCurrentlyEquipped = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    new Wikifier(place, `Head: ${State.variables.player.inventory.currentlyEquipped.head.name}\n`);
-    new Wikifier(place, `Chest: ${State.variables.player.inventory.currentlyEquipped.chest.name}\n`);
-    new Wikifier(place, `Legs: ${State.variables.player.inventory.currentlyEquipped.legs.name}\n`);
-    new Wikifier(place, `Feet: ${State.variables.player.inventory.currentlyEquipped.feet.name}\n\n`);
+    const equipped = State.variables.player.inventory.currentlyEquipped;
+    const getName = (itemId) => {
+      const item = setup.getInventoryItemById(itemId);
+      const definition = setup.getItemDefinition(item);
+      return definition ? definition.name : 'None';
+    };
+    new Wikifier(place, `Head: ${getName(equipped.head)}\n`);
+    new Wikifier(place, `Chest: ${getName(equipped.chest)}\n`);
+    new Wikifier(place, `Legs: ${getName(equipped.legs)}\n`);
+    new Wikifier(place, `Feet: ${getName(equipped.feet)}\n\n`);
 
-    new Wikifier(place, `Weapons: ${State.variables.player.inventory.currentlyEquipped.weapons.name}`);
+    new Wikifier(place, `Weapons: ${getName(equipped.weapons)}`);
   },
   init() { },
 };
@@ -190,45 +189,19 @@ macros.getCurrentlyEquipped = {
 macros.addItemToInventoryHelper = {
   /* eslint-disable-next-line */
    handler(place, macroName, params, parser) {
-    addItemToInventory(params[0]);
+    setup.addItemToInventory(params[0]);
   },
   init() { },
 };
 
-let addItemToInventory = (item) => {
-  const newItem = clone(item);
-  let id = -1;
-  switch (item.slot) {
-    case 'head':
-      id = State.variables.player.inventory.backpack.head.length;
-      newItem.id = id;
-      State.variables.player.inventory.backpack.head.push(newItem);
-      break;
-    case 'chest':
-      id = State.variables.player.inventory.backpack.chest.length;
-      newItem.id = id;
-      State.variables.player.inventory.backpack.chest.push(newItem);
-      break;
-    case 'legs':
-      id = State.variables.player.inventory.backpack.legs.length;
-      newItem.id = id;
-      State.variables.player.inventory.backpack.legs.push(newItem);
-      break;
-    case 'feet':
-      id = State.variables.player.inventory.backpack.feet.length;
-      newItem.id = id;
-      State.variables.player.inventory.backpack.feet.push(newItem);
-      break;
-    case 'weapons':
-      id = State.variables.player.inventory.backpack.weapons.length;
-      newItem.id = id;
-      State.variables.player.inventory.backpack.weapons.push(newItem);
-      break;
-    case 'general':
-    default:
-      id = State.variables.player.inventory.backpack.general.length;
-      newItem.id = id;
-      State.variables.player.inventory.backpack.general.push(newItem);
-      break;
-  }
+setup.addItemToInventory = (item) => {
+  const definitionId = typeof item === 'string'
+    ? item
+    : item.definitionId || item.id;
+  const newItem = setup.createRuntimeInstance('items', definitionId, 'item');
+  const definition = setup.getDefinition('items', definitionId);
+  const inventory = State.variables.player.inventory.backpack;
+  const slot = inventory[definition.slot] ? definition.slot : 'general';
+  inventory[slot].push(newItem);
+  return newItem;
 };

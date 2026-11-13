@@ -1,7 +1,6 @@
 {
     "sugarcube-2": {
         "macros": {
-            "getAbilityModifierForPlayer": {},
             "getAbilityModifierStringForPlayer": {}
         }
     }

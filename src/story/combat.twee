@@ -7,7 +7,9 @@ $currentEncounter.playerAction
 <hr>\
 <<if !$currentEncounter.encounterEnded>>\
 <<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
-    The $currentEncounter.enemies[_i].name has $currentEncounter.enemies[_i].health health remaining.
+    <<set _enemy = $currentEncounter.enemies[_i]>>\
+    <<set _enemyDefinition = setup.getDefinition('enemies', _enemy.definitionId)>>\
+    _enemyDefinition.name has _enemy.health health remaining.
 <</for>>\
 
 <hr>
@@ -16,21 +18,23 @@ Who would you like to target?
   <<set $currentEncounter.targetIndex = 0>>\
 <</if>>\
 <<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
-    <<set $_this = $currentEncounter.enemies[_i]>>\
-    <<radiobutton "$currentEncounter.targetIndex" _i `_i === $currentEncounter.targetIndex ? 'checked' : ''`>> $currentEncounter.enemies[_i].name
+    <<set _enemy = $currentEncounter.enemies[_i]>>\
+    <<set _enemyDefinition = setup.getDefinition('enemies', _enemy.definitionId)>>\
+    <<radiobutton "$currentEncounter.targetIndex" _i `_i === $currentEncounter.targetIndex ? 'checked' : ''`>> _enemyDefinition.name
 <</for>>\
 
 What would you like to do?
-<<if !$currentEncounter.action>>\
-  <<set $currentEncounter.action = $currentEncounter.playerActions[0]>>\
+<<if !$currentEncounter.actionId>>\
+  <<set $currentEncounter.actionId = $currentEncounter.playerActionIds[0]>>\
 <</if>>\
-<<for _i to 0; _i lt $currentEncounter.playerActions.length; _i++>>\
-    <<set $_this = $currentEncounter.playerActions[_i]>>\
-    <<radiobutton "$currentEncounter.action" $_this `$_this.attackDescription === $currentEncounter.action.attackDescription ? 'checked' : ''`>> $currentEncounter.playerActions[_i].attackDescription
+<<for _i to 0; _i lt $currentEncounter.playerActionIds.length; _i++>>\
+    <<set _actionId = $currentEncounter.playerActionIds[_i]>>\
+    <<set _action = setup.getDefinition('items', _actionId)>>\
+    <<radiobutton "$currentEncounter.actionId" _actionId `_actionId === $currentEncounter.actionId ? 'checked' : ''`>> _action.attackDescription
 <</for>>\
 
 
-<<link "Confirm" "Encounter">><<progressEncounter $currentEncounter.action $currentEncounter.targetIndex>><</link>>
+<<link "Confirm" "Encounter">><<progressEncounter $currentEncounter.actionId $currentEncounter.targetIndex>><</link>>
 <<else>>
   <<if $currentEncounter.playerWonEncounter>>
   Encounter Complete!

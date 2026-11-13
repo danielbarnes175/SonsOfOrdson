@@ -7,9 +7,13 @@ setup.getRandomEnemies = (maxEnemyCount) => {
 
   const numberOfEnemies = Math.floor(Math.random() * maxEnemyCount) + 1;
   for (let i = 0; i < numberOfEnemies; i++) {
-    const enemyType = Math.floor(Math.random() * Object.keys(State.variables.enemies).length);
-    const enemyKey = Object.keys(State.variables.enemies)[enemyType];
-    const randomEnemy = clone(State.variables.enemies[enemyKey]);
+    const enemyKeys = Object.keys(setup.data.enemies);
+    const enemyType = Math.floor(Math.random() * enemyKeys.length);
+    const enemyKey = enemyKeys[enemyType];
+    const definition = setup.getDefinition('enemies', enemyKey);
+    const randomEnemy = setup.createRuntimeInstance('enemies', enemyKey, 'enemy', {
+      health: definition.maxHealth,
+    });
     enemies.push(randomEnemy);
   }
 
@@ -24,16 +28,16 @@ macros.setupEncounter = {
     State.variables.player.locationBeforeEncounter = State.variables.player.location;
     for (let i = 0; i < params[1].length; i++) {
       const enemy = params[1][i];
-      enemy.id = i;
+      const definition = setup.getDefinition('enemies', enemy.definitionId);
       enemies.push(enemy);
-      enemyActions.push(`A ${params[1][i].name} appears before you.\n`);
+      enemyActions.push(`A ${definition.name} appears before you.\n`);
     }
 
     State.variables.currentEncounter = {
       enemies,
       enemyActions,
       turn: 0,
-      playerActions: getPlayerActions(),
+      playerActionIds: ['dagger', 'fist'],
       playerAction: 'You wait with anticipation.',
       encounterEnded: false,
     };
@@ -44,7 +48,8 @@ macros.setupEncounter = {
 macros.progressEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    processPlayerAction(params[0], params[1]);
+    const playerAction = setup.getDefinition('items', params[0]);
+    processPlayerAction(playerAction, params[1]);
 
     if (isEncounterOver()) {
       processEncounterOver();
@@ -85,11 +90,6 @@ macros.processEncounterWon = {
   init() { },
 };
 
-let getPlayerActions = () => [
-  State.variables.weapons.dagger,
-  State.variables.weapons.fist,
-];
-
 let isEncounterOver = () => {
   // Check if player has died
   if (State.variables.player.health <= 0) {
@@ -105,7 +105,8 @@ let isEncounterOver = () => {
     if (currentEnemy.health > 0) {
       aliveEnemies.push(currentEnemy);
     } else if (State.variables.guilds.adventurersGuild.isPlayerMemberOf) {
-      State.variables.guilds.adventurersGuild.currentProgress += currentEnemy.guildProgress;
+      const definition = setup.getDefinition('enemies', currentEnemy.definitionId);
+      State.variables.guilds.adventurersGuild.currentProgress += definition.guildProgress;
     }
   }
 
@@ -149,10 +150,12 @@ let processPlayerAction = (playerAction, playerTargetIndex) => {
 let processEnemyActions = () => {
   State.variables.currentEncounter.enemyActions = [];
   for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
+    const enemy = State.variables.currentEncounter.enemies[i];
+    const definition = setup.getDefinition('enemies', enemy.definitionId);
     const actions = [
-      `The ${State.variables.currentEncounter.enemies[i].name} attacks you!`,
-      `The ${State.variables.currentEncounter.enemies[i].name} attacks you with a dagger!`,
-      `The ${State.variables.currentEncounter.enemies[i].name} attacks you with a fist!`,
+      `The ${definition.name} attacks you!`,
+      `The ${definition.name} attacks you with a dagger!`,
+      `The ${definition.name} attacks you with a fist!`,
     ];
     const diceRoll = dice('1d20');
     const success = diceRoll >= 14;

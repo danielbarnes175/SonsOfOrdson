@@ -15,17 +15,18 @@ macros.getQuestListInJournal = {
     const completedQuests = [];
     const unstartedQuests = [];
     for (const [key, value] of Object.entries(State.variables.quests.questLog)) {
-      if (value.knownQuest && value.currentStep < value.quest_steps.length - 1) {
+      const definition = setup.getDefinition('quests', key);
+      if (value.knownQuest && value.currentStep < definition.steps.length - 1) {
         activeQuests.push({
-          name: key,
-          step: value.quest_steps[value.currentStep],
+          name: definition.title,
+          step: definition.steps[value.currentStep],
         });
       } else if (value.knownQuest) {
-        completedQuests.push(value.title);
+        completedQuests.push(definition.title);
       } else {
         unstartedQuests.push({
-          name: value.title,
-          hint: value.quest_steps[0],
+          name: definition.title,
+          hint: definition.steps[0],
         });
       }
     }

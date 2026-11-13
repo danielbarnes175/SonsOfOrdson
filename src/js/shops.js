@@ -1,44 +1,52 @@
-State.variables.shopRelations = {
+setup.registerDefinitions('shops', {
   chemicalImbalance: {
-    currentProgress: 0,
     maxProgress: 100,
-    isPlayerHired: false,
+    shiftPay: 5,
+    rivals: ['linenDreams', 'greenRaven'],
   },
   greenRaven: {
-    currentProgress: 0,
     maxProgress: 100,
-    isPlayerHired: false,
+    shiftPay: 5,
+    rivals: ['chemicalImbalance', 'linenDreams'],
   },
   linenDreams: {
-    currentProgress: 0,
     maxProgress: 100,
-    isPlayerHired: false,
+    shiftPay: 5,
+    rivals: ['chemicalImbalance', 'greenRaven'],
   },
-};
+});
+
+State.variables.shopRelations = {};
+Object.keys(setup.data.shops).forEach((shopId) => {
+  State.variables.shopRelations[shopId] = {
+    currentProgress: 0,
+    isPlayerHired: false,
+  };
+});
 
 State.variables.shopInventories = {};
+
+setup.workForShop = (shopId) => {
+  const definition = setup.getDefinition('shops', shopId);
+  const relation = State.variables.shopRelations[shopId];
+
+  if (relation.currentProgress < definition.maxProgress) {
+    relation.currentProgress += 1;
+  }
+  definition.rivals.forEach((rivalId) => {
+    const rival = State.variables.shopRelations[rivalId];
+    if (rival.currentProgress > 0) rival.currentProgress -= 1;
+  });
+
+  State.variables.player.gold += definition.shiftPay;
+  return definition.shiftPay;
+};
 
 macros.workForChemicalImbalance = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const {
-      chemicalImbalance,
-      greenRaven,
-      linenDreams,
-    } = State.variables.shopRelations;
-
-    if (chemicalImbalance.currentProgress < chemicalImbalance.maxProgress) {
-      chemicalImbalance.currentProgress++;
-    }
-    if (linenDreams.currentProgress > 0) {
-      linenDreams.currentProgress--;
-    }
-    if (greenRaven.currentProgress > 0) {
-      greenRaven.currentProgress--;
-    }
-
-    new Wikifier(place, 'You have received 5 gold as payment for your shift.');
-    State.variables.player.gold += 5;
+    const pay = setup.workForShop('chemicalImbalance');
+    new Wikifier(place, `You have received ${pay} gold as payment for your shift.`);
   },
   init() { },
 };
@@ -46,24 +54,8 @@ macros.workForChemicalImbalance = {
 macros.workForGreenRaven = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const {
-      chemicalImbalance,
-      greenRaven,
-      linenDreams,
-    } = State.variables.shopRelations;
-
-    if (greenRaven.currentProgress < greenRaven.maxProgress) {
-      greenRaven.currentProgress++;
-    }
-    if (chemicalImbalance.currentProgress > 0) {
-      chemicalImbalance.currentProgress--;
-    }
-    if (linenDreams.currentProgress > 0) {
-      linenDreams.currentProgress--;
-    }
-
-    new Wikifier(place, 'You have received 5 gold as payment for your shift.\n');
-    State.variables.player.gold += 5;
+    const pay = setup.workForShop('greenRaven');
+    new Wikifier(place, `You have received ${pay} gold as payment for your shift.\n`);
   },
   init() { },
 };
@@ -71,24 +63,8 @@ macros.workForGreenRaven = {
 macros.workForLinenDreams = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const {
-      chemicalImbalance,
-      greenRaven,
-      linenDreams,
-    } = State.variables.shopRelations;
-
-    if (linenDreams.currentProgress < linenDreams.maxProgress) {
-      linenDreams.currentProgress++;
-    }
-    if (chemicalImbalance.currentProgress > 0) {
-      chemicalImbalance.currentProgress--;
-    }
-    if (greenRaven.currentProgress > 0) {
-      greenRaven.currentProgress--;
-    }
-
-    new Wikifier(place, 'You have received 5 gold as payment for your shift.');
-    State.variables.player.gold += 5;
+    const pay = setup.workForShop('linenDreams');
+    new Wikifier(place, `You have received ${pay} gold as payment for your shift.`);
   },
   init() { },
 };
