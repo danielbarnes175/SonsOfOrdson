@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./tweego src -o dist/index.html --module=env-dev.js",
     "lint": "eslint src/**/*.js",
-    "lintfix": "eslint src/**/*.js --fix"
+    "lintfix": "eslint src/**/*.js --fix",
+    "validate:passages": "node scripts/validate-passages.js"
   },
   "repository": {
     "type": "git",

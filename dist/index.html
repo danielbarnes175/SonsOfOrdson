@@ -638,6 +638,7 @@ macros.useItem = {
         }
         break;
       default:
+        // eslint-disable-next-line no-console
         console.error(`No item use implemented for type ${item.effect}`);
         itemUsed = false;
         break;
@@ -1062,9 +1063,21 @@ State.variables.shopInventories = {};
 macros.workForChemicalImbalance = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    if (State.variables.shopRelations.chemicalImbalance.currentProgress < State.variables.shopRelations.chemicalImbalance.maxProgress) { State.variables.shopRelations.chemicalImbalance.currentProgress++; }
-    if (State.variables.shopRelations.linenDreams.currentProgress > 0) { State.variables.shopRelations.linenDreams.currentProgress--; }
-    if (State.variables.shopRelations.greenRaven.currentProgress > 0) { State.variables.shopRelations.greenRaven.currentProgress--; }
+    const {
+      chemicalImbalance,
+      greenRaven,
+      linenDreams,
+    } = State.variables.shopRelations;
+
+    if (chemicalImbalance.currentProgress < chemicalImbalance.maxProgress) {
+      chemicalImbalance.currentProgress++;
+    }
+    if (linenDreams.currentProgress > 0) {
+      linenDreams.currentProgress--;
+    }
+    if (greenRaven.currentProgress > 0) {
+      greenRaven.currentProgress--;
+    }
 
     new Wikifier(place, 'You have received 5 gold as payment for your shift.');
     State.variables.player.gold += 5;
@@ -1075,9 +1088,21 @@ macros.workForChemicalImbalance = {
 macros.workForGreenRaven = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    if (State.variables.shopRelations.greenRaven.currentProgress < State.variables.shopRelations.greenRaven.maxProgress) { State.variables.shopRelations.greenRaven.currentProgress++; }
-    if (State.variables.shopRelations.chemicalImbalance.currentProgress > 0) { State.variables.shopRelations.chemicalImbalance.currentProgress--; }
-    if (State.variables.shopRelations.linenDreams.currentProgress > 0) { State.variables.shopRelations.linenDreams.currentProgress--; }
+    const {
+      chemicalImbalance,
+      greenRaven,
+      linenDreams,
+    } = State.variables.shopRelations;
+
+    if (greenRaven.currentProgress < greenRaven.maxProgress) {
+      greenRaven.currentProgress++;
+    }
+    if (chemicalImbalance.currentProgress > 0) {
+      chemicalImbalance.currentProgress--;
+    }
+    if (linenDreams.currentProgress > 0) {
+      linenDreams.currentProgress--;
+    }
 
     new Wikifier(place, 'You have received 5 gold as payment for your shift.\n');
     State.variables.player.gold += 5;
@@ -1088,9 +1113,21 @@ macros.workForGreenRaven = {
 macros.workForLinenDreams = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    if (State.variables.shopRelations.linenDreams.currentProgress < State.variables.shopRelations.linenDreams.maxProgress) { State.variables.shopRelations.linenDreams.currentProgress++; }
-    if (State.variables.shopRelations.chemicalImbalance.currentProgress > 0) { State.variables.shopRelations.chemicalImbalance.currentProgress--; }
-    if (State.variables.shopRelations.greenRaven.currentProgress > 0) { State.variables.shopRelations.greenRaven.currentProgress--; }
+    const {
+      chemicalImbalance,
+      greenRaven,
+      linenDreams,
+    } = State.variables.shopRelations;
+
+    if (linenDreams.currentProgress < linenDreams.maxProgress) {
+      linenDreams.currentProgress++;
+    }
+    if (chemicalImbalance.currentProgress > 0) {
+      chemicalImbalance.currentProgress--;
+    }
+    if (greenRaven.currentProgress > 0) {
+      greenRaven.currentProgress--;
+    }
 
     new Wikifier(place, 'You have received 5 gold as payment for your shift.');
     State.variables.player.gold += 5;
@@ -1654,7 +1691,7 @@ The doorman walks you to the back. Once back there, you suddenly realize that al
 [[Hand him the money and fill out the paperwork|Thieves&#39; Guild 5]]
 &lt;&lt;else&gt;&gt;\
     &lt;&lt;if $player.gold &gt; 0&gt;&gt;\
-        [[`&quot;I only have $player.gold gold!&quot;`|Thieves Guild 6]]
+        [[`&quot;I only have $player.gold gold!&quot;`|Thieves&#39; Guild 6]]
     &lt;&lt;else&gt;&gt;\
         You man quickly realizes that you have no gold, and then throws you outside. At least he gave you your items back...
 
@@ -1740,7 +1777,7 @@ You open the door to the Bubble and Broil Distillery. The aroma of various scent
 
 [[Shop]]
 
-[[Leave| Industrial District]]</tw-passagedata><tw-passagedata pid="53" name="Chronicler&#39;s Temple" tags="" position="350,725" size="100,100">&lt;&lt;set $player.location=&quot;Chronicler&#39;s Temple&quot;&gt;&gt;\
+[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="53" name="Chronicler&#39;s Temple" tags="" position="350,725" size="100,100">&lt;&lt;set $player.location=&quot;Chronicler&#39;s Temple&quot;&gt;&gt;\
 
 You open the wooden door and step foot into the temple. It&#39;s no surprise that such an important building to Ordson would be in the heart of the industrial district. Ordson has always valued science, and progress, and knowledge is an integral part of its mission.
 
@@ -1759,7 +1796,7 @@ Deeper back, you&#39;re able to see part of the forge, but you know that it open
 [[Shop]]
 [[Walk to the back|General Metalworks - Forge]]
 
-[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="56" name="Metalworks - Forge" tags="" position="725,725" size="100,100">You make your way to the back of the metal shop. The heat increases as you make your way through a doorway. It opens up to a larger area where you can see various machines mass producing different metal parts.
+[[Leave|Industrial District]]</tw-passagedata><tw-passagedata pid="56" name="General Metalworks - Forge" tags="" position="725,725" size="100,100">You make your way to the back of the metal shop. The heat increases as you make your way through a doorway. It opens up to a larger area where you can see various machines mass producing different metal parts.
 
 Before you can explore further, a guard notices you and shouts &quot;What are you doing back here?&quot;
 

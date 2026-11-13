@@ -41,7 +41,7 @@ The doorman walks you to the back. Once back there, you suddenly realize that al
 [[Hand him the money and fill out the paperwork|Thieves' Guild 5]]
 <<else>>\
     <<if $player.gold > 0>>\
-        [[`"I only have $player.gold gold!"`|Thieves Guild 6]]
+        [[`"I only have $player.gold gold!"`|Thieves' Guild 6]]
     <<else>>\
         You man quickly realizes that you have no gold, and then throws you outside. At least he gave you your items back...
 
