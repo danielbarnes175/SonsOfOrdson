@@ -1,11 +1,39 @@
 {
-    "sugarcube-2": {
-        "macros": {
-            "numberinput": {},
-            "numberpool": {
-                "container": true
-            },
-            "onchange": {}
-        }
+  "sugarcube-2": {
+    "macros": {
+      "numberinput": {
+        "name": "numberinput",
+        "description": "*Syntax:* `<<numberinput variableName defaultValue minimum maximum [poolCost] [autofocus]>>`\n\nThis macro shows a number field with decrease and increase buttons. It stores the selected whole number in the specified variable.\n\nWhen the macro is in `<<numberpool>>`, each change also changes the pool. `poolCost` specifies the cost of one score point.\n\n*Arguments:*\n\n  * `variableName`: The quoted name of a story or temporary variable.\n  * `defaultValue`: The initial whole number.\n  * `minimum`: The minimum permitted value.\n  * `maximum`: The maximum permitted value.\n  * `poolCost`: (optional) The pool cost of one point. The default value is `1`.\n  * `autofocus`: (optional) Use this keyword to put keyboard focus on the field.\n\n*Usage:*\n```\n<<numberinput \"$player.age\" $player.age 13 65>>\n```",
+        "parameters": [
+          "string &+ number &+ number &+ number |+ 'autofocus'",
+          "string &+ number &+ number &+ number &+ number |+ 'autofocus'"
+        ]
+      },
+      "numberpool": {
+        "name": "numberpool",
+        "container": true,
+        "children": [
+          "onchange"
+        ],
+        "description": "*Syntax:* `<<numberpool poolVariable>> content [<<onchange>> content] <</numberpool>>`\n\nThis macro connects its number controls to a shared pool. The first content section shows the controls.\n\nThe optional `<<onchange>>` section runs after a control changes the pool value.\n\n*Arguments:*\n\n  * `poolVariable`: The quoted name of a numeric story or temporary variable.\n\n*Usage:*\n```\n<<numberpool \"$points\">>\n  <<numberinput \"$strength\" $strength 8 15>>\n  <<onchange>>Points: $points\n<</numberpool>>\n```",
+        "parameters": [
+          "string"
+        ]
+      },
+      "onchange": {
+        "name": "onchange",
+        "parents": [
+          "numberpool"
+        ],
+        "description": "*Syntax:* `<<onchange>> content`\n\nUse this child tag in `<<numberpool>>`. Its content runs after a number control changes the pool value.\n\n*Usage:*\n```\n<<numberpool \"$points\">>\n  <<numberinput \"$strength\" $strength 8 15>>\n  <<onchange>>Points: $points\n<</numberpool>>\n```"
+      },
+      "numberslider": {
+        "name": "numberslider",
+        "description": "*Syntax:* `<<numberslider variableName defaultValue minimum maximum step [autofocus]>>`\n\nThis macro shows a range slider and its numeric value. It stores the selected number in the specified variable.\n\nWhen the macro is in `<<numberpool>>`, each change also changes the pool.\n\n*Arguments:*\n\n  * `variableName`: The quoted name of a story or temporary variable.\n  * `defaultValue`: The initial number.\n  * `minimum`: The minimum permitted value.\n  * `maximum`: The maximum permitted value.\n  * `step`: The permitted interval between slider values.\n  * `autofocus`: (optional) Use this keyword to put keyboard focus on the slider.\n\n*Usage:*\n```\n<<numberslider \"$volume\" $volume 0 100 5>>\n```",
+        "parameters": [
+          "string &+ number &+ number &+ number &+ number |+ 'autofocus'"
+        ]
+      }
     }
+  }
 }

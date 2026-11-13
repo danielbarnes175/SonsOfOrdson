@@ -1,7 +1,23 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "pointbuy": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    pointbuy:
+      name: pointbuy
+      description: |-
+        *Syntax:* `<<pointbuy statsVariable poolVariable [budget]>>`
+
+        This macro shows the ability-score point-buy controls. It uses the standard costs for scores from 8 through 15.
+
+        The macro writes the remaining points to `poolVariable`. It prevents a score change when the player does not have sufficient points.
+
+        *Arguments:*
+
+          * `statsVariable`: The quoted name of a story variable that contains the six ability scores.
+          * `poolVariable`: The quoted name of a story variable that receives the remaining points.
+          * `budget`: (optional) A nonnegative whole number. The default value is `27`.
+
+        *Usage:*
+        ```
+        <<pointbuy "$player.stats" "$statPool" 27>>
+        ```
+      parameters:
+        - string &+ string |+ number

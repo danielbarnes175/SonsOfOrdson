@@ -1,8 +1,26 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "journal": {},
-            "getQuestListInJournal": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    journal:
+      name: journal
+      description: |-
+        *Syntax:* `<<journal>>`
+
+        This macro opens the Journal dialog. The dialog shows the `Journal` passage.
+
+        *Usage:*
+        ```
+        <<button "Journal">><<journal>><</button>>
+        ```
+    getQuestListInJournal:
+      name: getQuestListInJournal
+      description: |-
+        *Syntax:* `<<getQuestListInJournal>>`
+
+        This macro shows quests in Active, Available, Completed, and Failed sections.
+
+        An active quest shows its current objective. An available quest shows its discovery hint.
+
+        *Usage:*
+        ```
+        <<getQuestListInJournal>>
+        ```

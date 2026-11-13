@@ -1,8 +1,31 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "getTimeString": {},
-            "incrementTime": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    getTimeString:
+      name: getTimeString
+      description: |-
+        *Syntax:* `<<getTimeString>>`
+
+        Displays the current game day and time in `Day N - H:MM` format.
+
+        *Usage:*
+        ```
+        <<getTimeString>>
+        ```
+    incrementTime:
+      name: incrementTime
+      description: |-
+        *Syntax:* `<<incrementTime hours minutes>>`
+
+        Advances the game clock by the supplied hours and minutes. Crossing midnight increments the day and resets player intoxication.
+
+        *Arguments:*
+
+          * `hours`: The number of hours to add.
+          * `minutes`: The number of minutes to add.
+
+        *Usage:*
+        ```
+        <<incrementTime 1 30>>
+        ```
+      parameters:
+        - number &+ number

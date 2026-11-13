@@ -1,11 +1,83 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "setupEncounter": {},
-            "progressEncounter": {},
-            "endEncounter": {},
-            "recoverPlayerFromDefeat": {},
-            "processEncounterWon": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    setupEncounter:
+      name: setupEncounter
+      description: |-
+        *Syntax:* `<<setupEncounter player enemyList>>`
+
+        This macro starts a combat encounter. It stores the encounter in `$currentEncounter`.
+
+        The macro keeps the `player` argument for compatibility. The macro creates the encounter from `enemyList`.
+
+        *Arguments:*
+
+          * `player`: The player value. This argument is currently reserved and is not read by the macro.
+          * `enemyList`: An array of enemy runtime objects, normally created with `setup.getRandomEnemies()` or `setup.createEnemy()`.
+
+        *Usage:*
+        ```
+        <<set _enemies = setup.getRandomEnemies(3)>>
+        <<setupEncounter $player _enemies>>
+        ```
+      parameters:
+        - text &+ text
+    progressEncounter:
+      name: progressEncounter
+      description: |-
+        *Syntax:* `<<progressEncounter actionId targetId>>`
+
+        This macro resolves one round of the active encounter. It uses the selected combat action and enemy target.
+
+        The macro shows validation errors in the passage.
+
+        *Arguments:*
+
+          * `actionId`: The item-definition ID of an available combat action, such as `'fist'` or `'dagger'`.
+          * `targetId`: The runtime ID of a living enemy in the current encounter.
+
+        *Usage:*
+        ```
+        <<progressEncounter $currentEncounter.selectedActionId $currentEncounter.selectedTargetId>>
+        ```
+      parameters:
+        - text &+ text
+    endEncounter:
+      name: endEncounter
+      description: |-
+        *Syntax:* `<<endEncounter>>`
+
+        This macro clears the current encounter. It sets `$currentEncounter` to its empty state.
+
+        This macro does not give rewards or restore health.
+
+        *Usage:*
+        ```
+        <<endEncounter>>
+        ```
+    recoverPlayerFromDefeat:
+      name: recoverPlayerFromDefeat
+      description: |-
+        *Syntax:* `<<recoverPlayerFromDefeat>>`
+
+        This macro recovers the player after a lost encounter. It restores maximum health and clears the encounter.
+
+        The macro shows an error if the player is not defeated. Use other macros to change the time and passage.
+
+        *Usage:*
+        ```
+        <<recoverPlayerFromDefeat>>
+        <<incrementTime 4 0>>
+        ```
+    processEncounterWon:
+      name: processEncounterWon
+      description: |-
+        *Syntax:* `<<processEncounterWon>>`
+
+        This macro gives the gold and experience rewards from a won encounter. It shows the reward values.
+
+        The macro can give the rewards only one time.
+
+        *Usage:*
+        ```
+        <<processEncounterWon>>
+        ```

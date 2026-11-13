@@ -1,7 +1,19 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "getJsonString": {},
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    getJsonString:
+      name: getJsonString
+      description: |-
+        *Syntax:* `<<getJsonString value...>>`
+
+        This macro uses `JSON.stringify()` on each specified value. It shows the JSON results without a separator.
+
+        *Arguments:*
+
+          * `value`: One or more values to serialize.
+
+        *Usage:*
+        ```
+        <<getJsonString $player.inventory>>
+        ```
+      parameters:
+        - ...text

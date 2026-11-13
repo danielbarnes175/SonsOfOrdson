@@ -1,13 +1,127 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "discoverQuest": {},
-            "startQuest": {},
-            "advanceQuest": {},
-            "setQuestObjective": {},
-            "completeQuest": {},
-            "failQuest": {},
-            "receiveQuestReward": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    discoverQuest:
+      name: discoverQuest
+      description: |-
+        *Syntax:* `<<discoverQuest questId>>`
+
+        This macro changes a hidden quest to the available state. It shows an error if the operation is not valid.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+
+        *Usage:*
+        ```
+        <<discoverQuest 'A certain undergarment'>>
+        ```
+      parameters:
+        - string
+    startQuest:
+      name: startQuest
+      description: |-
+        *Syntax:* `<<startQuest questId>>`
+
+        This macro starts a hidden or available quest. It sets the first objective as the current objective.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+
+        *Usage:*
+        ```
+        <<startQuest 'A certain undergarment'>>
+        ```
+      parameters:
+        - string
+    advanceQuest:
+      name: advanceQuest
+      description: |-
+        *Syntax:* `<<advanceQuest questId [expectedObjectiveId]>>`
+
+        This macro moves an active quest to its next objective. It completes the quest after its last objective.
+
+        Use `expectedObjectiveId` to prevent an incorrect passage from changing the quest.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+          * `expectedObjectiveId`: (optional) The ID that the current objective must have.
+
+        *Usage:*
+        ```
+        <<advanceQuest 'A certain undergarment' 'collectOrder'>>
+        ```
+      parameters:
+        - string |+ string
+    setQuestObjective:
+      name: setQuestObjective
+      description: |-
+        *Syntax:* `<<setQuestObjective questId objectiveId>>`
+
+        This macro sets a specified objective as the current objective of an active quest.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+          * `objectiveId`: The ID of an objective in that quest definition.
+
+        *Usage:*
+        ```
+        <<setQuestObjective 'Thieves Guild Entrance Exam' 'returnArtifact'>>
+        ```
+      parameters:
+        - string &+ string
+    completeQuest:
+      name: completeQuest
+      description: |-
+        *Syntax:* `<<completeQuest questId>>`
+
+        This macro changes an active quest to the completed state. It does not give the quest rewards.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+
+        *Usage:*
+        ```
+        <<completeQuest 'A certain undergarment'>>
+        ```
+      parameters:
+        - string
+    failQuest:
+      name: failQuest
+      description: |-
+        *Syntax:* `<<failQuest questId>>`
+
+        This macro changes an active quest to the failed state.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+
+        *Usage:*
+        ```
+        <<failQuest 'Thieves Guild Entrance Exam'>>
+        ```
+      parameters:
+        - string
+    receiveQuestReward:
+      name: receiveQuestReward
+      description: |-
+        *Syntax:* `<<receiveQuestReward questId>>`
+
+        This macro gives the rewards for a completed quest. It shows each gold, experience, and item reward.
+
+        The macro can give the rewards only one time.
+
+        *Arguments:*
+
+          * `questId`: The ID of a quest definition.
+
+        *Usage:*
+        ```
+        <<receiveQuestReward 'A certain undergarment'>>
+        ```
+      parameters:
+        - string

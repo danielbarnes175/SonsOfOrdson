@@ -1,7 +1,19 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "getAbilityModifierStringForPlayer": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    getAbilityModifierStringForPlayer:
+      name: getAbilityModifierStringForPlayer
+      description: |-
+        *Syntax:* `<<getAbilityModifierStringForPlayer ability>>`
+
+        Displays the D&D-style modifier for one player ability score. Non-negative modifiers include a leading plus sign.
+
+        *Arguments:*
+
+          * `ability`: One of `str`, `dex`, `con`, `int`, `wis`, or `cha`.
+
+        *Usage:*
+        ```
+        Strength modifier: <<getAbilityModifierStringForPlayer str>>
+        ```
+      parameters:
+        - text

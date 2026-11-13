@@ -1,16 +1,154 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "getInventoryTab": {},
-            "getStarterEquipment": {},
-            "getCurrentlyEquipped": {},
-            "equipItem": {},
-            "unequipItemHelper": {},
-            "useItem": {},
-            "addItemToInventoryHelper": {},
-            "removeItemFromInventoryHelper": {},
-            "removeItemsByDefinitionHelper": {},
-            "playerAvatar": {},
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    getStarterEquipment:
+      name: getStarterEquipment
+      description: |-
+        *Syntax:* `<<getStarterEquipment>>`
+
+        This macro gives the configured starter items to the player. It equips the plain shirt, pants, and shoes.
+
+        It also adds a dagger, the iron armor set, and five health potions. Use this macro only one time.
+
+        *Usage:*
+        ```
+        <<if !$characterCreationInitialized>>
+          <<getStarterEquipment>>
+        <</if>>
+        ```
+    getCurrentlyEquipped:
+      name: getCurrentlyEquipped
+      description: |-
+        *Syntax:* `<<getCurrentlyEquipped>>`
+
+        This macro shows the item in each player equipment slot. It shows `None` for an empty slot.
+
+        *Usage:*
+        ```
+        <<getCurrentlyEquipped>>
+        ```
+    equipItem:
+      name: equipItem
+      description: |-
+        *Syntax:* `<<equipItem item>>`
+
+        This macro equips an owned item in its configured slot. The new item replaces the item in that slot.
+
+        Use an item runtime object or a runtime item ID as the argument.
+
+        *Arguments:*
+
+          * `item`: An owned item runtime object or runtime item ID.
+
+        *Usage:*
+        ```
+        <<equipItem _item.id>>
+        ```
+      parameters:
+        - text
+    unequipItemHelper:
+      name: unequipItemHelper
+      description: |-
+        *Syntax:* `<<unequipItemHelper slot>>`
+
+        This macro removes the equipped item from a player equipment slot.
+
+        *Arguments:*
+
+          * `slot`: One of `'head'`, `'chest'`, `'legs'`, `'feet'`, or `'weapons'`.
+
+        *Usage:*
+        ```
+        <<unequipItemHelper 'weapons'>>
+        ```
+      parameters:
+        - string
+    useItem:
+      name: useItem
+      description: |-
+        *Syntax:* `<<useItem item>>`
+
+        This macro uses an owned item. It applies the configured item effect.
+
+        A successful use removes one consumable item. Use an item runtime object or a runtime item ID.
+
+        *Arguments:*
+
+          * `item`: An owned item runtime object or runtime item ID.
+
+        *Usage:*
+        ```
+        <<useItem _potion.id>>
+        ```
+      parameters:
+        - text
+    addItemToInventoryHelper:
+      name: addItemToInventoryHelper
+      description: |-
+        *Syntax:* `<<addItemToInventoryHelper definitionId [quantity]>>`
+
+        This macro adds items to the player inventory. It uses an immutable item definition.
+
+        Stackable items fill existing stacks first. The macro creates a different runtime instance for each equipment item.
+
+        *Arguments:*
+
+          * `definitionId`: The item-definition ID, such as `'healthPotion'` or `'dagger'`.
+          * `quantity`: (optional) A positive whole number. Defaults to `1`.
+
+        *Usage:*
+        ```
+        <<addItemToInventoryHelper 'healthPotion' 3>>
+        ```
+      parameters:
+        - string |+ number
+    removeItemFromInventoryHelper:
+      name: removeItemFromInventoryHelper
+      description: |-
+        *Syntax:* `<<removeItemFromInventoryHelper item [quantity]>>`
+
+        This macro removes a quantity from one owned runtime item or stack. It also clears the applicable equipment slot.
+
+        *Arguments:*
+
+          * `item`: An owned item runtime object or runtime item ID.
+          * `quantity`: (optional) A positive whole number. Defaults to `1`.
+
+        *Usage:*
+        ```
+        <<removeItemFromInventoryHelper _item.id 1>>
+        ```
+      parameters:
+        - text |+ number
+    removeItemsByDefinitionHelper:
+      name: removeItemsByDefinitionHelper
+      description: |-
+        *Syntax:* `<<removeItemsByDefinitionHelper definitionId [quantity]>>`
+
+        This macro removes a total quantity of one item definition. It can remove items from multiple instances or stacks.
+
+        The macro removes nothing if the player does not have the full quantity.
+
+        *Arguments:*
+
+          * `definitionId`: The item-definition ID to remove.
+          * `quantity`: (optional) A positive whole number. Defaults to `1`.
+
+        *Usage:*
+        ```
+        <<removeItemsByDefinitionHelper 'healthPotion' 2>>
+        ```
+      parameters:
+        - string |+ number
+    playerAvatar:
+      name: playerAvatar
+      description: |-
+        *Syntax:* `<<playerAvatar>>`
+
+        This macro shows the player base sprite and the image layer for each equipped item.
+
+        The renderer uses the layer order in `setup.playerAvatar.equipmentLayerOrder`.
+
+        *Usage:*
+        ```
+        <<playerAvatar>>
+        ```

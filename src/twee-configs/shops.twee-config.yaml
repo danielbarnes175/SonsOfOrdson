@@ -1,13 +1,104 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "openShop": {},
-            "closeShop": {},
-            "buyFromShop": {},
-            "sellToShop": {},
-            "workForChemicalImbalance": {},
-            "workForGreenRaven": {},
-            "workForLinenDreams": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    openShop:
+      name: openShop
+      description: |-
+        *Syntax:* `<<openShop shopId [returnPassage]>>`
+
+        This macro starts a shop session. It stores the shop ID and the return passage in `$shopSession`.
+
+        *Arguments:*
+
+          * `shopId`: The ID of a shop definition.
+          * `returnPassage`: (optional) The passage to open when the player leaves the shop.
+
+        *Usage:*
+        ```
+        <<link "Shop" "Shop">><<openShop 'generalMetalworks' $player.location>><</link>>
+        ```
+      parameters:
+        - string |+ text
+    closeShop:
+      name: closeShop
+      description: |-
+        *Syntax:* `<<closeShop>>`
+
+        This macro clears the active shop session.
+
+        *Usage:*
+        ```
+        <<closeShop>>
+        ```
+    buyFromShop:
+      name: buyFromShop
+      description: |-
+        *Syntax:* `<<buyFromShop definitionId [quantity]>>`
+
+        This macro buys an item from the active shop. It stores the transaction message in `$shopSession.lastMessage`.
+
+        The macro does not change gold or inventory if the transaction is not valid.
+
+        *Arguments:*
+
+          * `definitionId`: The ID of an item in the active shop catalog.
+          * `quantity`: (optional) A positive whole number. The default value is `1`.
+
+        *Usage:*
+        ```
+        <<buyFromShop 'healthPotion' 5>>
+        ```
+      parameters:
+        - string |+ number
+    sellToShop:
+      name: sellToShop
+      description: |-
+        *Syntax:* `<<sellToShop itemId [quantity]>>`
+
+        This macro sells an owned item to the active shop. It stores the transaction message in `$shopSession.lastMessage`.
+
+        The macro does not sell equipped items. It does not change gold or inventory if the transaction is not valid.
+
+        *Arguments:*
+
+          * `itemId`: The runtime ID of an owned item or item stack.
+          * `quantity`: (optional) A positive whole number. The default value is `1`.
+
+        *Usage:*
+        ```
+        <<sellToShop _item.id 1>>
+        ```
+      parameters:
+        - text |+ number
+    workForChemicalImbalance:
+      name: workForChemicalImbalance
+      description: |-
+        *Syntax:* `<<workForChemicalImbalance>>`
+
+        This macro pays the player for one shift at Chemical Imbalance. It also changes the related shop progress values.
+
+        *Usage:*
+        ```
+        <<workForChemicalImbalance>>
+        ```
+    workForGreenRaven:
+      name: workForGreenRaven
+      description: |-
+        *Syntax:* `<<workForGreenRaven>>`
+
+        This macro pays the player for one shift at Green Raven. It also changes the related shop progress values.
+
+        *Usage:*
+        ```
+        <<workForGreenRaven>>
+        ```
+    workForLinenDreams:
+      name: workForLinenDreams
+      description: |-
+        *Syntax:* `<<workForLinenDreams>>`
+
+        This macro pays the player for one shift at Linen Dreams. It also changes the related shop progress values.
+
+        *Usage:*
+        ```
+        <<workForLinenDreams>>
+        ```

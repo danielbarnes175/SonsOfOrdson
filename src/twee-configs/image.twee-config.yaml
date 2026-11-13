@@ -1,8 +1,46 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "getBannerForLocation": {},
-            "getImage": {},
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    getBannerForLocation:
+      name: getBannerForLocation
+      description: |-
+        *Syntax:* `<<getBannerForLocation location [useTimeVariant]>>`
+
+        This macro shows the PNG banner for a location. It changes the location name to lowercase.
+
+        It changes spaces to hyphens and removes apostrophes. It shows `default-banner.png` if the location image does not load.
+
+        If `useTimeVariant` is true, the macro adds a time suffix. The current game hour controls the suffix.
+
+        *Arguments:*
+
+          * `location`: A location name, normally `$player.location`.
+          * `useTimeVariant`: (optional) Whether to request a time-specific image.
+
+        *Usage:*
+        ```
+        <<getBannerForLocation $player.location>>
+        <<getBannerForLocation "Town Center" true>>
+        ```
+      parameters:
+        - text |+ boolean
+    getImage:
+      name: getImage
+      description: |-
+        *Syntax:* `<<getImage imagePath width height>>`
+
+        This macro shows an image from `src/images`. It uses the specified width and height.
+
+        The `imagePath` value is relative to the image directory.
+
+        *Arguments:*
+
+          * `imagePath`: The relative image filename or path.
+          * `width`: The rendered width in pixels.
+          * `height`: The rendered height in pixels.
+
+        *Usage:*
+        ```
+        <<getImage "sons-of-ordson-logo-v2.png" 128 128>>
+        ```
+      parameters:
+        - string &+ number &+ number

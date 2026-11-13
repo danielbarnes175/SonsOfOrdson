@@ -1,10 +1,52 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "relationships": {},
-            "joinAdventurersGuild": {},
-            "getOrdTechEntranceExam": {},
-            "getEntranceExamScore": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    relationships:
+      name: relationships
+      description: |-
+        *Syntax:* `<<relationships>>`
+
+        This macro opens the Relations dialog. The dialog shows the `Relations` passage.
+
+        *Usage:*
+        ```
+        <<button "Relationships">><<relationships>><</button>>
+        ```
+    joinAdventurersGuild:
+      name: joinAdventurersGuild
+      description: |-
+        *Syntax:* `<<joinAdventurersGuild>>`
+
+        This macro removes the 25-gold fee. It makes the player a member of the Adventurer's Guild.
+
+        Make sure that the player has sufficient gold before you use this macro.
+
+        *Usage:*
+        ```
+        <<if $player.gold gte 25>><<joinAdventurersGuild>><</if>>
+        ```
+    getOrdTechEntranceExam:
+      name: getOrdTechEntranceExam
+      description: |-
+        *Syntax:* `<<getOrdTechEntranceExam>>`
+
+        This macro shows each Ord Tech entrance-exam question. It uses radio buttons for the answers.
+
+        The macro stores the selected answer indexes in `$ordTech.entranceExamAnswers`.
+
+        *Usage:*
+        ```
+        <<getOrdTechEntranceExam>>
+        ```
+    getEntranceExamScore:
+      name: getEntranceExamScore
+      description: |-
+        *Syntax:* `<<getEntranceExamScore>>`
+
+        This macro grades the Ord Tech entrance exam. It stores a decimal score in `$ordTech.entranceExamScore`.
+
+        The stored score is from `0` through `1`. The macro shows a percentage from `0` through `100`.
+
+        *Usage:*
+        ```
+        Your score is <<getEntranceExamScore>>%.
+        ```

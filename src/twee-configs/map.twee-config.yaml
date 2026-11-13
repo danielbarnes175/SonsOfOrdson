@@ -1,7 +1,13 @@
-{
-    "sugarcube-2": {
-        "macros": {
-            "map": {}
-        }
-    }
-}
+sugarcube-2:
+  macros:
+    map:
+      name: map
+      description: |-
+        *Syntax:* `<<map>>`
+
+        This macro opens the Map dialog. The dialog shows the `Map` passage.
+
+        *Usage:*
+        ```
+        <<button "Map">><<map>><</button>>
+        ```
