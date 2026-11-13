@@ -17,4 +17,4 @@ Travel
 [[Port|Port]]
 <<link "Loiter (1:00)" "Town Center">><<incrementTime 1 0>><</link>>
 
-[[Leave Town|Crossroads]]
+[[Leave the City|Crossroads]]

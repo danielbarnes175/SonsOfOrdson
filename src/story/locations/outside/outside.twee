@@ -1,7 +1,7 @@
 :: Crossroads
 <<set $player.location="Crossroads">>\
 
-You make your way to the crossroads outside town. One of the paths leads to the forest, and the other leads to the mountains.
+You make your way to the crossroads outside the city. One of the paths leads to the forest, and the other leads to the mountains.
 
 Travel
 [[Forest]]
@@ -27,7 +27,7 @@ You make your way deeper into the forest.
 <</link>>
 
 Travel
-[[Make your way towards the forest entrance|Forest]]
+[[Make your way toward the forest entrance|Forest]]
 
 :: Mountain Base
 <<set $player.location="Mountain Base">>\

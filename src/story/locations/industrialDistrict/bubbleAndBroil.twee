@@ -1,6 +1,6 @@
 :: Bubble and Broil
 <<set $player.location="Bubble and Broil">>\
-You open the door to the Bubble and Broil Distillery. The aroma of various scents and ingredients overwhelm your nose. It's nice to have a place in the city that is essentially an alchemist's lab. You've always been able to get health and other various potions for cheaper than they would sell in other parts of the realm.
+You open the door to the Bubble and Broil Distillery. The aroma of various ingredients overwhelms your nose. It's nice to have a place in the city that is essentially an alchemist's lab. You've always been able to get health potions and various other concoctions here for less than they would cost elsewhere in the realm.
 
 <<link "Shop" "Shop">><<openShop "bubbleAndBroil" $player.location>><</link>>
 

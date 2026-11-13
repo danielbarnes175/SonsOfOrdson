@@ -1,9 +1,9 @@
 :: Green Raven
 <<set $player.location="Green Raven">>\
 
-As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner of Green Raven, the sleeziest bar in town, and also the village drunk.
+As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner of the sleaziest bar in the city and Ordson's resident drunk.
 
-"Welcome to the Green Raven, hun" she says, slurring her speech. "If you need anything, just sit at one of the tables, and I'll be right uh-with you."
+"Welcome to the Green Raven, hun," she says, slurring her speech. "If you need anything, just sit at one of the tables, and I'll be right, uh, with you."
 
 <<if $shopRelations.greenRaven.isPlayerHired>>\
 <<link "Work a shift (1:00)" "Green Raven Shift">><<incrementTime 1 0>><</link>>
@@ -16,9 +16,9 @@ As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner
 [[Leave|Port]]
 
 :: Green Raven Application
-"Can I have a job?" You ask Trina.
+"Can I have a job?" you ask Trina.
 
-She looks at you with a crooked head, and for a second you're worried that she is too drunk to understand what you're saying. Before you can say another word, she suddenly says "Of course, honey! I'll give you 5 gold for every hour you work."
+She tilts her head, and for a second, you're worried that she is too drunk to understand what you're saying. Before you can say another word, she suddenly replies, "Of course, honey! I'll give you 5 gold for every hour you work."
 
 <<set $shopRelations.greenRaven.isPlayerHired = true>>
 
@@ -30,7 +30,7 @@ You find an open table and sit down. Trina seems to have forgotten that she told
 [[Return to the bar|Green Raven]]
 
 :: Green Raven Shift
-You spend an hour serving guests, and cleaning tables.
+You spend an hour serving guests and cleaning tables.
 
 <<workForGreenRaven>>
 
@@ -44,9 +44,9 @@ You order a drink from the bar. It's a little bitter as it trickles down your th
 <<set $player.intoxication += 1>>\
 <<else>>
     <<if $player.intoxication >= 4>>
-    You go to order another drink in your drunken haze, you can't find the bartender!
+    You go to order another drink, but in your drunken haze, you can't find the bartender!
     <<else>>
-    You go to order a drink when you reach into your pocket to find you don't have enough money!
+    You reach into your pocket to order a drink, only to find that you don't have enough money!
     <</if>>
 <</if>>
 [[Continue|Green Raven]]

@@ -1,6 +1,6 @@
 :: Chemical Imbalance
 <<set $player.location="Chemical Imbalance">>\
-As you enter the tavern, the warm glow covers you as you're greeted by a slew of patrons enjoying their meals. The bartender, busy as he may be, greets you with a nod as you make your way to a table. A quiet ambience exudes from the tavern, with sounds of a piano coming from somewhere deeper in. You think to yourself that it shall be a fine night to relax for yourself, and have a quick drink, or, perhaps you could strike up a conversation with the bartender.
+As you enter the tavern, a warm glow washes over you. Patrons enjoy their meals while the busy bartender greets you with a nod. A quiet ambiance fills the room, accompanied by the sound of a piano somewhere deeper inside. It seems like a fine place to relax with a quick drink or strike up a conversation with the bartender.
 
 What would you like to do?
 
@@ -25,10 +25,10 @@ You flag down the bartender to strike up a conversation with him. He makes his w
 <<link "Ask about 'A certain undergarment'" "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
 <</if>>\
 \
-[[`"On second thought, nevermind."`|Chemical Imbalance]]
+[[`"On second thought, never mind."`|Chemical Imbalance]]
 
 :: Chemical Imbalance Application
-You walk up to the bartender, and ask "Is there any way I could help out?"
+You walk up to the bartender and ask, "Is there any way I could help out?"
 
 The bartender smiles when you say that. "Actually," he says, "I've been needing some more help lately. I'll tell you what, for each hour you help out, I'll pay you 5 gold."
 \
@@ -37,7 +37,7 @@ The bartender smiles when you say that. "Actually," he says, "I've been needing 
 [[Continue|Chemical Imbalance]]
 
 :: Chemical Imbalance Shift
-You spend an hour serving guests, and cleaning tables.
+You spend an hour serving guests and cleaning tables.
 
 <<workForChemicalImbalance>>
 
@@ -51,9 +51,9 @@ You order a drink from the bar. Warm thoughts flood your mind as it trickles dow
 <<set $player.intoxication += 1>>\
 <<else>>
     <<if $player.intoxication >= 4>>
-    You go to order another drink when the bartender stops you. "Alright buddy," he says, "I think you've had enough tonight..."
+    You go to order another drink when the bartender stops you. "All right, buddy," he says. "I think you've had enough tonight..."
     <<else>>
-    You go to order a drink when you reach into your pocket to find you don't have enough money!
+    You reach into your pocket to order a drink, only to find that you don't have enough money!
     <</if>>
 <</if>>
 [[Continue|Chemical Imbalance]]

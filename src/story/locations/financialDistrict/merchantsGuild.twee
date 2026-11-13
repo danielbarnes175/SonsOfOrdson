@@ -2,6 +2,6 @@
 <<set $player.location="Merchant's Guild">>\
 <<getBannerForLocation $player.location>>
 
-You walk into the Merchant's Guild. There's people yelling and scrambling about trying to turn a profit and negotiate deals for various products.
+You walk into the Merchant's Guild. People are yelling and scrambling about, trying to turn a profit and negotiate deals for various products.
 
 [[Leave|Financial District]]

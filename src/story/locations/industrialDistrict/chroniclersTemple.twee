@@ -1,9 +1,9 @@
 :: Chronicler's Temple
 <<set $player.location="Chronicler's Temple">>\
 
-You open the wooden door and step foot into the temple. It's no surprise that such an important building to Ordson would be in the heart of the industrial district. Ordson has always valued science, and progress, and knowledge is an integral part of its mission.
+You open the wooden door and set foot inside the temple. It's no surprise that such an important building would stand in the heart of Ordson's Industrial District. Ordson has always valued science and progress, with knowledge forming an integral part of its mission.
 
-Some could say that the Chronicler Aeyenlo was one of the most important Gods in making Ordson what it is today. The statue of the Scholar-God towers over you, reminding you that you're really just a small piece in the course of all history.
+Some might say that the Chronicler Aeyenlo was one of the gods most responsible for shaping Ordson into what it is today. The statue of the Scholar-God towers over you, reminding you that you're only a small piece in the course of history.
 
 [[Pray|Chronicler's Temple - Pray]]
 

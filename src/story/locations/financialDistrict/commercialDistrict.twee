@@ -1,9 +1,9 @@
 :: Financial District
 <<incrementTime 0 2>>\
-<<set $player.location="The Commercial District">>\
+<<set $player.location="The Financial District">>\
 <<getBannerForLocation $player.location>>
 
-You make your way to the Commercial District. Suddenly you're enveloped in a crowd of merchants, travellers, and the like. The hustle and bustle of people trying to make some coin fills the area.
+You make your way to the Financial District. Suddenly, you're enveloped by a crowd of merchants, travelers, and the like. The hustle and bustle of people trying to make some coin fills the area.
 
 Places of Interest
 [[🧵 Silver Patchwork|Silver Patchwork]]

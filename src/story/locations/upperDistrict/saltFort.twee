@@ -1,7 +1,7 @@
 :: Salt Fort Entrance
 <<incrementTime 0 2>>\
 <<set $player.location="Salt Fort Entrance">>\
-You make your way to the giant looming castle. For a place that is said to be the center of innovation in the realm, it sure looks like a normal castle.
+You make your way to the giant, looming castle. For a place said to be the center of innovation in the realm, it certainly looks like a normal castle.
 
 [[Enter the Fort|Salt Fort Entranceway]]
 

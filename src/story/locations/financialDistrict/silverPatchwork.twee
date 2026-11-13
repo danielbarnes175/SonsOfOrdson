@@ -1,7 +1,7 @@
 :: Silver Patchwork
 <<incrementTime 0 1>>\
 <<set $player.location="Silver Patchwork">>\
-You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There's such a variety, that you're not even sure where to start!
+You walk into the giant clothing store. As soon as you get inside, you see countless garments. There's such a variety that you're not even sure where to start!
 
 <<if setup.isQuestStatus('A certain undergarment', setup.questStatuses.active)>>\
     <<if setup.isQuestObjective('A certain undergarment', 'collectOrder')>>\

@@ -1,8 +1,8 @@
 :: General Metalworks
 <<set $player.location="General Metalworks">>\
-You push open the heavy metal door and step into the shop. The walls are lined with various weapons, and armors that would be useful for adventurers.
+You push open the heavy metal door and step into the shop. The walls are lined with various weapons and armor that would be useful to adventurers.
 
-Deeper back, you're able to see part of the forge, but you know that it opens up into a much larger area that you cannot see. You're not shocked that it's a bit warmer in here than most other buildings in Ordson.
+Farther inside, you can see part of the forge, though you know it opens into a much larger area hidden from view. You're not surprised that it's warmer here than in most other buildings in Ordson.
 
 <<link "Shop" "Shop">><<openShop "generalMetalworks" $player.location>><</link>>
 [[Walk to the back|General Metalworks - Forge]]
@@ -10,9 +10,9 @@ Deeper back, you're able to see part of the forge, but you know that it opens up
 [[Leave|Industrial District]]
 
 :: General Metalworks - Forge
-You make your way to the back of the metal shop. The heat increases as you make your way through a doorway. It opens up to a larger area where you can see various machines mass producing different metal parts.
+You make your way to the back of the metal shop. The heat increases as you pass through a doorway into a larger area, where you can see various machines mass-producing different metal parts.
 
-Before you can explore further, a guard notices you and shouts "What are you doing back here?"
+Before you can explore further, a guard notices you and shouts, "What are you doing back here?"
 
 You make your way out before he can catch you.
 

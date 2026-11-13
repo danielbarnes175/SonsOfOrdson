@@ -1,6 +1,6 @@
 :: Linen Dreams
 <<set $player.location="Linen Dreams">>\
-You push through the front doors leading into Linen Dreams. Inside the lobby are various important looking people of all races. Typically when notable people are travelling for business, they'll stay at Linen Dreams due to its incredible reputation, and proximity to the Salt Fort. Being so close to the Salt Fort, it can be kept secure by the royal guards for any patrons looking to rest their heads somewhere comfortable for the night.
+You push through the front doors leading into Linen Dreams. Inside the lobby are various important-looking people of all races. When notable people are traveling for business, they often stay at Linen Dreams because of its incredible reputation and proximity to the Salt Fort. The nearby royal guards can easily keep the inn secure for patrons looking to rest somewhere comfortable for the night.
 
 There's also a bar to the side. You've found it a little strange how there are so many taverns in the city, but at least this one doubles as an inn as well.
 
@@ -16,14 +16,14 @@ There's also a bar to the side. You've found it a little strange how there are s
 :: Linen Dreams Application
 You walk over to the front desk. "Hello," you say, "is there any way I could help out here?"
 
-The owner looks at you and says, "Actually, the bar has been needing some extra help lately. With all the competition in town, it's hard to find good help. I'll give you 5 gold for every hour you work."
+The owner looks at you and says, "Actually, the bar has been needing some extra help lately. With all the competition in the city, it's hard to find good help. I'll give you 5 gold for every hour you work."
 
 <<set $shopRelations.linenDreams.isPlayerHired = true>>
 
 [[Continue|Linen Dreams]]
 
 :: Linen Dreams Shift
-You spend an hour serving guests, and cleaning tables.
+You spend an hour serving guests and cleaning tables.
 
 <<workForLinenDreams>>
 
@@ -39,7 +39,7 @@ You order a drink from the bar. It's really strong, but the taste is great!
     <<if $player.intoxication > 4>>
     You walk up to a random person and try to order a drink from them. They look at you strangely, then walk away.
     <<else>>
-    You go to order a drink when you reach into your pocket to find you don't have enough money!
+    You reach into your pocket to order a drink, only to find that you don't have enough money!
     <</if>>
 <</if>>
 [[Continue|Linen Dreams]]

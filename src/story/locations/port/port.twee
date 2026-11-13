@@ -3,7 +3,7 @@
 <<set $player.location="The Port">>\
 <<getBannerForLocation $player.location>>
 
-You make your way to the Port. There's boats all around. And water. And even a lighthouse in the distance! It's definitely a port.
+You make your way to the Port. There are boats all around. And water. And even a lighthouse in the distance! It's definitely a port.
 
 Places of Interest
 [[⛵ Boat Charters|Boat Charters]]
@@ -13,6 +13,6 @@ Travel
 [[Town Center|Town Center]]
 
 :: Boat Charters
-You walk over to the booth to charter a boat. Unfortunately, when you get there, you see a sign that says "Out Fishing". Maybe someone knows where the owner is at the tavern?
+You walk over to the booth to charter a boat. Unfortunately, when you get there, you see a sign that says "Out Fishing." Maybe someone at the tavern knows where the owner is.
 
 [[Leave|Port]]

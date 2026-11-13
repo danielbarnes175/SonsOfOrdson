@@ -12,7 +12,7 @@ setup.registerDefinitions('items', {
     throwable: true,
     requiresTwoHands: false,
     flavor: {
-      criticalSuccess: 'You manage to catch the enemy off balance, and get an especially good hit.',
+      criticalSuccess: 'You manage to catch the enemy off balance and get an especially good hit.',
       criticalFailure: 'You swing your dagger and accidentally hit yourself!',
       success: [
         'You manage to hit the enemy.',
@@ -86,7 +86,7 @@ setup.registerDefinitions('items', {
     stackable: false,
     value: 25,
     armorAmount: 4,
-    description: 'Iron platelegs that offers basic protection.',
+    description: 'Iron platelegs that offer basic protection.',
     avatarLayer: 'avatar/iron-platelegs.png',
   },
   ironBoots: {

@@ -19,7 +19,7 @@ setup.registerDefinitions('quests', {
     },
   },
   'Thieves Guild Entrance Exam': {
-    title: 'Thieves Guild Entrance Exam',
+    title: 'Thieves\' Guild Entrance Exam',
     description: 'Prove your worth to the Thieves\' Guild by stealing something valuable from the Salt Fort.',
     hint: 'There is a thieves\' guild somewhere in the city. If only you knew how to find them.',
     objectives: [

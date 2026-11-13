@@ -3,7 +3,7 @@
 <<set $player.location="The Industrial District">>\
 <<getBannerForLocation $player.location>>
 
-You make your way to the Industrial District. The sounds of cogs and machinery fill the air. 
+You make your way to the Industrial District. The sounds of cogs and machinery fill the air.
 
 Places of Interest
 [[🧪 Bubble and Broil|Bubble and Broil]]
