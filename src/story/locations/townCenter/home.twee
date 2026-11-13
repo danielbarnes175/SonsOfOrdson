@@ -34,14 +34,22 @@ You stand alone in your room. It's just the way you left it.
 <<getCurrentlyEquipped>>\
 
 :: Equipment General
+<<if $player.inventory.backpack.general.length == 0>>\
+    You aren't carrying any general items.
+<</if>>\
 <<for _i = 0; _i < $player.inventory.backpack.general.length; _i++>>\
     <<set _value = $player.inventory.backpack.general[_i]>>\
     <<set _definition = setup.getItemDefinition(_value)>>\
-    _definition.name <<link '(Use)' 'Change Equipment'>><<useItem _value>><</link>>
+    ''_definition.name'' <<if _value.quantity gt 1>>(_value.quantity)<</if>>
+    _definition.description
+    <<if _definition.effect>><<link '(Use)' 'Change Equipment'>><<useItem _value.id>><</link>><</if>>
 
 <</for>>\
 
 :: Equipment Weapons
+<<if $player.inventory.backpack.weapons.length == 0>>\
+    You aren't carrying any weapons.
+<</if>>\
 <<for _i = 0; _i < $player.inventory.backpack.weapons.length; _i++>>\
     <<set _value = $player.inventory.backpack.weapons[_i]>>\
     <<set _definition = setup.getItemDefinition(_value)>>\
@@ -49,12 +57,15 @@ You stand alone in your room. It's just the way you left it.
         _definition.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _definition.slot>><</link>>
 
     <<else>>\
-        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value.id>><</link>>
 
     <</if>>\
 <</for>>\
 
 :: Equipment Head
+<<if $player.inventory.backpack.head.length == 0>>\
+    You aren't carrying anything for your head.
+<</if>>\
 <<for _i = 0; _i < $player.inventory.backpack.head.length; _i++>>\
     <<set _value = $player.inventory.backpack.head[_i]>>\
     <<set _definition = setup.getItemDefinition(_value)>>\
@@ -62,12 +73,15 @@ You stand alone in your room. It's just the way you left it.
         _definition.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _definition.slot>><</link>>
 
     <<else>>\
-        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value.id>><</link>>
 
     <</if>>\
 <</for>>\
 
 :: Equipment Chest
+<<if $player.inventory.backpack.chest.length == 0>>\
+    You aren't carrying anything for your chest.
+<</if>>\
 <<for _i = 0; _i < $player.inventory.backpack.chest.length; _i++>>\
     <<set _value = $player.inventory.backpack.chest[_i]>>\
     <<set _definition = setup.getItemDefinition(_value)>>\
@@ -75,12 +89,15 @@ You stand alone in your room. It's just the way you left it.
         _definition.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _definition.slot>><</link>>
 
     <<else>>\
-        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value.id>><</link>>
 
     <</if>>\
 <</for>>\
 
 :: Equipment Legs
+<<if $player.inventory.backpack.legs.length == 0>>\
+    You aren't carrying anything for your legs.
+<</if>>\
 <<for _i = 0; _i < $player.inventory.backpack.legs.length; _i++>>\
     <<set _value = $player.inventory.backpack.legs[_i]>>\
     <<set _definition = setup.getItemDefinition(_value)>>\
@@ -88,12 +105,15 @@ You stand alone in your room. It's just the way you left it.
         _definition.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _definition.slot>><</link>>
 
     <<else>>\
-        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value.id>><</link>>
 
     <</if>>\
 <</for>>\
 
 :: Equipment Feet
+<<if $player.inventory.backpack.feet.length == 0>>\
+    You aren't carrying anything for your feet.
+<</if>>\
 <<for _i = 0; _i < $player.inventory.backpack.feet.length; _i++>>\
     <<set _value = $player.inventory.backpack.feet[_i]>>\
     <<set _definition = setup.getItemDefinition(_value)>>\
@@ -101,7 +121,7 @@ You stand alone in your room. It's just the way you left it.
         _definition.name <<link "(Unequip)" "Change Equipment">><<unequipItemHelper _definition.slot>><</link>>
 
     <<else>>\
-        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value>><</link>>
+        _definition.name <<link "(Equip)" "Change Equipment">><<equipItem _value.id>><</link>>
         
     <</if>>\
 <</for>>\

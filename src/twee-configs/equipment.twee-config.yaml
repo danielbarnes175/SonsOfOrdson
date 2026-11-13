@@ -7,6 +7,9 @@
             "equipItem": {},
             "unequipItemHelper": {},
             "useItem": {},
+            "addItemToInventoryHelper": {},
+            "removeItemFromInventoryHelper": {},
+            "removeItemsByDefinitionHelper": {},
             "playerAvatar": {},
         }
     }

@@ -16,15 +16,15 @@ If you'd like to contribute in other ways, feel free to create an issue explaini
 
 ### Code Contributions
 
-#### ***Prerequisites***
+#### **_Prerequisites_**
 
 - [Git](https://git-scm.com/downloads), and a terminal such as Git Bash (Can be installed when installing Git)
-- [NodeJS](https://nodejs.org/en/)  
-- A text editor, such as [VSCode](https://code.visualstudio.com/)  
-    - If using VSCode, it is helpful to install the [Twee 3 Language Tools Plugin](https://marketplace.visualstudio.com/items?itemName=cyrusfirheir.twee3-language-tools)
+- [NodeJS](https://nodejs.org/en/)
+- A text editor, such as [VSCode](https://code.visualstudio.com/)
+  - If using VSCode, it is helpful to install the [Twee 3 Language Tools Plugin](https://marketplace.visualstudio.com/items?itemName=cyrusfirheir.twee3-language-tools)
 - [TweeGo](https://www.motoslave.net/tweego/)
 
-#### ***Setup***
+#### **_Setup_**
 
 Create a fork of the repository from GitHub. Navigate within your terminal to a directory where you want to hold the source code:
 
@@ -36,13 +36,13 @@ Git clone your fork of the repo:
 
 Copy the tweego.exe (or other binary depending on OS) into the root directory of the project.
 
-#### ***Build***
+#### **_Build_**
 
 `npm run build` will create the `dist/index.html` file, which you can open to test the game. I recommend using the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) plugin for vscode.
 
 - Note: After each change, you must rebuild the game.
 
-#### ***Making Changes***
+#### **_Making Changes_**
 
 The majority of code for the project will be in the `/src` directory. Within that directory, you have various subdirectories.
 
@@ -52,20 +52,4 @@ The majority of code for the project will be in the `/src` directory. Within tha
 - `twee-configs` if a macro is created, in order for the Twee 3 Language Tools plugin to recognize them, you must create a twee-config for them.
 - `images` images that are stored locally.
 
-#### Runtime State and Definitions
-
-Static game definitions belong in `setup.data`, where they are registered with
-`setup.registerDefinitions()` and deeply frozen. Story variables should contain only
-serializable runtime state such as player progress, quest progress, inventory instances,
-and encounter instances.
-
-- Use `setup.getDefinition(category, id)` to read an immutable definition.
-- Use `setup.createRuntimeInstance(category, id, prefix, runtimeState)` when runtime state
-  needs a stable ID and mutable instance-specific fields.
-- Keep reusable functions on `setup`; do not store functions in `State.variables`.
-- Add new runtime-state schema changes to the version in `$system.schemaVersion`.
-- Run `npm run validate:state` after changing definitions or the shape of runtime state.
-
 After your changes have been created, you can create a pull request that will then be reviewed and merged, if applicable.
-
-

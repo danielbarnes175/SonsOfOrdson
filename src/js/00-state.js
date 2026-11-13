@@ -1,4 +1,5 @@
 setup.data = {};
+setup.stateSchemaVersion = 2;
 
 setup.deepFreeze = (value) => {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;
@@ -33,7 +34,7 @@ setup.ensureSystemState = () => {
   if (!State.variables.system) {
     State.variables.system = {
       nextEntityId: 1,
-      schemaVersion: 1,
+      schemaVersion: setup.stateSchemaVersion,
     };
   }
   return State.variables.system;
@@ -57,5 +58,5 @@ setup.createRuntimeInstance = (category, definitionId, prefix, runtimeState = {}
 
 State.variables.system = {
   nextEntityId: 1,
-  schemaVersion: 1,
+  schemaVersion: setup.stateSchemaVersion,
 };

@@ -51,21 +51,53 @@ const assertHasNoFunctions = (value) => {
 Object.values(setup.data).forEach(assertDeeplyFrozen);
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
+assert.strictEqual(State.variables.system.schemaVersion, 2);
 
-const dagger = setup.addItemToInventory('dagger');
-const potion = setup.addItemToInventory('healthPotion');
+const dagger = setup.addItemToInventory('dagger').items[0];
+const potion = setup.addItemToInventory('healthPotion', 5).items[0];
 assert.deepStrictEqual(Object.keys(dagger).sort(), ['definitionId', 'id']);
 assert.strictEqual(dagger.definitionId, 'dagger');
 assert.notStrictEqual(dagger.id, potion.id);
+assert.strictEqual(potion.quantity, 5);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), 5);
+assert.strictEqual(setup.hasItem('healthPotion', 5), true);
 
-macros.equipItem.handler(null, null, [dagger]);
+setup.equipItem(dagger.id);
 assert.strictEqual(State.variables.player.inventory.currentlyEquipped.weapons, dagger.id);
 assert.strictEqual(setup.getInventoryItemById(dagger.id), dagger);
 
 State.variables.player.health = 20;
-macros.useItem.handler(null, null, [potion]);
+setup.useItem(potion.id);
 assert.strictEqual(State.variables.player.health, 30);
+assert.strictEqual(potion.quantity, 4);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), 4);
+
+const fullHealthResult = setup.useItem(potion.id);
+assert.strictEqual(fullHealthResult.success, false);
+assert.strictEqual(potion.quantity, 4);
+
+setup.removeItemFromInventory(potion.id, 4);
 assert.strictEqual(State.variables.player.inventory.backpack.general.length, 0);
+
+setup.removeItemFromInventory(dagger.id);
+assert.strictEqual(State.variables.player.inventory.currentlyEquipped.weapons, null);
+assert.strictEqual(setup.getInventoryItemById(dagger.id), null);
+
+const helmet = setup.addItemToInventory('ironHelmet').items[0];
+setup.equipItem(helmet.id);
+assert.strictEqual(setup.getPlayerArmor(), 3);
+assert.throws(() => setup.addItemToInventory('fist'));
+
+setup.addItemToInventory('healthPotion', 105);
+const potionStacks = setup.getInventoryItems('general');
+assert.strictEqual(potionStacks.length, 2);
+assert.strictEqual(potionStacks[0].quantity, 99);
+assert.strictEqual(potionStacks[1].quantity, 6);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), 105);
+assert.strictEqual(setup.removeItemsByDefinition('healthPotion', 100).success, true);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), 5);
+assert.strictEqual(setup.removeItemsByDefinition('healthPotion', 6).success, false);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), 5);
 
 const enemy = setup.getRandomEnemies(1)[0];
 assert.deepStrictEqual(Object.keys(enemy).sort(), ['definitionId', 'health', 'id']);
