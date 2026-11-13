@@ -715,7 +715,7 @@ macros.addItemToInventoryHelper = {
 };
 
 let addItemToInventory = (item) => {
-  const newItem = item;
+  const newItem = clone(item);
   let id = -1;
   switch (item.slot) {
     case 'head':
