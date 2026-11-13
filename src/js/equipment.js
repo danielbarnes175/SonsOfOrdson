@@ -118,6 +118,7 @@ macros.useItem = {
         }
         break;
       default:
+        // eslint-disable-next-line no-console
         console.error(`No item use implemented for type ${item.effect}`);
         itemUsed = false;
         break;
