@@ -1,46 +1,330 @@
-State.variables.currentEncounter = {
-  turn: -1, // No encounter
+setup.createEmptyEncounter = () => ({
+  status: 'none',
+  round: -1,
+});
+
+State.variables.currentEncounter = setup.createEmptyEncounter();
+
+setup.rollDice = (expression) => dice(expression);
+
+setup.randomInteger = (minimum, maximum) => (
+  Math.floor(Math.random() * (maximum - minimum + 1)) + minimum
+);
+
+setup.randomFrom = (values) => values[setup.randomInteger(0, values.length - 1)];
+
+setup.createEnemy = (definitionId, runtimeState = {}) => {
+  const definition = setup.getDefinition('enemies', definitionId);
+  if (!definition) throw new Error(`Unknown enemy definition: ${definitionId}`);
+
+  const health = runtimeState.health === undefined
+    ? definition.maxHealth
+    : runtimeState.health;
+  return setup.createRuntimeInstance('enemies', definitionId, 'enemy', {
+    ...runtimeState,
+    health,
+  });
 };
 
 setup.getRandomEnemies = (maxEnemyCount) => {
-  const enemies = [];
-
-  const numberOfEnemies = Math.floor(Math.random() * maxEnemyCount) + 1;
-  for (let i = 0; i < numberOfEnemies; i++) {
-    const enemyKeys = Object.keys(setup.data.enemies);
-    const enemyType = Math.floor(Math.random() * enemyKeys.length);
-    const enemyKey = enemyKeys[enemyType];
-    const definition = setup.getDefinition('enemies', enemyKey);
-    const randomEnemy = setup.createRuntimeInstance('enemies', enemyKey, 'enemy', {
-      health: definition.maxHealth,
-    });
-    enemies.push(randomEnemy);
+  if (!Number.isInteger(maxEnemyCount) || maxEnemyCount < 1) {
+    throw new Error('Maximum enemy count must be a positive integer.');
   }
 
+  const enemyKeys = Object.keys(setup.data.enemies);
+  const numberOfEnemies = setup.randomInteger(1, maxEnemyCount);
+  const enemies = [];
+  for (let i = 0; i < numberOfEnemies; i++) {
+    enemies.push(setup.createEnemy(setup.randomFrom(enemyKeys)));
+  }
   return enemies;
+};
+
+setup.getAliveEnemies = (encounter = State.variables.currentEncounter) => (
+  encounter.enemies ? encounter.enemies.filter((enemy) => enemy.health > 0) : []
+);
+
+setup.getEnemyById = (enemyId, encounter = State.variables.currentEncounter) => (
+  encounter.enemies ? encounter.enemies.find((enemy) => enemy.id === enemyId) || null : null
+);
+
+setup.getPlayerCombatActionIds = () => {
+  const actionIds = ['fist'];
+  const weapon = setup.getEquippedItem('weapons');
+  const definition = setup.getItemDefinition(weapon);
+  if (definition && definition.combatAction) actionIds.unshift(definition.id);
+  return actionIds;
+};
+
+setup.getPlayerDefense = () => {
+  const dexterity = setup.getPlayerAbilityModifier('dex');
+  const armor = Math.floor(setup.getPlayerArmor() / 2);
+  return 10 + dexterity + armor;
+};
+
+setup.getInitiative = (actorType, actor) => {
+  const dexterity = actorType === 'player'
+    ? setup.getPlayerAbilityModifier('dex')
+    : setup.getAbilityModifier(setup.getDefinition('enemies', actor.definitionId).stats.dex);
+  return setup.rollDice('1d20') + dexterity;
+};
+
+setup.buildInitiativeOrder = (enemies) => {
+  const initiative = [{
+    actorId: 'player',
+    actorType: 'player',
+    total: setup.getInitiative('player', State.variables.player),
+  }];
+  enemies.forEach((enemy) => {
+    initiative.push({
+      actorId: enemy.id,
+      actorType: 'enemy',
+      total: setup.getInitiative('enemy', enemy),
+    });
+  });
+  return initiative.sort((left, right) => {
+    if (right.total !== left.total) return right.total - left.total;
+    if (left.actorType !== right.actorType) return left.actorType === 'player' ? -1 : 1;
+    return left.actorId.localeCompare(right.actorId);
+  });
+};
+
+setup.startEncounter = (enemyReferences, options = {}) => {
+  if (!Array.isArray(enemyReferences) || enemyReferences.length === 0) {
+    throw new Error('An encounter requires at least one enemy.');
+  }
+
+  const enemies = enemyReferences.map((enemy) => (
+    typeof enemy === 'string' ? setup.createEnemy(enemy) : enemy
+  ));
+  enemies.forEach((enemy) => {
+    if (!setup.getDefinition('enemies', enemy.definitionId)) {
+      throw new Error(`Unknown enemy definition: ${enemy.definitionId}`);
+    }
+  });
+
+  const actionIds = setup.getPlayerCombatActionIds();
+  const messages = enemies.map((enemy) => {
+    const definition = setup.getDefinition('enemies', enemy.definitionId);
+    return `A ${definition.name} appears before you.`;
+  });
+  const system = setup.ensureSystemState();
+  const encounterId = `encounter-${system.nextEntityId}`;
+  system.nextEntityId += 1;
+
+  State.variables.currentEncounter = {
+    id: encounterId,
+    status: 'active',
+    round: 1,
+    returnPassage: options.returnPassage || State.variables.player.location,
+    enemies,
+    defeatedEnemyIds: [],
+    initiative: setup.buildInitiativeOrder(enemies),
+    playerActionIds: actionIds,
+    selectedActionId: actionIds[0],
+    selectedTargetId: enemies[0].id,
+    messages,
+    rewards: {
+      claimed: false,
+      exp: 0,
+      gold: 0,
+    },
+  };
+  return State.variables.currentEncounter;
+};
+
+setup.getPlayerAttackBonus = (action) => {
+  const ability = action.attackAbility || 'str';
+  return setup.getPlayerAbilityModifier(ability) + (action.attackBonus || 0);
+};
+
+setup.resolvePlayerAttack = (action, target) => {
+  const encounter = State.variables.currentEncounter;
+  const targetDefinition = setup.getDefinition('enemies', target.definitionId);
+  const naturalRoll = setup.rollDice('1d20');
+  const attackTotal = naturalRoll + setup.getPlayerAttackBonus(action);
+
+  if (naturalRoll === 1) {
+    const selfDamage = Math.max(1, Math.floor(setup.rollDice(action.damage) / 2));
+    State.variables.player.health = Math.max(0, State.variables.player.health - selfDamage);
+    encounter.messages.push(`${action.flavor.criticalFailure} You take ${selfDamage} damage.`);
+    return {
+      critical: 'failure',
+      damage: selfDamage,
+      hit: false,
+      naturalRoll,
+    };
+  }
+
+  const hit = naturalRoll === 20 || attackTotal >= targetDefinition.armorClass;
+  if (!hit) {
+    const message = setup.randomFrom(action.flavor.failure);
+    encounter.messages.push(`${message} (${attackTotal} vs. ${targetDefinition.armorClass} AC)`);
+    return { damage: 0, hit: false, naturalRoll };
+  }
+
+  const baseDamage = setup.rollDice(action.damage);
+  const damage = naturalRoll === 20 ? baseDamage * 2 : baseDamage;
+  Object.assign(target, { health: Math.max(0, target.health - damage) });
+  const flavor = naturalRoll === 20
+    ? action.flavor.criticalSuccess
+    : setup.randomFrom(action.flavor.success);
+  encounter.messages.push(`${flavor} ${damage} damage to the ${targetDefinition.name}.`);
+  return {
+    critical: naturalRoll === 20 ? 'success' : null,
+    damage,
+    hit: true,
+    naturalRoll,
+  };
+};
+
+setup.combatActionHandlers = {
+  attack(action, target) {
+    return setup.resolvePlayerAttack(action, target);
+  },
+};
+
+setup.resolveEnemyAttack = (enemy) => {
+  const encounter = State.variables.currentEncounter;
+  const definition = setup.getDefinition('enemies', enemy.definitionId);
+  const naturalRoll = setup.rollDice('1d20');
+  const attackTotal = naturalRoll + definition.attackBonus;
+  const playerDefense = setup.getPlayerDefense();
+  const attackDescription = setup.randomFrom(definition.attackDescriptions);
+  const hit = naturalRoll === 20 || (naturalRoll !== 1 && attackTotal >= playerDefense);
+
+  if (!hit) {
+    encounter.messages.push(`${attackDescription} It's a miss! (${attackTotal} vs. ${playerDefense} defense)`);
+    return { damage: 0, hit: false, naturalRoll };
+  }
+
+  const baseDamage = setup.rollDice(definition.damage);
+  const damage = naturalRoll === 20 ? baseDamage * 2 : baseDamage;
+  State.variables.player.health = Math.max(0, State.variables.player.health - damage);
+  encounter.messages.push(`${attackDescription} You take ${damage} damage.`);
+  return {
+    critical: naturalRoll === 20,
+    damage,
+    hit: true,
+    naturalRoll,
+  };
+};
+
+setup.recordDefeatedEnemies = () => {
+  const encounter = State.variables.currentEncounter;
+  encounter.enemies.forEach((enemy) => {
+    if (enemy.health > 0 || encounter.defeatedEnemyIds.includes(enemy.id)) return;
+
+    encounter.defeatedEnemyIds.push(enemy.id);
+    const definition = setup.getDefinition('enemies', enemy.definitionId);
+    encounter.messages.push(`The ${definition.name} is defeated.`);
+    if (State.variables.guilds.adventurersGuild.isPlayerMemberOf) {
+      const relation = State.variables.guilds.adventurersGuild;
+      const guild = setup.getDefinition('guilds', 'adventurersGuild');
+      relation.currentProgress = Math.min(
+        relation.currentProgress + definition.guildProgress,
+        guild.maxProgress,
+      );
+    }
+  });
+};
+
+setup.generateEncounterRewards = (encounter) => {
+  const rewards = encounter.enemies.reduce((total, enemy) => {
+    const definition = setup.getDefinition('enemies', enemy.definitionId);
+    const gold = setup.randomInteger(definition.rewards.gold.min, definition.rewards.gold.max);
+    const exp = setup.randomInteger(definition.rewards.exp.min, definition.rewards.exp.max);
+    return {
+      exp: total.exp + exp,
+      gold: total.gold + gold,
+    };
+  }, { exp: 0, gold: 0 });
+  Object.assign(encounter.rewards, rewards);
+};
+
+setup.updateEncounterStatus = () => {
+  const encounter = State.variables.currentEncounter;
+  setup.recordDefeatedEnemies();
+  if (State.variables.player.health <= 0) {
+    encounter.status = 'lost';
+    return encounter.status;
+  }
+  if (setup.getAliveEnemies(encounter).length === 0) {
+    encounter.status = 'won';
+    setup.generateEncounterRewards(encounter);
+  }
+  return encounter.status;
+};
+
+setup.progressEncounter = (actionId, targetId) => {
+  const encounter = State.variables.currentEncounter;
+  if (encounter.status !== 'active') {
+    return { success: false, reason: 'There is no active encounter.' };
+  }
+  if (!encounter.playerActionIds.includes(actionId)) {
+    return { success: false, reason: 'That combat action is not available.' };
+  }
+
+  const target = setup.getEnemyById(targetId, encounter);
+  if (!target || target.health <= 0) {
+    return { success: false, reason: 'That target is not available.' };
+  }
+
+  const action = setup.getDefinition('items', actionId);
+  const actionHandler = setup.combatActionHandlers[action.combatAction];
+  if (!actionHandler) {
+    return { success: false, reason: 'That combat action is not implemented.' };
+  }
+  encounter.selectedActionId = actionId;
+  encounter.selectedTargetId = targetId;
+  encounter.messages = [];
+
+  encounter.initiative.forEach((turn) => {
+    if (encounter.status !== 'active') return;
+    if (turn.actorType === 'player') {
+      if (State.variables.player.health > 0 && target.health > 0) {
+        actionHandler(action, target);
+      }
+    } else {
+      const enemy = setup.getEnemyById(turn.actorId, encounter);
+      if (enemy && enemy.health > 0) setup.resolveEnemyAttack(enemy);
+    }
+    setup.updateEncounterStatus();
+  });
+
+  encounter.round += 1;
+  const nextTarget = setup.getAliveEnemies(encounter)[0];
+  if (nextTarget && target.health <= 0) encounter.selectedTargetId = nextTarget.id;
+  return { success: true, status: encounter.status, messages: encounter.messages };
+};
+
+setup.claimEncounterRewards = () => {
+  const encounter = State.variables.currentEncounter;
+  if (encounter.status !== 'won') {
+    return { success: false, reason: 'The encounter has not been won.' };
+  }
+  if (encounter.rewards.claimed) {
+    return { success: false, reason: 'Encounter rewards have already been claimed.' };
+  }
+
+  State.variables.player.gold += encounter.rewards.gold;
+  State.variables.player.exp += encounter.rewards.exp;
+  encounter.rewards.claimed = true;
+  return {
+    success: true,
+    exp: encounter.rewards.exp,
+    gold: encounter.rewards.gold,
+  };
+};
+
+setup.endEncounter = () => {
+  State.variables.currentEncounter = setup.createEmptyEncounter();
 };
 
 macros.setupEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const enemies = [];
-    const enemyActions = [];
-    State.variables.player.locationBeforeEncounter = State.variables.player.location;
-    for (let i = 0; i < params[1].length; i++) {
-      const enemy = params[1][i];
-      const definition = setup.getDefinition('enemies', enemy.definitionId);
-      enemies.push(enemy);
-      enemyActions.push(`A ${definition.name} appears before you.\n`);
-    }
-
-    State.variables.currentEncounter = {
-      enemies,
-      enemyActions,
-      turn: 0,
-      playerActionIds: ['dagger', 'fist'],
-      playerAction: 'You wait with anticipation.',
-      encounterEnded: false,
-    };
+    setup.startEncounter(params[1], { returnPassage: State.variables.player.location });
   },
   init() { },
 };
@@ -48,20 +332,8 @@ macros.setupEncounter = {
 macros.progressEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const playerAction = setup.getDefinition('items', params[0]);
-    processPlayerAction(playerAction, params[1]);
-
-    if (isEncounterOver()) {
-      processEncounterOver();
-    } else {
-      processEnemyActions();
-
-      if (isEncounterOver()) {
-        processEncounterOver();
-      }
-    }
-
-    State.variables.currentEncounter.turn += 1;
+    const result = setup.progressEncounter(params[0], params[1]);
+    if (!result.success) new Wikifier(place, result.reason);
   },
   init() { },
 };
@@ -69,7 +341,7 @@ macros.progressEncounter = {
 macros.endEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    State.variables.currentEncounter = {};
+    setup.endEncounter();
   },
   init() { },
 };
@@ -77,96 +349,12 @@ macros.endEncounter = {
 macros.processEncounterWon = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const gold = Math.floor(Math.random() * 20) + 10;
-    const exp = Math.floor(Math.random() * 50) + 50;
-
-    State.variables.player.gold += gold;
-    State.variables.player.exp += exp;
-
-    new Wikifier(place, "You've received: \n");
-    new Wikifier(place, `${gold} Gold\n`);
-    new Wikifier(place, `${exp} Exp\n`);
+    const encounter = State.variables.currentEncounter;
+    const result = setup.claimEncounterRewards();
+    const rewards = result.success ? result : encounter.rewards;
+    new Wikifier(place, "You've received:\n");
+    new Wikifier(place, `${rewards.gold} Gold\n`);
+    new Wikifier(place, `${rewards.exp} Exp\n`);
   },
   init() { },
-};
-
-let isEncounterOver = () => {
-  // Check if player has died
-  if (State.variables.player.health <= 0) {
-    State.variables.currentEncounter.playerWonEncounter = false;
-    State.variables.player.health = 0;
-    return true;
-  }
-
-  // Check if any enemies are alive
-  const aliveEnemies = [];
-  for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-    const currentEnemy = State.variables.currentEncounter.enemies[i];
-    if (currentEnemy.health > 0) {
-      aliveEnemies.push(currentEnemy);
-    } else if (State.variables.guilds.adventurersGuild.isPlayerMemberOf) {
-      const definition = setup.getDefinition('enemies', currentEnemy.definitionId);
-      State.variables.guilds.adventurersGuild.currentProgress += definition.guildProgress;
-    }
-  }
-
-  if (aliveEnemies.length > 0) {
-    State.variables.currentEncounter.enemies = aliveEnemies;
-    return false;
-  }
-
-  State.variables.currentEncounter.playerWonEncounter = true;
-  return true;
-};
-
-let processEncounterOver = () => {
-  State.variables.currentEncounter.encounterEnded = true;
-};
-
-let processPlayerAction = (playerAction, playerTargetIndex) => {
-  const diceRoll = dice('1d20');
-  const success = diceRoll >= 6;
-  const damage = dice(playerAction.damage);
-  if (diceRoll === 1) {
-    State.variables.currentEncounter.playerAction = playerAction.flavor.criticalFailure;
-    State.variables.player.health -= Math.floor(damage / 2);
-  } else if (diceRoll === 20) {
-    State.variables.currentEncounter.playerAction = `${playerAction.flavor.criticalSuccess} ${damage * 2} damage.`;
-    State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage * 2;
-  } else if (success) {
-    const playerSuccessFlavor = playerAction.flavor.success;
-    const index = Math.floor(Math.random() * playerSuccessFlavor.length);
-
-    State.variables.currentEncounter.playerAction = `${playerSuccessFlavor[index]} ${damage} damage.`;
-    State.variables.currentEncounter.enemies[playerTargetIndex].health -= damage;
-  } else {
-    const playerFailureFlavor = playerAction.flavor.failure;
-    const index = Math.floor(Math.random() * playerFailureFlavor.length);
-
-    State.variables.currentEncounter.playerAction = playerFailureFlavor[index];
-  }
-};
-
-let processEnemyActions = () => {
-  State.variables.currentEncounter.enemyActions = [];
-  for (let i = 0; i < State.variables.currentEncounter.enemies.length; i++) {
-    const enemy = State.variables.currentEncounter.enemies[i];
-    const definition = setup.getDefinition('enemies', enemy.definitionId);
-    const actions = [
-      `The ${definition.name} attacks you!`,
-      `The ${definition.name} attacks you with a dagger!`,
-      `The ${definition.name} attacks you with a fist!`,
-    ];
-    const diceRoll = dice('1d20');
-    const success = diceRoll >= 14;
-    const randomAction = Math.floor(Math.random() * actions.length);
-    const damage = dice('1d3');
-
-    if (success) {
-      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} You take ${damage} damage.\n`);
-      State.variables.player.health -= damage;
-    } else {
-      State.variables.currentEncounter.enemyActions.push(`${actions[randomAction]} It's a miss!\n`);
-    }
-  }
 };

@@ -1,5 +1,5 @@
 setup.data = {};
-setup.stateSchemaVersion = 2;
+setup.stateSchemaVersion = 3;
 
 setup.deepFreeze = (value) => {
   if (!value || typeof value !== 'object' || Object.isFrozen(value)) return value;

@@ -51,7 +51,7 @@ const assertHasNoFunctions = (value) => {
 Object.values(setup.data).forEach(assertDeeplyFrozen);
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
-assert.strictEqual(State.variables.system.schemaVersion, 2);
+assert.strictEqual(State.variables.system.schemaVersion, 3);
 
 const dagger = setup.addItemToInventory('dagger').items[0];
 const potion = setup.addItemToInventory('healthPotion', 5).items[0];
@@ -102,6 +102,38 @@ assert.strictEqual(setup.getItemQuantity('healthPotion'), 5);
 const enemy = setup.getRandomEnemies(1)[0];
 assert.deepStrictEqual(Object.keys(enemy).sort(), ['definitionId', 'health', 'id']);
 assert.strictEqual(enemy.health, setup.getDefinition('enemies', enemy.definitionId).maxHealth);
+
+setup.rollDice = (expression) => (expression === '1d20' ? 20 : 2);
+setup.randomInteger = (minimum) => minimum;
+State.variables.player.health = State.variables.player.maxHealth;
+State.variables.guilds.adventurersGuild.isPlayerMemberOf = true;
+const combatEnemy = setup.createEnemy('goblin', { health: 2 });
+const encounter = setup.startEncounter([combatEnemy], { returnPassage: 'Outside' });
+assert.strictEqual(encounter.status, 'active');
+assert.strictEqual(encounter.returnPassage, 'Outside');
+assert.strictEqual(encounter.playerActionIds.join(','), 'fist');
+assert.strictEqual(encounter.initiative[0].actorType, 'player');
+assert.strictEqual(setup.progressEncounter('fist', 'missing-enemy').success, false);
+
+const combatResult = setup.progressEncounter('fist', combatEnemy.id);
+assert.strictEqual(combatResult.success, true);
+assert.strictEqual(encounter.status, 'won');
+assert.strictEqual(combatEnemy.health, 0);
+assert.strictEqual(State.variables.guilds.adventurersGuild.currentProgress, 1);
+assert.strictEqual(encounter.rewards.gold, 10);
+assert.strictEqual(encounter.rewards.exp, 50);
+
+const startingGold = State.variables.player.gold;
+const startingExp = State.variables.player.exp;
+assert.strictEqual(setup.claimEncounterRewards().success, true);
+assert.strictEqual(State.variables.player.gold, startingGold + 10);
+assert.strictEqual(State.variables.player.exp, startingExp + 50);
+assert.strictEqual(setup.claimEncounterRewards().success, false);
+assert.strictEqual(State.variables.player.gold, startingGold + 10);
+setup.endEncounter();
+assert.strictEqual(State.variables.currentEncounter.status, 'none');
+assertHasNoFunctions(State.variables);
+assert.doesNotThrow(() => JSON.stringify(State.variables));
 
 State.variables.player.name = 'Changed';
 assert.strictEqual(setup.playerDefaults.name, 'Bob');

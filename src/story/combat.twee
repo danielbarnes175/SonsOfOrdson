@@ -1,50 +1,47 @@
 :: Encounter
-<<for _i to 0; _i lt $currentEncounter.enemyActions.length; _i++>>\
-    $currentEncounter.enemyActions[_i]
+<<for _message range $currentEncounter.messages>>\
+    _message
 <</for>>\
 
-$currentEncounter.playerAction
-<hr>\
-<<if !$currentEncounter.encounterEnded>>\
-<<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
-    <<set _enemy = $currentEncounter.enemies[_i]>>\
+<<if $currentEncounter.status == 'active'>>\
+''Round $currentEncounter.round''
+
+<<set _aliveEnemies = setup.getAliveEnemies()>>\
+<<for _enemy range _aliveEnemies>>\
     <<set _enemyDefinition = setup.getDefinition('enemies', _enemy.definitionId)>>\
-    _enemyDefinition.name has _enemy.health health remaining.
+    _enemyDefinition.name: _enemy.health / _enemyDefinition.maxHealth health
 <</for>>\
 
 <hr>
 Who would you like to target?
-<<if !$currentEncounter.targetIndex>>\
-  <<set $currentEncounter.targetIndex = 0>>\
+<<set _selectedTarget = setup.getEnemyById($currentEncounter.selectedTargetId)>>\
+<<if !_selectedTarget || _selectedTarget.health lte 0>>\
+    <<set $currentEncounter.selectedTargetId = _aliveEnemies[0].id>>\
 <</if>>\
-<<for _i to 0; _i lt $currentEncounter.enemies.length; _i++>>\
-    <<set _enemy = $currentEncounter.enemies[_i]>>\
+<<for _enemy range _aliveEnemies>>\
     <<set _enemyDefinition = setup.getDefinition('enemies', _enemy.definitionId)>>\
-    <<radiobutton "$currentEncounter.targetIndex" _i `_i === $currentEncounter.targetIndex ? 'checked' : ''`>> _enemyDefinition.name
+    <<radiobutton "$currentEncounter.selectedTargetId" _enemy.id `_enemy.id === $currentEncounter.selectedTargetId ? 'checked' : ''`>> _enemyDefinition.name
 <</for>>\
 
 What would you like to do?
-<<if !$currentEncounter.actionId>>\
-  <<set $currentEncounter.actionId = $currentEncounter.playerActionIds[0]>>\
-<</if>>\
-<<for _i to 0; _i lt $currentEncounter.playerActionIds.length; _i++>>\
-    <<set _actionId = $currentEncounter.playerActionIds[_i]>>\
+<<for _actionId range $currentEncounter.playerActionIds>>\
     <<set _action = setup.getDefinition('items', _actionId)>>\
-    <<radiobutton "$currentEncounter.actionId" _actionId `_actionId === $currentEncounter.actionId ? 'checked' : ''`>> _action.attackDescription
+    <<radiobutton "$currentEncounter.selectedActionId" _actionId `_actionId === $currentEncounter.selectedActionId ? 'checked' : ''`>> _action.attackDescription
 <</for>>\
 
+<<link "Confirm" "Encounter">><<progressEncounter $currentEncounter.selectedActionId $currentEncounter.selectedTargetId>><</link>>
+<<elseif $currentEncounter.status == 'won'>>\
+Encounter Complete!
 
-<<link "Confirm" "Encounter">><<progressEncounter $currentEncounter.actionId $currentEncounter.targetIndex>><</link>>
-<<else>>
-  <<if $currentEncounter.playerWonEncounter>>
-  Encounter Complete!
+<<processEncounterWon>>
 
-  <<processEncounterWon>>
+<<link "Exit" $currentEncounter.returnPassage>><<endEncounter>><<incrementTime 0 3>><</link>>
+<<elseif $currentEncounter.status == 'lost'>>\
+You pass out from the pain of the battle. Time passes by until you awaken.
 
-  <<link "Exit" $player.locationBeforeEncounter>><<endEncounter>><<incrementTime 0 3>><</link>>
-  <<else>>
-  You pass out from the pain of the battle. Time passes by until you awaken.
+<<link "Continue" $currentEncounter.returnPassage>><<endEncounter>><<incrementTime 3 17>><</link>>
+<<else>>\
+There is no active encounter.
 
-  <<link "Continue" $player.locationBeforeEncounter>><<endEncounter>><<incrementTime 3 17>><</link>>
-  <</if>>
+[[Return to Town|Town Center]]
 <</if>>
