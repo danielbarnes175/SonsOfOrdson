@@ -95,8 +95,11 @@ You grab the papers and hand them to the man. He looks even more shocked than be
 
 [[`"Can I at least have my money back?"`|Thieves' Guild 12]]
 [[`"Fine, I'll go get something valuable from the Salt Fort! I'll prove to you that I can be a good a thief as you guys!"`|Gray District Back Alley]]
-<<set $quests.questLog['Thieves Guild Entrance Exam'].knownQuest = true>>\
-<<set $quests.questLog['Thieves Guild Entrance Exam'].currentStep = 1>>\
+<<set _questStatus = setup.getQuestState('Thieves Guild Entrance Exam').status>>\
+<<if _questStatus == setup.questStatuses.hidden || _questStatus == setup.questStatuses.available>>\
+<<startQuest 'Thieves Guild Entrance Exam'>>\
+<<notify>>Quest Started - Thieves Guild Entrance Exam!<</notify>>\
+<</if>>\
 
 :: Thieves' Guild 12
 "What? Dude, no. We're stealing your money. Go away."
@@ -111,14 +114,19 @@ The two of you walk inside, and you take out the artifact.
 The man's eyes widen. "How did you..? I didn't think you'd actually do it, but alright, I guess you're officially a member of the Thieves' Guild now. Follow me, I'll take you to the hub. And just so you know, we're still going to charge you that 25 gold a month to stay a member. You agreed to it, didn't you? In the future, I'll take you straight to the hub if you don't tell me your name. We all stay anonymous here. It's safer that way."
 
 <<set $guilds.thievesGuild.isPlayerMemberOf = true>>\
+<<if setup.isQuestObjective('Thieves Guild Entrance Exam', 'returnArtifact')>>\
+<<completeQuest 'Thieves Guild Entrance Exam'>>\
+<<receiveQuestReward 'Thieves Guild Entrance Exam'>>\
+<<notify>>Quest Complete - Thieves Guild Entrance Exam!<</notify>>\
+<</if>>\
 [[Follow the man to the hub|Thieves' Guild Hub]]
 
 :: Thieves' Guild Entranceway
 You knock on the door. You hear a voice from the other side, "Who is it?".
 
-<<set _quest = $quests.questLog['Thieves Guild Entrance Exam']>>\
-<<if _quest.knownQuest && _quest.currentStep != 4>>\
-    <<if _quest.currentStep === 3>>
+<<set _questId = 'Thieves Guild Entrance Exam'>>\
+<<if setup.isQuestStatus(_questId, setup.questStatuses.active)>>\
+    <<if setup.isQuestObjective(_questId, 'returnArtifact')>>
     [[`"It's $player.name, I have an artifact for you."`|Thieves' Guild 13]]
     <<else>>
     You don't have the valuable item to get you into the guild yet. You probably shouldn't bother them until you get it.

@@ -11,39 +11,30 @@ macros.journal = {
 macros.getQuestListInJournal = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    const activeQuests = [];
-    const completedQuests = [];
-    const unstartedQuests = [];
-    for (const [key, value] of Object.entries(State.variables.quests.questLog)) {
-      const definition = setup.getDefinition('quests', key);
-      if (value.knownQuest && value.currentStep < definition.steps.length - 1) {
-        activeQuests.push({
-          name: definition.title,
-          step: definition.steps[value.currentStep],
-        });
-      } else if (value.knownQuest) {
-        completedQuests.push(definition.title);
-      } else {
-        unstartedQuests.push({
-          name: definition.title,
-          hint: definition.steps[0],
-        });
-      }
-    }
-
     new Wikifier(place, "''Active Quests''\n");
-    activeQuests.forEach((quest) => {
-      new Wikifier(place, `${quest.name} - ${quest.step}\n`);
+    setup.getQuestsByStatus(setup.questStatuses.active).forEach((questId) => {
+      const definition = setup.getDefinition('quests', questId);
+      const objective = setup.getQuestObjective(questId);
+      new Wikifier(place, `${definition.title} - ${objective.description}\n`);
     });
 
-    new Wikifier(place, "''Unstarted Quests''\n");
-    unstartedQuests.forEach((quest) => {
-      new Wikifier(place, `${quest.name} - ${quest.hint}\n`);
+    new Wikifier(place, "\n''Available Quests''\n");
+    setup.getQuestsByStatus(setup.questStatuses.available).forEach((questId) => {
+      const definition = setup.getDefinition('quests', questId);
+      new Wikifier(place, `${definition.title} - ${definition.hint}\n`);
     });
 
-    new Wikifier(place, "''Completed Quests''\n");
-    completedQuests.forEach((quest) => {
-      new Wikifier(place, `${quest}\n`);
+    new Wikifier(place, "\n''Completed Quests''\n");
+    setup.getQuestsByStatus(setup.questStatuses.completed).forEach((questId) => {
+      const definition = setup.getDefinition('quests', questId);
+      const quest = setup.getQuestState(questId);
+      const rewardStatus = quest.rewardClaimed ? '' : ' - Reward available';
+      new Wikifier(place, `${definition.title}${rewardStatus}\n`);
+    });
+
+    new Wikifier(place, "\n''Failed Quests''\n");
+    setup.getQuestsByStatus(setup.questStatuses.failed).forEach((questId) => {
+      new Wikifier(place, `${setup.getDefinition('quests', questId).title}\n`);
     });
   },
   init() { },

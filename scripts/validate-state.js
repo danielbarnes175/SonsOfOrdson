@@ -51,7 +51,7 @@ const assertHasNoFunctions = (value) => {
 Object.values(setup.data).forEach(assertDeeplyFrozen);
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
-assert.strictEqual(State.variables.system.schemaVersion, 3);
+assert.strictEqual(State.variables.system.schemaVersion, 4);
 
 const dagger = setup.addItemToInventory('dagger').items[0];
 const potion = setup.addItemToInventory('healthPotion', 5).items[0];
@@ -135,12 +135,42 @@ assert.strictEqual(State.variables.currentEncounter.status, 'none');
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
 
+const testQuestId = 'test quest';
+assert.strictEqual(setup.isQuestStatus(testQuestId, setup.questStatuses.hidden), true);
+assert.strictEqual(setup.claimQuestRewards(testQuestId).success, false);
+assert.strictEqual(setup.discoverQuest(testQuestId).success, true);
+assert.strictEqual(setup.isQuestStatus(testQuestId, setup.questStatuses.available), true);
+assert.strictEqual(setup.discoverQuest(testQuestId).success, false);
+assert.strictEqual(setup.startQuest(testQuestId).success, true);
+assert.strictEqual(setup.isQuestObjective(testQuestId, 'finishTest'), true);
+assert.strictEqual(setup.advanceQuest(testQuestId, 'wrongObjective').success, false);
+assert.strictEqual(setup.advanceQuest(testQuestId, 'finishTest').success, true);
+assert.strictEqual(setup.isQuestStatus(testQuestId, setup.questStatuses.completed), true);
+
+const questRewardGold = State.variables.player.gold;
+const questRewardExp = State.variables.player.exp;
+const questRewardPotions = setup.getItemQuantity('healthPotion');
+assert.strictEqual(setup.claimQuestRewards(testQuestId).success, true);
+assert.strictEqual(State.variables.player.gold, questRewardGold + 10);
+assert.strictEqual(State.variables.player.exp, questRewardExp + 20);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), questRewardPotions + 2);
+assert.strictEqual(setup.claimQuestRewards(testQuestId).success, false);
+assert.strictEqual(State.variables.player.gold, questRewardGold + 10);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), questRewardPotions + 2);
+
+const thievesQuestId = 'Thieves Guild Entrance Exam';
+assert.strictEqual(setup.startQuest(thievesQuestId).success, true);
+assert.strictEqual(setup.setQuestObjective(thievesQuestId, 'returnArtifact').success, true);
+assert.strictEqual(setup.isQuestObjective(thievesQuestId, 'returnArtifact'), true);
+assert.strictEqual(setup.failQuest(thievesQuestId).success, true);
+assert.strictEqual(setup.isQuestStatus(thievesQuestId, setup.questStatuses.failed), true);
+
 State.variables.player.name = 'Changed';
 assert.strictEqual(setup.playerDefaults.name, 'Bob');
 assert.deepStrictEqual(Object.keys(State.variables.quests.questLog['test quest']).sort(), [
-  'currentStep',
-  'knownQuest',
+  'objectiveIndex',
   'rewardClaimed',
+  'status',
 ]);
 
 console.log('State foundation validated: definitions are frozen and runtime state is serializable.');

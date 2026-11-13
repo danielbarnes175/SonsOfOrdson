@@ -3,10 +3,10 @@
 <<set $player.location="Silver Patchwork">>\
 You walk into the giant clothing store. As you as you get inside, you see countless number of garments. There's such a variety, that you're not even sure where to start!
 
-<<if $quests.questLog['A certain undergarment'].knownQuest>>\
-    <<if $quests.questLog['A certain undergarment'].currentStep == 1>>\
+<<if setup.isQuestStatus('A certain undergarment', setup.questStatuses.active)>>\
+    <<if setup.isQuestObjective('A certain undergarment', 'collectOrder')>>\
     [['"Hey, the barkeep over at Chemical Imbalance asked me to pick up a package for him."'|Silver Patchwork - Owner - A certain undergarment 1]]
-    <<elseif $quests.questLog['A certain undergarment'].currentStep == 2>>\
+    <<elseif setup.isQuestObjective('A certain undergarment', 'returnOrder')>>\
     [[Ask about 'A certain undergarment'|Silver Patchwork - Owner - A certain undergarment 1]]
     <</if>>\
 <</if>>\

@@ -19,9 +19,9 @@ You flag down the bartender to strike up a conversation with him. He makes his w
 [[Ask for work|Chemical Imbalance Application]]
 <</if>>\
 \
-<<if !$quests.questLog["A certain undergarment"].knownQuest>>\
+<<if setup.isQuestStatus('A certain undergarment', setup.questStatuses.hidden)>>\
 <<link '"Is there anything I can help you with?"' "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
-<<elseif $quests.questLog["A certain undergarment"].currentStep != 3>>\
+<<elseif setup.isQuestStatus('A certain undergarment', setup.questStatuses.available) || setup.isQuestStatus('A certain undergarment', setup.questStatuses.active)>>\
 <<link "Ask about 'A certain undergarment'" "Chemical Imbalance - Barkeep - A certain undergarment 1">><</link>>
 <</if>>\
 \

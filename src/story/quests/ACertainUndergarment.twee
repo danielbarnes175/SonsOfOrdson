@@ -1,30 +1,32 @@
 :: Chemical Imbalance - Barkeep - A certain undergarment 1
-<<if !$quests.questLog['A certain undergarment'].knownQuest>>\
-<<set $quests.questLog['A certain undergarment'].knownQuest = true>>\
+<<set _questId = 'A certain undergarment'>>\
+<<set _quest = setup.getQuestState(_questId)>>\
+<<if _quest.status == setup.questStatuses.hidden>>\
+<<discoverQuest _questId>>\
 The barkeep takes a quite look around, and then leans in close. "Y'know, there actually is something that I could use your help for."
 
 "You see," the barkeep continues, "my wife and I have been having a bit of trouble late at night. So, of course, I ordered the special piece of clothing that I thought would be useful to help spice things up, you know?"
 
 [['"What do you mean, \'a special piece of clothing\'?"'|Chemical Imbalance - Barkeep - A certain undergarment 2]]
 <<else>>\
-    <<if $quests.questLog['A certain undergarment'].currentStep == 0>>\
+    <<if _quest.status == setup.questStatuses.available>>\
         The barkeep still looks a little bit sad.
 
         [[Leave|Chemical Imbalance]]
         [['"Hey, I decided that I'll help you out."'|Chemical Imbalance - Barkeep - A certain undergarment 3]]
     <</if>>\
-    <<if $quests.questLog['A certain undergarment'].currentStep == 1>>\
+    <<if setup.isQuestObjective(_questId, 'collectOrder')>>\
         You ask the barkeep what he needed again. He looks confused, "I just needed you to go to the tailor and pick up my order. I didn't think it was that complicated of a task."
 
         [[Leave|Chemical Imbalance]]
     <</if>>\
-    <<if $quests.questLog['A certain undergarment'].currentStep == 2>>\
+    <<if setup.isQuestObjective(_questId, 'returnOrder')>>\
         You place the bag on the bar. The barkeep quickly realizes what it is and moves it behind the bar.
 
         "Thank you so much!" The barkeep says, "This will make my wife so happy! Here take this."
 
-        <<set $quests.questLog['A certain undergarment'].currentStep = 3>>\
-        <<receiveQuestReward "A certain undergarment">>\
+        <<completeQuest _questId>>\
+        <<receiveQuestReward _questId>>\
         <<notify>>Quest Complete - A certain undergarment!<</notify>>\
 
         [[Leave|Chemical Imbalance]]
@@ -40,8 +42,11 @@ The barkeep takes a quite look around, and then leans in close. "Y'know, there a
 :: Chemical Imbalance - Barkeep - A certain undergarment 3
 A smile breaks out on the barkeeps face. "Really?!" he says, "That's great news! Thank you so much! All I need you to do is head over to the tailor, and pick up my order. Just say it's for me, and the owner will know what to grab."
 
-<<set $quests.questLog['A certain undergarment'].currentStep = 1>>\
+<<set _questStatus = setup.getQuestState('A certain undergarment').status>>\
+<<if _questStatus == setup.questStatuses.hidden || _questStatus == setup.questStatuses.available>>\
+<<startQuest 'A certain undergarment'>>\
 <<notify>>Quest Started - A certain undergarment!<</notify>>\
+<</if>>\
 [['"Sounds good!"'|Chemical Imbalance]]
 
 :: Chemical Imbalance - Barkeep - A certain undergarment 4
@@ -50,16 +55,16 @@ The barkeep looks a little sad. "Alright, well let me know if you change your mi
 [[Leave|Town Center]]
 
 :: Silver Patchwork - Owner - A certain undergarment 1
-<<if $quests.questLog['A certain undergarment'].currentStep == 1>>\
+<<if setup.isQuestObjective('A certain undergarment', 'collectOrder')>>\
   The owner doesn't seem to acknowledge you. Then suddenly he quickly walks away only to return holding a sealed bag. He doesn't even look at you as he looks over his list of orders.
 
   Welp, guess all you can do is return the package to the barkeep.
 
-  <<set $quests.questLog['A certain undergarment'].currentStep = 2>>\
+  <<advanceQuest 'A certain undergarment' 'collectOrder'>>\
   <<notify>>Quest Step Complete - A certain undergarment!<</notify>>\
   [[Leave|Financial District]]
 <<else>>
-<<if $quests.questLog['A certain undergarment'].currentStep == 2>>\
+<<if setup.isQuestObjective('A certain undergarment', 'returnOrder')>>\
   You already have the package, so all you need to do it bring it to the barkeep, but there has been one thing on your mind.
 
   "Hey," You ask, "What's in this package anyway?"
