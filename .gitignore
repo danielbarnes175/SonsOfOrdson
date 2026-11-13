@@ -1,4 +1,5 @@
 *.exe
+tweego
 .vscode/
 node_modules
 dist/index.html

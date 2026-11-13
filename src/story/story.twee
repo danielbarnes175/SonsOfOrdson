@@ -111,31 +111,15 @@ You see a <<numberinput "$player.age" $player.age 13 65>> year old male looking 
 <hr>
 You think back to your life and the strengths and weaknesses that you've developed.
 <<nobr>>
-<<set $statPool = 27>>
-<<set $STR = 8>>
-<<set $DEX = 8>>
-<<set $CON = 8>>
-<<set $INT = 8>>
-<<set $WIS = 8>>
-<<set $CHA = 8>>
+<<if !$characterCreationInitialized>>
+    <<set $characterCreationInitialized = true>>
+    <<set $statPool = 27>>
+    <<getStarterEquipment>>
+<</if>>
 <</nobr>>
-You have <span id="stat-pool">$statPool</span> points remaining to allocate.
-<<numberpool "$statPool">>
-|''Strength:''|<<numberinput "$player.stats.str" $player.stats.str 8 20>>|
-|''Dexterity:''|<<numberinput "$player.stats.dex" $player.stats.dex 8 20>>|
-|''Constitution:''|<<numberinput "$player.stats.con" $player.stats.con 8 20>>|
-|''Intelligience:''|<<numberinput "$player.stats.int" $player.stats.int 8 20>>|
-|''Wisdom:''|<<numberinput "$player.stats.wis" $player.stats.wis 8 20>>|
-|''Charisma:''|<<numberinput "$player.stats.cha" $player.stats.cha 8 20>>|
-<<onchange>>
-    <<replace "#stat-pool">>$statPool<</replace>>
-<</numberpool>>
+<<pointbuy "$player.stats" "$statPool" 27>>
 
 [[Confirm|In Your Room]]
-
-<<nobr>>
-<<getStarterEquipment>>
-<</nobr>>
 
 :: Player Avatar
 <div id="playerAvatar">\

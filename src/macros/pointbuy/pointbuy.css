@@ -1,0 +1,44 @@
+.macro-pointbuy {
+    max-width: 28em;
+}
+
+.pointbuy-points {
+    font-weight: bold;
+}
+
+.pointbuy-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.pointbuy-table th,
+.pointbuy-table td {
+    padding: 0.25em 0.5em;
+    text-align: center;
+}
+
+.pointbuy-table th:first-child {
+    text-align: left;
+}
+
+.pointbuy-control {
+    white-space: nowrap;
+}
+
+.pointbuy-control input {
+    appearance: textfield;
+    -moz-appearance: textfield;
+    margin: 0 0.4em;
+    text-align: center;
+    width: 3em;
+}
+
+.pointbuy-control input::-webkit-inner-spin-button,
+.pointbuy-control input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pointbuy-control button {
+    min-width: 2.25em;
+}
