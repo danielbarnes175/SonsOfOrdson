@@ -122,17 +122,4 @@ You think back to your life and the strengths and weaknesses that you've develop
 [[Confirm|In Your Room]]
 
 :: Player Avatar
-<div id="playerAvatar">\
-    <div id="head" style="margin-bottom: -10px;">\
-        <<getImage "avatar/head-empty.png" 16 16>>\
-    </div>\
-    <div id="torso" style="margin-bottom: -10px;">\
-        <<getImage "avatar/torso-empty.png" 32 28>>\
-    </div>\
-    <div id="legs" style="margin-bottom: -20px;">\
-        <<getImage "avatar/legs-empty.png" 20 36>>\
-    </div>\
-    <div id="feet">\
-        <<getImage "avatar/feet-empty.png" 28 8>>\
-    </div>\
-</div>\
+<<playerAvatar>>\

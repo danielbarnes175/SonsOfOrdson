@@ -53,6 +53,14 @@ assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
 assert.strictEqual(State.variables.system.schemaVersion, 5);
 
+const avatarLayerPaths = Object.values(setup.data.items)
+  .filter((definition) => definition.avatarLayer)
+  .map((definition) => definition.avatarLayer);
+avatarLayerPaths.concat(setup.playerAvatar.baseLayer).forEach((layerPath) => {
+  assert.strictEqual(fs.existsSync(path.join(projectRoot, 'src/images', layerPath)), true);
+});
+assert.strictEqual(new Set(avatarLayerPaths).size, avatarLayerPaths.length);
+
 const dagger = setup.addItemToInventory('dagger').items[0];
 const potion = setup.addItemToInventory('healthPotion', 5).items[0];
 assert.deepStrictEqual(Object.keys(dagger).sort(), ['definitionId', 'id']);
@@ -87,6 +95,42 @@ const helmet = setup.addItemToInventory('ironHelmet').items[0];
 setup.equipItem(helmet.id);
 assert.strictEqual(setup.getPlayerArmor(), 3);
 assert.throws(() => setup.addItemToInventory('fist'));
+
+const shirt = setup.addItemToInventory('plainShirt').items[0];
+const pants = setup.addItemToInventory('plainPants').items[0];
+const shoes = setup.addItemToInventory('plainShoes').items[0];
+setup.equipItem(shirt.id);
+setup.equipItem(pants.id);
+setup.equipItem(shoes.id);
+assert.deepStrictEqual(
+  Array.from(setup.getPlayerAvatarLayers()),
+  [
+    'avatar/player-base.png',
+    'avatar/plain-pants.png',
+    'avatar/plain-shoes.png',
+    'avatar/plain-shirt.png',
+    'avatar/iron-helmet.png',
+  ],
+);
+
+const chestplate = setup.addItemToInventory('ironChestplate').items[0];
+const platelegs = setup.addItemToInventory('ironPlatelegs').items[0];
+const boots = setup.addItemToInventory('ironBoots').items[0];
+const equippedDagger = setup.addItemToInventory('dagger').items[0];
+[chestplate, platelegs, boots, equippedDagger].forEach((item) => setup.equipItem(item.id));
+assert.deepStrictEqual(
+  Array.from(setup.getPlayerAvatarLayers()),
+  [
+    'avatar/player-base.png',
+    'avatar/iron-platelegs.png',
+    'avatar/iron-boots.png',
+    'avatar/iron-chestplate.png',
+    'avatar/iron-helmet.png',
+    'avatar/dagger.png',
+  ],
+);
+assert.strictEqual(setup.getPlayerArmor(), 14);
+setup.unequipItem('weapons');
 
 setup.addItemToInventory('healthPotion', 105);
 const potionStacks = setup.getInventoryItems('general');
@@ -276,5 +320,12 @@ assert.deepStrictEqual(Object.keys(State.variables.quests.questLog['test quest']
   'rewardClaimed',
   'status',
 ]);
+
+setup.addStarterEquipment();
+assert.strictEqual(setup.getItemDefinition(setup.getEquippedItem('chest')).id, 'plainShirt');
+assert.strictEqual(setup.getItemDefinition(setup.getEquippedItem('legs')).id, 'plainPants');
+assert.strictEqual(setup.getItemDefinition(setup.getEquippedItem('feet')).id, 'plainShoes');
+assertHasNoFunctions(State.variables);
+assert.doesNotThrow(() => JSON.stringify(State.variables));
 
 console.log('State foundation validated: definitions are frozen and runtime state is serializable.');

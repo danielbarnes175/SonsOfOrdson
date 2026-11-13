@@ -27,6 +27,7 @@ setup.registerDefinitions('items', {
     },
     description: 'A small dagger. You could stab someone with this.',
     attackDescription: 'Attack with your dagger',
+    avatarLayer: 'avatar/dagger.png',
   },
   fist: {
     name: 'Fist',
@@ -66,6 +67,7 @@ setup.registerDefinitions('items', {
     value: 15,
     armorAmount: 3,
     description: 'An iron helmet that offers basic protection.',
+    avatarLayer: 'avatar/iron-helmet.png',
   },
   ironChestplate: {
     name: 'Iron Chestplate',
@@ -75,6 +77,7 @@ setup.registerDefinitions('items', {
     value: 30,
     armorAmount: 5,
     description: 'An iron chestplate that offers basic protection.',
+    avatarLayer: 'avatar/iron-chestplate.png',
   },
   ironPlatelegs: {
     name: 'Iron Platelegs',
@@ -84,6 +87,7 @@ setup.registerDefinitions('items', {
     value: 25,
     armorAmount: 4,
     description: 'Iron platelegs that offers basic protection.',
+    avatarLayer: 'avatar/iron-platelegs.png',
   },
   ironBoots: {
     name: 'Iron Boots',
@@ -93,6 +97,37 @@ setup.registerDefinitions('items', {
     value: 10,
     armorAmount: 2,
     description: 'A pair of iron boots that offers basic protection.',
+    avatarLayer: 'avatar/iron-boots.png',
+  },
+  plainShirt: {
+    name: 'Plain Shirt',
+    type: 'clothing',
+    slot: 'chest',
+    stackable: false,
+    value: 1,
+    armorAmount: 0,
+    description: 'A simple, comfortable shirt.',
+    avatarLayer: 'avatar/plain-shirt.png',
+  },
+  plainPants: {
+    name: 'Plain Pants',
+    type: 'clothing',
+    slot: 'legs',
+    stackable: false,
+    value: 1,
+    armorAmount: 0,
+    description: 'A sturdy pair of everyday pants.',
+    avatarLayer: 'avatar/plain-pants.png',
+  },
+  plainShoes: {
+    name: 'Plain Shoes',
+    type: 'clothing',
+    slot: 'feet',
+    stackable: false,
+    value: 1,
+    armorAmount: 0,
+    description: 'A worn but dependable pair of shoes.',
+    avatarLayer: 'avatar/plain-shoes.png',
   },
   healthPotion: {
     name: 'Health Potion',
@@ -115,6 +150,11 @@ setup.inventorySlots = setup.deepFreeze([
   'weapons',
   'general',
 ]);
+
+setup.playerAvatar = setup.deepFreeze({
+  baseLayer: 'avatar/player-base.png',
+  equipmentLayerOrder: ['legs', 'feet', 'chest', 'head', 'weapons'],
+});
 
 setup.getItemDefinition = (item) => {
   if (!item) return null;
@@ -276,6 +316,15 @@ setup.getEquippedItem = (slot) => {
   return setup.getInventoryItemById(itemId);
 };
 
+setup.getPlayerAvatarLayers = () => {
+  const equipmentLayers = setup.playerAvatar.equipmentLayerOrder
+    .map((slot) => setup.getItemDefinition(setup.getEquippedItem(slot)))
+    .filter((definition) => definition && definition.avatarLayer)
+    .map((definition) => definition.avatarLayer);
+
+  return [setup.playerAvatar.baseLayer, ...equipmentLayers];
+};
+
 setup.getPlayerArmor = () => Object.keys(State.variables.player.inventory.currentlyEquipped)
   .map((slot) => setup.getItemDefinition(setup.getEquippedItem(slot)))
   .filter((definition) => definition && definition.type === 'armor')
@@ -310,6 +359,21 @@ setup.useItem = (itemId) => {
   return { ...result, item, definition };
 };
 
+setup.addStarterEquipment = () => {
+  const starterClothing = ['plainShirt', 'plainPants', 'plainShoes'];
+  starterClothing.forEach((definitionId) => {
+    const item = setup.addItemToInventory(definitionId).items[0];
+    setup.equipItem(item.id);
+  });
+
+  setup.addItemToInventory('dagger');
+  setup.addItemToInventory('ironHelmet');
+  setup.addItemToInventory('ironChestplate');
+  setup.addItemToInventory('ironPlatelegs');
+  setup.addItemToInventory('ironBoots');
+  setup.addItemToInventory('healthPotion', 5);
+};
+
 macros.useItem = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
@@ -341,13 +405,29 @@ macros.unequipItemHelper = {
 macros.getStarterEquipment = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
-    setup.addItemToInventory('dagger');
-    setup.addItemToInventory('ironHelmet');
-    setup.addItemToInventory('ironChestplate');
-    setup.addItemToInventory('ironPlatelegs');
-    setup.addItemToInventory('ironBoots');
+    setup.addStarterEquipment();
+  },
+  init() { },
+};
 
-    setup.addItemToInventory('healthPotion', 5);
+macros.playerAvatar = {
+  /* eslint-disable-next-line */
+  handler(place, macroName, params, parser) {
+    const imageDirectory = ENV === 'production' ? 'src/images/' : '../src/images/';
+    const avatar = document.createElement('div');
+    avatar.id = 'playerAvatar';
+    avatar.setAttribute('role', 'img');
+    avatar.setAttribute('aria-label', 'Your character and currently equipped items');
+
+    setup.getPlayerAvatarLayers().forEach((layerPath) => {
+      const layer = document.createElement('img');
+      layer.className = 'player-avatar-layer';
+      layer.src = `${imageDirectory}${layerPath}`;
+      layer.alt = '';
+      avatar.appendChild(layer);
+    });
+
+    place.appendChild(avatar);
   },
   init() { },
 };
