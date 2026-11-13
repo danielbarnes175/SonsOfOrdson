@@ -11,6 +11,7 @@ State.variables.quests = {
       ],
       currentStep: 0,
       knownQuest: false,
+      rewardClaimed: false,
       rewards: {
         gold: 10,
         exp: 20,
@@ -28,6 +29,7 @@ State.variables.quests = {
       ],
       currentStep: 0,
       knownQuest: false,
+      rewardClaimed: false,
       rewards: {
         exp: 20,
       },
@@ -41,6 +43,7 @@ State.variables.quests = {
       ],
       currentStep: 0,
       knownQuest: false,
+      rewardClaimed: false,
       rewards: {
         gold: 1000,
         exp: 500,
@@ -55,6 +58,7 @@ State.variables.quests = {
       ],
       currentStep: 0,
       knownQuest: false,
+      rewardClaimed: false,
       rewards: {
         gold: 10,
         exp: 20,
@@ -72,9 +76,22 @@ State.variables.quests = {
 macros.receiveQuestReward = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
+    const quest = State.variables.quests.questLog[params[0]];
+
+    if (quest.rewardClaimed) {
+      new Wikifier(place, 'You have already received this quest reward.');
+      return;
+    }
+
+    const gold = quest.rewards.gold || 0;
+    const exp = quest.rewards.exp || 0;
+    State.variables.player.gold += gold;
+    State.variables.player.exp += exp;
+    quest.rewardClaimed = true;
+
     new Wikifier(place, 'You received....\n');
-    new Wikifier(place, `''Gold:'' ${State.variables.quests.questLog[params[0]].rewards.gold}\n`);
-    new Wikifier(place, `''Exp:'' ${State.variables.quests.questLog[params[0]].rewards.exp}\n`);
+    if (gold > 0) new Wikifier(place, `''Gold:'' ${gold}\n`);
+    if (exp > 0) new Wikifier(place, `''Exp:'' ${exp}\n`);
   },
   init() { },
 };
