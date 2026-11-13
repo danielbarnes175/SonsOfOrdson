@@ -1,0 +1,62 @@
+:: Shop
+<<if !$shopSession.shopId>>\
+There is no active shop session.
+
+<<link "Return" $player.location>><</link>>
+<<else>>\
+<<set _shop = setup.getShopDefinition($shopSession.shopId)>>\
+<<set _relation = setup.getShopRelation($shopSession.shopId)>>\
+<<set _returnPassage = $shopSession.returnPassage>>\
+''_shop.displayName''
+
+Gold: $player.gold
+Relationship: _relation.currentProgress / _shop.maxProgress
+
+<<if $shopSession.lastMessage>>\
+//$shopSession.lastMessage//
+<</if>>\
+
+<hr>
+''Buy''
+
+<<for _itemId range setup.getShopCatalog($shopSession.shopId)>>\
+    <<set _definition = setup.getDefinition('items', _itemId)>>\
+    <<set _price = setup.getShopBuyPrice($shopSession.shopId, _itemId)>>\
+    ''_definition.name'' — _price gold each
+    _definition.description
+    Owned: <<= setup.getItemQuantity(_itemId)>>
+    <<link "Buy 1" "Shop">><<buyFromShop _itemId 1>><</link>>\
+    <<if _definition.stackable>>\
+        <<set _bulkLabel = "Buy 5 (" + (_price * 5) + " gold)">>\
+        | <<link _bulkLabel "Shop">><<buyFromShop _itemId 5>><</link>>
+    <</if>>
+
+<</for>>\
+
+<hr>
+''Sell''
+
+<<set _sellableItems = setup.getShopSellableItems($shopSession.shopId)>>\
+<<if _sellableItems.length == 0>>\
+This shop will not buy anything you currently own.
+<</if>>\
+<<for _item range _sellableItems>>\
+    <<set _definition = setup.getItemDefinition(_item)>>\
+    <<set _quantity = _item.quantity ? _item.quantity : 1>>\
+    <<set _price = setup.getShopSellPrice($shopSession.shopId, _definition.id)>>\
+    ''_definition.name'' <<if _quantity gt 1>>(_quantity)<</if>> — _price gold each
+    <<if setup.isItemEquipped(_item.id)>>\
+        Equipped — unequip this item before selling it.
+    <<else>>\
+        <<link "Sell 1" "Shop">><<sellToShop _item.id 1>><</link>>\
+        <<if _definition.stackable && _quantity gte 5>>\
+            <<set _bulkLabel = "Sell 5 (" + (_price * 5) + " gold)">>\
+            | <<link _bulkLabel "Shop">><<sellToShop _item.id 5>><</link>>
+        <</if>>
+    <</if>>
+
+<</for>>\
+
+<hr>
+<<link "Leave" _returnPassage>><<closeShop>><</link>>
+<</if>>

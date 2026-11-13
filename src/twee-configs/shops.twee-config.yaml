@@ -1,9 +1,13 @@
 {
     "sugarcube-2": {
         "macros": {
+            "openShop": {},
+            "closeShop": {},
+            "buyFromShop": {},
+            "sellToShop": {},
             "workForChemicalImbalance": {},
             "workForGreenRaven": {},
-            "workForLinenDreams": {},
+            "workForLinenDreams": {}
         }
     }
 }

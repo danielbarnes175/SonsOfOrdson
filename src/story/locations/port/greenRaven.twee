@@ -11,7 +11,7 @@ As soon as you step into the Green Raven, you're greeted by Trina Ventiro, owner
 [[Ask for work|Green Raven Application]]
 <</if>>\
 [[Order a drink (5 gold)|Green Raven Drink]]
-[[Sit at a table|Shop]]
+[[Sit at a table|Green Raven Table]]
 
 [[Leave|Port]]
 
@@ -23,6 +23,11 @@ She looks at you with a crooked head, and for a second you're worried that she i
 <<set $shopRelations.greenRaven.isPlayerHired = true>>
 
 [[Continue|Green Raven]]
+
+:: Green Raven Table
+You find an open table and sit down. Trina seems to have forgotten that she told you to do so.
+
+[[Return to the bar|Green Raven]]
 
 :: Green Raven Shift
 You spend an hour serving guests, and cleaning tables.

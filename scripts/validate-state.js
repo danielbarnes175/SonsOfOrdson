@@ -51,7 +51,7 @@ const assertHasNoFunctions = (value) => {
 Object.values(setup.data).forEach(assertDeeplyFrozen);
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
-assert.strictEqual(State.variables.system.schemaVersion, 4);
+assert.strictEqual(State.variables.system.schemaVersion, 5);
 
 const dagger = setup.addItemToInventory('dagger').items[0];
 const potion = setup.addItemToInventory('healthPotion', 5).items[0];
@@ -164,6 +164,97 @@ assert.strictEqual(setup.setQuestObjective(thievesQuestId, 'returnArtifact').suc
 assert.strictEqual(setup.isQuestObjective(thievesQuestId, 'returnArtifact'), true);
 assert.strictEqual(setup.failQuest(thievesQuestId).success, true);
 assert.strictEqual(setup.isQuestStatus(thievesQuestId, setup.questStatuses.failed), true);
+
+const bubbleShopId = 'bubbleAndBroil';
+const metalShopId = 'generalMetalworks';
+const bubbleRelation = setup.getShopRelation(bubbleShopId);
+bubbleRelation.currentProgress = 0;
+assert.strictEqual(setup.getShopBuyPrice(bubbleShopId, 'healthPotion'), 10);
+assert.strictEqual(setup.getShopSellPrice(bubbleShopId, 'healthPotion'), 5);
+bubbleRelation.currentProgress = 50;
+assert.strictEqual(setup.getShopBuyPrice(bubbleShopId, 'healthPotion'), 9);
+assert.strictEqual(setup.getShopSellPrice(bubbleShopId, 'healthPotion'), 6);
+bubbleRelation.currentProgress = 100;
+assert.strictEqual(setup.getShopBuyPrice(bubbleShopId, 'healthPotion'), 8);
+assert.strictEqual(setup.getShopSellPrice(bubbleShopId, 'healthPotion'), 7);
+bubbleRelation.currentProgress = 0;
+const metalRelation = setup.getShopRelation(metalShopId);
+metalRelation.currentProgress = 0;
+assert.strictEqual(setup.getShopSellPrice(metalShopId, 'dagger'), 2);
+metalRelation.currentProgress = 50;
+assert.strictEqual(setup.getShopBuyPrice(metalShopId, 'dagger'), 5);
+metalRelation.currentProgress = 0;
+
+assert.strictEqual(setup.openShop('missingShop', 'Outside').success, false);
+assert.strictEqual(setup.openShop(bubbleShopId, 'Bubble and Broil').success, true);
+assert.strictEqual(State.variables.shopSession.shopId, bubbleShopId);
+assert.strictEqual(State.variables.shopSession.returnPassage, 'Bubble and Broil');
+
+State.variables.player.gold = 100;
+const potionsBeforePurchase = setup.getItemQuantity('healthPotion');
+const bulkPurchase = setup.buyFromShop(bubbleShopId, 'healthPotion', 5);
+assert.strictEqual(bulkPurchase.success, true);
+assert.strictEqual(State.variables.player.gold, 50);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), potionsBeforePurchase + 5);
+assert.strictEqual(bubbleRelation.currentProgress, 0);
+
+const weaponsBeforePurchase = setup.getInventoryItems('weapons').length;
+const equipmentPurchase = setup.buyFromShop(metalShopId, 'dagger', 2);
+assert.strictEqual(equipmentPurchase.success, true);
+const purchasedWeapons = setup.getInventoryItems('weapons');
+assert.strictEqual(purchasedWeapons.length, weaponsBeforePurchase + 2);
+assert.notStrictEqual(
+  purchasedWeapons[purchasedWeapons.length - 1].id,
+  purchasedWeapons[purchasedWeapons.length - 2].id,
+);
+
+State.variables.player.gold = 0;
+const potionsBeforeRejection = setup.getItemQuantity('healthPotion');
+assert.strictEqual(setup.buyFromShop(bubbleShopId, 'healthPotion', 1).success, false);
+assert.strictEqual(State.variables.player.gold, 0);
+assert.strictEqual(setup.getItemQuantity('healthPotion'), potionsBeforeRejection);
+assert.strictEqual(setup.buyFromShop(bubbleShopId, 'dagger', 1).success, false);
+assert.strictEqual(setup.getInventoryItems('weapons').length, purchasedWeapons.length);
+
+const potionStack = setup.getInventoryItems('general')
+  .find((item) => item.definitionId === 'healthPotion');
+const potionQuantityBeforeSale = potionStack.quantity;
+const bulkSale = setup.sellToShop(bubbleShopId, potionStack.id, 5);
+assert.strictEqual(bulkSale.success, true);
+assert.strictEqual(State.variables.player.gold, 25);
+assert.strictEqual(potionStack.quantity, potionQuantityBeforeSale - 5);
+assert.strictEqual(bubbleRelation.currentProgress, 0);
+
+const goldBeforeRejectedSale = State.variables.player.gold;
+assert.strictEqual(setup.sellToShop(metalShopId, potionStack.id, 1).success, false);
+assert.strictEqual(setup.sellToShop(bubbleShopId, potionStack.id, 100).success, false);
+assert.strictEqual(setup.sellToShop(metalShopId, helmet.id, 1).success, false);
+assert.strictEqual(State.variables.player.gold, goldBeforeRejectedSale);
+assert.strictEqual(potionStack.quantity, potionQuantityBeforeSale - 5);
+assert.strictEqual(setup.getInventoryItemById(helmet.id), helmet);
+
+setup.setShopSessionMessage('Transaction complete.');
+assert.strictEqual(State.variables.shopSession.lastMessage, 'Transaction complete.');
+assert.strictEqual(setup.closeShop().success, true);
+assert.strictEqual(State.variables.shopSession.shopId, null);
+assert.strictEqual(State.variables.shopSession.returnPassage, null);
+assert.strictEqual(setup.adjustShopProgress(bubbleShopId, 150).currentProgress, 100);
+assert.strictEqual(setup.adjustShopProgress(bubbleShopId, -200).currentProgress, 0);
+
+const chemicalRelation = setup.getShopRelation('chemicalImbalance');
+const greenRavenRelation = setup.getShopRelation('greenRaven');
+const linenDreamsRelation = setup.getShopRelation('linenDreams');
+greenRavenRelation.currentProgress = 1;
+linenDreamsRelation.currentProgress = 1;
+const workGold = State.variables.player.gold;
+const workResult = setup.workForShop('chemicalImbalance');
+assert.strictEqual(workResult.success, true);
+assert.strictEqual(State.variables.player.gold, workGold + 5);
+assert.strictEqual(chemicalRelation.currentProgress, 1);
+assert.strictEqual(greenRavenRelation.currentProgress, 0);
+assert.strictEqual(linenDreamsRelation.currentProgress, 0);
+assertHasNoFunctions(State.variables);
+assert.doesNotThrow(() => JSON.stringify(State.variables));
 
 State.variables.player.name = 'Changed';
 assert.strictEqual(setup.playerDefaults.name, 'Bob');
