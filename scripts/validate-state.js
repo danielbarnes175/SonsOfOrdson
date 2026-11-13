@@ -176,6 +176,14 @@ assert.strictEqual(setup.claimEncounterRewards().success, false);
 assert.strictEqual(State.variables.player.gold, startingGold + 10);
 setup.endEncounter();
 assert.strictEqual(State.variables.currentEncounter.status, 'none');
+
+State.variables.currentEncounter = { status: 'lost', round: 2 };
+State.variables.player.health = 0;
+const recoveryResult = setup.recoverPlayerFromDefeat();
+assert.strictEqual(recoveryResult.success, true);
+assert.strictEqual(State.variables.player.health, State.variables.player.maxHealth);
+assert.strictEqual(State.variables.currentEncounter.status, 'none');
+assert.strictEqual(setup.recoverPlayerFromDefeat().success, false);
 assertHasNoFunctions(State.variables);
 assert.doesNotThrow(() => JSON.stringify(State.variables));
 

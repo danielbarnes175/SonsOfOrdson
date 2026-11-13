@@ -321,6 +321,17 @@ setup.endEncounter = () => {
   State.variables.currentEncounter = setup.createEmptyEncounter();
 };
 
+setup.recoverPlayerFromDefeat = () => {
+  const encounter = State.variables.currentEncounter;
+  if (encounter.status !== 'lost' || State.variables.player.health > 0) {
+    return { success: false, reason: 'The player has not been defeated.' };
+  }
+
+  State.variables.player.health = State.variables.player.maxHealth;
+  setup.endEncounter();
+  return { success: true, healthRestored: State.variables.player.maxHealth };
+};
+
 macros.setupEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
@@ -342,6 +353,15 @@ macros.endEncounter = {
   /* eslint-disable-next-line */
   handler(place, macroName, params, parser) {
     setup.endEncounter();
+  },
+  init() { },
+};
+
+macros.recoverPlayerFromDefeat = {
+  /* eslint-disable-next-line */
+  handler(place, macroName, params, parser) {
+    const result = setup.recoverPlayerFromDefeat();
+    if (!result.success) new Wikifier(place, result.reason);
   },
   init() { },
 };

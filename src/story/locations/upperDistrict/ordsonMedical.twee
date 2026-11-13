@@ -8,6 +8,12 @@ You walk into the lobby and approach the front desk.
 
 [[Leave|Upper District]]
 
+:: Ordson Medical Recovery
+<<set $player.location="Ordson Medical">>\
+You wake in a bed at Ordson Medical several hours later. Someone must have found you unconscious and brought you back to the city. The hospital staff have already treated your injuries, though your body still aches from the fight.
+
+[[Get out of bed|Ordson Medical]]
+
 :: Doctor
 You're brought to a private room where a doctor comes in to see you.
 

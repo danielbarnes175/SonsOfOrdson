@@ -37,9 +37,9 @@ Encounter Complete!
 
 <<link "Exit" $currentEncounter.returnPassage>><<endEncounter>><<incrementTime 0 3>><</link>>
 <<elseif $currentEncounter.status == 'lost'>>\
-You pass out from the pain of the battle. Time passes by until you awaken.
+Your injuries overwhelm you, and everything goes dark.
 
-<<link "Continue" $currentEncounter.returnPassage>><<endEncounter>><<incrementTime 3 17>><</link>>
+<<link "Continue" "Ordson Medical Recovery">><<recoverPlayerFromDefeat>><<incrementTime 4 0>><</link>>
 <<else>>\
 There is no active encounter.
 
